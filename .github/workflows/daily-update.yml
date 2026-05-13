@@ -1,0 +1,76 @@
+name: Daily WoV Update
+
+on:
+  schedule:
+    # GitHub Actions scheduled workflows are best-effort and frequently delayed/dropped,
+    # especially at "top of hour" slots that compete with everyone else's cron jobs.
+    # Six slots, mostly off-the-hour. The skip-guard ensures only the FIRST successful
+    # slot of the day pays for the API call — every later slot exits in <10 seconds
+    # because today's commit already exists.
+    - cron: '0 6 * * *'    # 06:00 UTC = 08:00 CEST primary
+    - cron: '23 6 * * *'   # 06:23 UTC off-hour first backup
+    - cron: '11 7 * * *'   # 07:11 UTC second backup
+    - cron: '45 7 * * *'   # 07:45 UTC
+    - cron: '30 8 * * *'   # 08:30 UTC
+    - cron: '0 10 * * *'   # 10:00 UTC last-chance ceiling
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wov-daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
+
+      - name: Skip if today's update already published
+        id: skip
+        shell: bash
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          LAST=$(git log --oneline --grep="Daily WoV update" -1 --pretty=format:"%s" || echo "")
+          if [[ "$LAST" == *"$TODAY"* ]]; then
+            echo "Today's update already published: $LAST — skipping API call."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No update yet for $TODAY. Last daily commit: ${LAST:-none}"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.skip.outputs.skip != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        if: steps.skip.outputs.skip != 'true'
+        run: pip install -r .github/scripts/requirements.txt
+
+      - name: Run orchestrator
+        if: steps.skip.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python .github/scripts/update_brief.py
+
+      - name: Commit and push if changed
+        if: steps.skip.outputs.skip != 'true'
+        run: |
+          git config user.name "WoV Bot"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --quiet --cached; then
+            echo "No changes to commit."
+          else
+            git commit -m "Daily WoV update: $(date -u +%Y-%m-%d)"
+            git push
+          fi

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/seasonal_bands.schema.json",
+  "title": "Seasonal bands",
+  "type": "object",
+  "required": ["version", "generated_at", "bands"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]+$" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "bands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "hazard_type", "name", "regions", "geo_bbox",
+          "start_date", "peak_window", "end_date", "baseline_severity",
+          "affected_industries", "affected_commodities", "affected_chokepoints",
+          "source_ids", "confidence"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "hazard_type": {
+            "type": "string",
+            "enum": [
+              "tropical_cyclone", "monsoon", "flood", "wildfire",
+              "drought", "winter_storm", "dust_storm", "tornado_season",
+              "locust_outbreak", "enso_modulator"
+            ]
+          },
+          "name": { "type": "string" },
+          "regions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "geo_bbox": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 4, "maxItems": 4,
+            "description": "[south, west, north, east]"
+          },
+          "start_date": { "type": "string", "format": "date" },
+          "peak_window": {
+            "type": "array",
+            "items": { "type": "string", "format": "date" },
+            "minItems": 2, "maxItems": 2
+          },
+          "end_date": { "type": "string", "format": "date" },
+          "baseline_severity": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "affected_industries": { "type": "array", "items": { "type": "string" } },
+          "affected_commodities": { "type": "array", "items": { "type": "string" } },
+          "affected_chokepoints": { "type": "array", "items": { "type": "string" } },
+          "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$comment": "Fixture for deterministic overlap engine test. Hand-crafted to produce known clusters.",
+  "version": "test.1",
+  "generated_at": "2026-05-13T00:00:00Z",
+  "bands": [
+    {
+      "id": "fix-atl-hurricane",
+      "hazard_type": "tropical_cyclone",
+      "name": "Test Atlantic hurricane",
+      "regions": ["NA-Gulf"],
+      "geo_bbox": [10, -100, 45, -55],
+      "start_date": "2026-06-01",
+      "peak_window": ["2026-08-20", "2026-10-10"],
+      "end_date": "2026-11-30",
+      "baseline_severity": 4,
+      "affected_industries": ["energy_oil", "energy_refining"],
+      "affected_commodities": ["crude_oil", "gasoline"],
+      "affected_chokepoints": ["houston_port"],
+      "source_ids": ["noaa_nhc"],
+      "confidence": "high"
+    },
+    {
+      "id": "fix-houston-strike",
+      "hazard_type": "tropical_cyclone",
+      "name": "Test Houston port strike (modeled as time-bounded band for fixture)",
+      "regions": ["NA-Gulf"],
+      "geo_bbox": [29, -96, 30, -95],
+      "start_date": "2026-09-01",
+      "peak_window": ["2026-09-10", "2026-09-20"],
+      "end_date": "2026-09-30",
+      "baseline_severity": 3,
+      "affected_industries": ["ports_terminals", "energy_refining"],
+      "affected_commodities": ["crude_oil", "gasoline"],
+      "affected_chokepoints": ["houston_port"],
+      "source_ids": ["noaa_nhc"],
+      "confidence": "medium"
+    }
+  ]
+}

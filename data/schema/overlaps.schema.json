@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/overlaps.schema.json",
+  "title": "Convergence clusters (derived)",
+  "type": "object",
+  "required": ["computed_at", "clusters"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "computed_at": { "type": "string", "format": "date-time" },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "axis", "axis_value", "time_window",
+          "convergence_score", "member_event_ids",
+          "shared_industries", "shared_commodities", "shared_regions",
+          "shared_chokepoints"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^cluster-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3,}$" },
+          "axis": { "type": "string", "enum": ["region", "industry", "commodity", "chokepoint"] },
+          "axis_value": { "type": "string" },
+          "time_window": {
+            "type": "array",
+            "items": { "type": "string", "format": "date" },
+            "minItems": 2, "maxItems": 2
+          },
+          "convergence_score": { "type": "number", "minimum": 0, "maximum": 10 },
+          "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+          "member_event_ids": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "shared_industries": { "type": "array", "items": { "type": "string" } },
+          "shared_commodities": { "type": "array", "items": { "type": "string" } },
+          "shared_regions": { "type": "array", "items": { "type": "string" } },
+          "shared_chokepoints": { "type": "array", "items": { "type": "string" } },
+          "narrative_seed": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

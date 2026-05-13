@@ -1,0 +1,140 @@
+{
+  "$comment": "Named maritime / air / land chokepoints with geo coords. Used by overlap engine for chokepoint-axis clusters and by Leaflet map markers.",
+  "chokepoints": [
+    {
+      "id": "hormuz",
+      "name": "Strait of Hormuz",
+      "kind": "maritime",
+      "lat": 26.57,
+      "lon": 56.25,
+      "region_ids": ["ME-PersianGulf"],
+      "throughput_note": "~17 Mb/d crude + condensate (2026 baseline); ~20% global LNG"
+    },
+    {
+      "id": "bab_mandeb",
+      "name": "Bab el-Mandeb",
+      "kind": "maritime",
+      "lat": 12.58,
+      "lon": 43.33,
+      "region_ids": ["ME-RedSea"],
+      "throughput_note": "~6 Mb/d oil pre-Houthi attacks; ~10% global maritime trade"
+    },
+    {
+      "id": "suez",
+      "name": "Suez Canal",
+      "kind": "maritime",
+      "lat": 30.58,
+      "lon": 32.27,
+      "region_ids": ["EU-Med", "ME-RedSea"],
+      "throughput_note": "~12% global trade by tonnage; ~30% global container traffic pre-2024"
+    },
+    {
+      "id": "malacca",
+      "name": "Malacca Strait",
+      "kind": "maritime",
+      "lat": 2.5,
+      "lon": 101.5,
+      "region_ids": ["AS-Malacca"],
+      "throughput_note": "~30% global trade; ~80% NE Asia crude imports"
+    },
+    {
+      "id": "panama_canal",
+      "name": "Panama Canal",
+      "kind": "maritime",
+      "lat": 9.08,
+      "lon": -79.68,
+      "region_ids": ["NA-Panama"],
+      "throughput_note": "~5% global maritime trade; drought-restricted 2023–2024"
+    },
+    {
+      "id": "taiwan_strait",
+      "name": "Taiwan Strait",
+      "kind": "maritime",
+      "lat": 24.0,
+      "lon": 120.0,
+      "region_ids": ["AS-TaiwanStrait"],
+      "throughput_note": "~40% of global container traffic transits; semiconductor exposure"
+    },
+    {
+      "id": "bosphorus",
+      "name": "Bosphorus / Turkish Straits",
+      "kind": "maritime",
+      "lat": 41.12,
+      "lon": 29.07,
+      "region_ids": ["EU-Med"],
+      "throughput_note": "Black Sea grain corridor; Russian Black Sea fleet"
+    },
+    {
+      "id": "houston_port",
+      "name": "Port of Houston",
+      "kind": "port",
+      "lat": 29.73,
+      "lon": -95.27,
+      "region_ids": ["NA-Gulf"],
+      "throughput_note": "US Gulf petchem + LNG export hub"
+    },
+    {
+      "id": "new_orleans_port",
+      "name": "Port of New Orleans / Lower Mississippi",
+      "kind": "port",
+      "lat": 29.95,
+      "lon": -90.05,
+      "region_ids": ["NA-Gulf"],
+      "throughput_note": "US grain export / petrochem"
+    },
+    {
+      "id": "rotterdam_port",
+      "name": "Port of Rotterdam",
+      "kind": "port",
+      "lat": 51.95,
+      "lon": 4.13,
+      "region_ids": ["EU-Industrial"],
+      "throughput_note": "Largest EU port; ARA refining hub; Rhine entry"
+    },
+    {
+      "id": "antwerp_port",
+      "name": "Port of Antwerp-Bruges",
+      "kind": "port",
+      "lat": 51.27,
+      "lon": 4.32,
+      "region_ids": ["EU-Industrial"],
+      "throughput_note": "EU chemicals cluster; second largest EU port"
+    },
+    {
+      "id": "shanghai_port",
+      "name": "Port of Shanghai",
+      "kind": "port",
+      "lat": 30.62,
+      "lon": 122.07,
+      "region_ids": ["AS-NWPacific"],
+      "throughput_note": "World's largest container port"
+    },
+    {
+      "id": "singapore_port",
+      "name": "Port of Singapore",
+      "kind": "port",
+      "lat": 1.27,
+      "lon": 103.83,
+      "region_ids": ["AS-Malacca"],
+      "throughput_note": "Bunkering + transshipment hub; Malacca exit"
+    },
+    {
+      "id": "rhine_inland",
+      "name": "Rhine inland waterway",
+      "kind": "inland_waterway",
+      "lat": 49.5,
+      "lon": 7.5,
+      "region_ids": ["EU-Industrial"],
+      "throughput_note": "Drought-sensitive low-water draft restrictions; chem + steel logistics"
+    },
+    {
+      "id": "mississippi_inland",
+      "name": "Mississippi inland waterway",
+      "kind": "inland_waterway",
+      "lat": 38.0,
+      "lon": -90.0,
+      "region_ids": ["NA-Gulf"],
+      "throughput_note": "Grain + fertilizer corridor; low-water sensitive"
+    }
+  ]
+}

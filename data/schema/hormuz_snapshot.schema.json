@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/hormuz_snapshot.schema.json",
+  "title": "Hormuz tracker snapshot",
+  "type": "object",
+  "required": ["scraped_at", "source_url", "snapshot"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "scraped_at": { "type": "string", "format": "date-time" },
+    "source_url": { "type": "string", "format": "uri" },
+    "snapshot": {
+      "type": "object",
+      "required": ["brief_date", "trend", "threat_level", "oneliner"],
+      "additionalProperties": false,
+      "properties": {
+        "brief_date": { "type": "string" },
+        "day_of_war": { "type": ["integer", "null"] },
+        "trend": { "type": "string", "enum": ["Worse", "Same", "Better"] },
+        "trend_confidence": { "type": ["string", "null"], "enum": ["Low", "Medium", "High", null] },
+        "threat_level": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "threat_label": { "type": ["string", "null"] },
+        "oneliner": { "type": "string" },
+        "watchlist": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "label": { "type": "string" },
+              "deadline": { "type": "string" },
+              "implication": { "type": "string" }
+            }
+          }
+        },
+        "map_pins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["lat", "lng", "name"],
+            "properties": {
+              "lat": { "type": "number" },
+              "lng": { "type": "number" },
+              "name": { "type": "string" },
+              "color": { "type": "string" },
+              "status": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

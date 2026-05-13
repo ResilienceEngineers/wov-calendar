@@ -1,0 +1,63 @@
+# Custom analysis template — copy to uploads/YYYY-MM-DD-shortname.yaml and fill in.
+# On commit, .github/workflows/ingest-uploads.yml converts this to a JSON record in
+# data/user_analyses.json. Schema enforced by data/schema/user_analyses.schema.json.
+#
+# All region / industry IDs MUST resolve into data/vocab/*.json. If you need a new ID,
+# add it to vocab in the same commit, or flag it in the narrative and let Friday
+# review add it.
+
+id: ua-2026-05-13-example-shortname      # MUST match the file's date and intent
+uploaded_by: marco
+# uploaded_at: filled in automatically if omitted
+
+trigger_commodity: magnesium             # commodity ID from data/vocab/commodities.json
+trigger_geography: CHN-Shaanxi           # free-text geo locator
+trigger_event_ref: null                  # optional active_events.id if this links to one
+
+industry_chain:
+  - stage: primary_metal
+    industry: metals_magnesium           # ID from data/vocab/industries.json
+    lead_time_days: 0
+  - stage: die_casting
+    industry: metals_diecasting
+    lead_time_days: 30
+  - stage: auto_components
+    industry: auto_components
+    lead_time_days: 60
+  - stage: OEM_assembly
+    industry: auto_oem
+    lead_time_days: 90
+
+timeline_projection:
+  - horizon_days: 7
+    expected_impact: "Spot price +15%; EU diecasters draw down magnesium inventory."
+    confidence: high
+  - horizon_days: 30
+    expected_impact: "EU diecaster inventory exhausted; first OEM Tier-2 missed deliveries."
+    confidence: medium
+  - horizon_days: 90
+    expected_impact: "EU OEM line stoppage risk on body-in-white assemblies."
+    confidence: low
+
+regions_affected:
+  - EU-Industrial                        # region IDs from data/vocab/regions.json
+  - NA-Gulf
+
+narrative_md: |
+  China produces ~85% of global primary magnesium; Shaanxi province is the dominant
+  cluster. A multi-week power-curtailment event in Shaanxi removes ~60% of global
+  primary magnesium supply within 7 days, given the short physical chain.
+
+  EU diecasters carry roughly 30 days of magnesium inventory. The cascade hits in
+  three stages:
+
+  1. T+7 — spot price spike (historically +200% in 2021 episode). Hedging window
+     closes; buyers without long-term contracts pay rationing premium.
+  2. T+30 — diecaster physical exhaustion. Tier-1 component shipments slip; auto
+     OEMs draw on their Tier-2 buffer.
+  3. T+90 — at constrained recovery, OEM line stoppage risk concentrates on
+     body-in-white parts. Substitution to aluminium is non-trivial — tooling and
+     specification changes take months.
+
+  Watch: official Shaanxi grid notices, US Mg Corp Utah re-start signals, and
+  Russian primary capacity (sanctioned but technically operating).

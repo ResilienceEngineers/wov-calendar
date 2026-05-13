@@ -1,0 +1,23 @@
+# OS / OneDrive
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local-only
+*.log
+.env
+.env.local
+
+# Staging output (dry-run ingest)
+data/.staging/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

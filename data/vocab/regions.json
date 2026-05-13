@@ -1,0 +1,101 @@
+{
+  "$comment": "12 supply-chain priority regions at launch. geo_bbox is [south, west, north, east]. parent is UN M49 macro-region for grouping.",
+  "regions": [
+    {
+      "id": "ME-PersianGulf",
+      "name": "Persian Gulf / Hormuz",
+      "parent": "Western Asia",
+      "countries_iso3": ["IRN", "OMN", "ARE", "QAT", "BHR", "SAU", "KWT", "IRQ"],
+      "geo_bbox": [22.0, 48.0, 30.5, 60.0],
+      "why_it_matters": "Energy chokepoint; ~17 Mb/d crude + condensate, 20% global LNG"
+    },
+    {
+      "id": "ME-RedSea",
+      "name": "Red Sea / Bab el-Mandeb",
+      "parent": "Western Asia / NE Africa",
+      "countries_iso3": ["YEM", "ERI", "DJI", "SDN", "EGY", "SAU"],
+      "geo_bbox": [11.0, 32.0, 30.0, 44.0],
+      "why_it_matters": "Asia-Europe shipping chokepoint; Suez approach; Houthi targeting"
+    },
+    {
+      "id": "AS-Malacca",
+      "name": "Malacca Strait",
+      "parent": "South-eastern Asia",
+      "countries_iso3": ["MYS", "IDN", "SGP", "THA"],
+      "geo_bbox": [1.0, 95.0, 7.0, 105.0],
+      "why_it_matters": "Asia-Europe shipping spine; ~30% global trade, 80% NE Asia crude imports"
+    },
+    {
+      "id": "AS-TaiwanStrait",
+      "name": "Taiwan Strait",
+      "parent": "Eastern Asia",
+      "countries_iso3": ["TWN", "CHN"],
+      "geo_bbox": [22.0, 117.0, 27.0, 122.0],
+      "why_it_matters": "Geopolitical chokepoint; semiconductor concentration; ~88% of advanced-node fab capacity"
+    },
+    {
+      "id": "AS-NWPacific",
+      "name": "NW Pacific (CN/JP/KR)",
+      "parent": "Eastern Asia",
+      "countries_iso3": ["CHN", "JPN", "KOR", "PRK"],
+      "geo_bbox": [20.0, 110.0, 45.0, 145.0],
+      "why_it_matters": "Typhoon corridor; manufacturing concentration; rare-earths refining"
+    },
+    {
+      "id": "AS-South",
+      "name": "South Asia (IN/BD)",
+      "parent": "Southern Asia",
+      "countries_iso3": ["IND", "BGD", "LKA", "PAK", "NPL"],
+      "geo_bbox": [5.0, 65.0, 35.0, 95.0],
+      "why_it_matters": "SW + NE monsoon; textiles concentration (BGD apparel); pharma API (IND)"
+    },
+    {
+      "id": "EU-Industrial",
+      "name": "EU industrial corridor (DE/FR/BE/NL)",
+      "parent": "Western Europe",
+      "countries_iso3": ["DEU", "FRA", "BEL", "NLD", "LUX"],
+      "geo_bbox": [47.0, 2.0, 54.0, 16.0],
+      "why_it_matters": "Chemicals + auto + FM concentration; Rhine logistics; ARA ports"
+    },
+    {
+      "id": "EU-North",
+      "name": "North Sea / Baltic",
+      "parent": "Northern Europe",
+      "countries_iso3": ["GBR", "NOR", "DNK", "SWE", "FIN", "DEU", "NLD", "POL", "EST", "LVA", "LTU"],
+      "geo_bbox": [50.0, -5.0, 65.0, 30.0],
+      "why_it_matters": "Windstorm corridor (Oct–Mar); North Sea oil/gas; offshore wind; Nord Stream successor infra"
+    },
+    {
+      "id": "EU-Med",
+      "name": "Mediterranean / Suez approach",
+      "parent": "Southern Europe / N Africa",
+      "countries_iso3": ["ESP", "FRA", "ITA", "GRC", "TUR", "EGY", "LBY", "TUN", "DZA", "MAR", "ISR", "CYP"],
+      "geo_bbox": [30.0, -6.0, 46.0, 36.0],
+      "why_it_matters": "Suez chokepoint; LNG re-export hubs; refining capacity"
+    },
+    {
+      "id": "NA-Gulf",
+      "name": "US Gulf / Houston",
+      "parent": "Northern America",
+      "countries_iso3": ["USA", "MEX"],
+      "geo_bbox": [18.0, -100.0, 32.0, -80.0],
+      "why_it_matters": "Atlantic hurricane landfall; ~50% US refining; LNG export hub; petchem concentration"
+    },
+    {
+      "id": "NA-Panama",
+      "name": "Panama Canal",
+      "parent": "Central America",
+      "countries_iso3": ["PAN"],
+      "geo_bbox": [7.0, -83.0, 10.0, -77.0],
+      "why_it_matters": "Inter-ocean chokepoint; drought-sensitive draft restrictions; LNG / containers / dry bulk"
+    },
+    {
+      "id": "GL-Arctic",
+      "name": "Arctic shipping (Northern Sea Route + Northwest Passage)",
+      "parent": "Polar",
+      "countries_iso3": ["RUS", "USA", "CAN", "NOR", "DNK"],
+      "geo_bbox": [66.0, -180.0, 90.0, 180.0],
+      "why_it_matters": "Emerging seasonal route; ice-window volatility; geopolitical contention"
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Window of Vulnerability — 13 May 2026</title>
+<meta name="description" content="A 12-month risk calendar synthesising seasonal hazards, active geopolitical events, supply-chain strikes, force-majeure declarations, and custom analyses with convergence detection." />
+<style>
+  :root { --ink: #14171c; --ink-soft: #54616e; --rule: #e6e2da; --paper: #fcfaf6; --accent: #a4242a; --hard: #c1272d; --med: #b67a08; --soft: #2c7a4a; --bar-bg: #ece7dd; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--paper); line-height: 1.45; font-size: 16px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  header.masthead { padding: 28px 32px 18px; border-bottom: 2px solid var(--ink); }
+  header.masthead h1 { font-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Times New Roman", serif; font-weight: 600; font-size: 32px; line-height: 1.05; margin: 0 0 6px; letter-spacing: -0.01em; }
+  header.masthead h1 .accent { color: var(--accent); }
+  header.masthead .meta { display: flex; flex-wrap: wrap; gap: 20px; align-items: baseline; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+  header.masthead .meta .label { text-transform: uppercase; letter-spacing: 0.06em; }
+  nav.subnav { display: flex; flex-wrap: wrap; gap: 18px; padding: 10px 32px; border-bottom: 1px solid var(--rule); font-size: 13px; }
+  nav.subnav a { color: var(--ink); }
+  nav.subnav button.pdf-btn { font: inherit; background: var(--accent); color: #fff; border: none; padding: 5px 12px; cursor: pointer; margin-left: auto; }
+  main { padding: 24px 32px 60px; max-width: 1320px; }
+  section { margin: 36px 0; }
+  h2.section-title { font-family: "Iowan Old Style", Palatino, serif; font-size: 22px; margin: 0 0 14px; font-weight: 600; }
+  .hero-strip { display: flex; flex-wrap: wrap; gap: 28px; padding: 18px 22px; border: 1px solid var(--rule); background: #fff; }
+  .kpi { font-size: 14px; color: var(--ink-soft); }
+  .kpi strong { display: inline-block; color: var(--ink); font-size: 24px; font-family: "Iowan Old Style", Palatino, serif; margin-right: 6px; }
+  .gantt-wrap { background: #fff; border: 1px solid var(--rule); padding: 18px; overflow-x: auto; }
+  .gantt-controls { display: flex; gap: 12px; margin-bottom: 12px; font-size: 12px; color: var(--ink-soft); align-items: center; flex-wrap: wrap; }
+  .gantt-controls label { cursor: pointer; user-select: none; }
+  .gantt-controls .legend-swatch { display: inline-block; width: 12px; height: 12px; margin-right: 4px; vertical-align: middle; border-radius: 2px; }
+  svg#gantt { display: block; width: 100%; min-width: 1100px; }
+  svg#gantt .row-bg { fill: transparent; }
+  svg#gantt .row-bg:hover { fill: rgba(164,36,42,0.04); }
+  svg#gantt .row-label { font-size: 11px; fill: var(--ink); font-family: ui-monospace, monospace; }
+  svg#gantt .month-label { font-size: 10px; fill: var(--ink-soft); font-family: ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.05em; }
+  svg#gantt .grid-line { stroke: var(--rule); stroke-width: 1; }
+  svg#gantt .now-line { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 3; }
+  svg#gantt .now-label { font-size: 10px; fill: var(--accent); font-family: ui-monospace, monospace; font-weight: bold; }
+  svg#gantt .band rect { rx: 2; cursor: pointer; }
+  svg#gantt .band rect:hover { stroke: #000; stroke-width: 1; }
+  svg#gantt .band-peak { fill-opacity: 1; }
+  svg#gantt .band-shoulder { fill-opacity: 0.45; }
+  .clusters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .cluster-card { border: 1px solid var(--rule); padding: 14px 16px; background: #fff; }
+  .cluster-card .cluster-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .cluster-card .axis-label { font-family: ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); }
+  .cluster-card .score { font-family: "Iowan Old Style", Palatino, serif; font-size: 22px; color: var(--accent); font-weight: 600; }
+  .cluster-card .cluster-window { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); margin: 4px 0; }
+  .cluster-card .cluster-seed { font-size: 14px; margin: 8px 0; font-style: italic; }
+  .cluster-card .cluster-members { font-size: 12px; color: var(--ink-soft); margin: 6px 0 8px; }
+  .cluster-card .cluster-link { font-size: 12px; }
+  .cluster-card .empty { font-style: italic; color: var(--ink-soft); }
+  .ticker-wrap { background: #fff; border: 1px solid var(--rule); overflow: hidden; }
+  .ticker-rail { display: flex; gap: 32px; padding: 12px 0; animation: marquee 60s linear infinite; }
+  .ticker-rail:hover { animation-play-state: paused; }
+  .ticker-item { display: inline-flex; align-items: center; gap: 10px; padding: 0 18px; white-space: nowrap; font-size: 13px; }
+  .ticker-item .pip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+  .ticker-item .pip-hard { background: var(--hard); }
+  .ticker-item .pip-medium { background: var(--med); }
+  .ticker-item .pip-soft { background: var(--soft); }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .fm-pulse { background: #fff; border: 1px solid var(--rule); padding: 18px; }
+  .fm-pulse .fm-row { display: grid; grid-template-columns: 200px 1fr 50px; gap: 10px; margin: 6px 0; align-items: center; font-size: 13px; }
+  .fm-pulse .fm-bar { background: var(--bar-bg); height: 14px; position: relative; }
+  .fm-pulse .fm-bar-fill { background: var(--accent); height: 100%; }
+  .fm-pulse .fm-count { font-family: ui-monospace, monospace; font-size: 12px; text-align: right; color: var(--ink-soft); }
+  .analyses-strip { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+  .analysis-card { flex: 0 0 280px; border: 1px solid var(--rule); padding: 12px 14px; background: #fff; font-size: 13px; }
+  .analysis-card h3 { font-family: "Iowan Old Style", Palatino, serif; font-size: 16px; margin: 0 0 4px; }
+  .analysis-card .ac-meta { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); }
+  footer { padding: 24px 32px; border-top: 1px solid var(--rule); margin-top: 40px; font-size: 12px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+  footer .brand { font-family: "Iowan Old Style", Palatino, serif; font-size: 14px; color: var(--ink); }
+  .empty { font-style: italic; color: var(--ink-soft); padding: 14px; }
+
+  .pdf-export { display: none; }
+  @media print {
+    @page { size: A4 landscape; margin: 0; }
+    body > *:not(.pdf-export) { display: none !important; }
+    .pdf-export { display: block !important; }
+    .pdf-slide { width: 297mm; height: 210mm; padding: 12mm 16mm; page-break-after: always; page-break-inside: avoid; overflow: hidden; box-sizing: border-box; display: flex; flex-direction: column; background: #fff; color: var(--ink); }
+    .pdf-slide:last-child { page-break-after: auto; }
+    .ps-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--accent); padding-bottom: 6mm; margin-bottom: 6mm; }
+    .ps-header .brand { font-family: "Iowan Old Style", Palatino, serif; color: var(--accent); font-variant: small-caps; font-size: 11pt; letter-spacing: 0.04em; }
+    .ps-header .doc-title { font-family: ui-monospace, monospace; font-size: 9pt; color: var(--ink-soft); }
+    .ps-content { flex: 1; }
+    .ps-footer { display: flex; justify-content: space-between; font-size: 8pt; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 4mm; margin-top: 4mm; }
+    .pdf-slide h1 { font-family: "Iowan Old Style", Palatino, serif; font-weight: 600; font-size: 28pt; margin: 0 0 8mm; line-height: 1.05; }
+    .pdf-slide h2 { font-family: "Iowan Old Style", Palatino, serif; font-weight: 600; font-size: 18pt; margin: 0 0 6mm; }
+    .pdf-slide p, .pdf-slide li { font-size: 10pt; line-height: 1.4; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <h1>Window of <span class="accent">Vulnerability</span></h1>
+  <div class="meta">
+    <span><span class="label">Today</span> <!-- BRIEF:TODAY_HUMAN_START -->
+13 May 2026
+<!-- BRIEF:TODAY_HUMAN_END --></span>
+    <span><span class="label">Last updated</span> <!-- BRIEF:LAST_UPDATED_START -->
+07:56 UTC
+<!-- BRIEF:LAST_UPDATED_END --></span>
+    <span><span class="label">ISO</span> <!-- BRIEF:TODAY_ISO_START -->
+2026-05-13
+<!-- BRIEF:TODAY_ISO_END --></span>
+  </div>
+</header>
+
+<nav class="subnav">
+  <a href="brief.html">Deep view</a>
+  <a href="https://github.com/resilienceengineers/wov-calendar/blob/main/methodology.md">Methodology</a>
+  <a href="https://github.com/resilienceengineers/wov-calendar/blob/main/sources.md">Sources</a>
+  <a href="https://github.com/resilienceengineers/wov-calendar">GitHub</a>
+  <button class="pdf-btn" onclick="window.print()">Export PDF for management</button>
+</nav>
+
+<main>
+
+  <section>
+    <div class="hero-strip">
+      <!-- BRIEF:HERO_KPIS_START -->
+<span class="kpi"><strong>16</strong> bands tracked</span><span class="kpi"><strong>23</strong> clusters detected</span><span class="kpi"><strong>23</strong> above surface threshold</span><span class="kpi"><strong>10.0</strong> top convergence score</span>
+<!-- BRIEF:HERO_KPIS_END -->
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">12-month risk calendar</h2>
+    <div class="gantt-wrap">
+      <div class="gantt-controls" id="gantt-legend"></div>
+      <svg id="gantt" viewBox="0 0 1200 600" preserveAspectRatio="xMinYMin meet"></svg>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Top convergence clusters</h2>
+    <div class="clusters-grid">
+      <!-- BRIEF:TOP_OVERLAPS_START -->
+<article class="cluster-card" data-cluster-id="cluster-2026-05-13-001"><div class="cluster-head"><span class="axis-label">region · South Asia (IN/BD)</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-01 → 2027-04-30</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>6</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-001">open in brief →</a></article>
+<article class="cluster-card" data-cluster-id="cluster-2026-05-13-002"><div class="cluster-head"><span class="axis-label">region · US Gulf / Houston</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-01 → 2026-12-31</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>5</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-002">open in brief →</a></article>
+<article class="cluster-card" data-cluster-id="cluster-2026-05-13-003"><div class="cluster-head"><span class="axis-label">industry · agriculture_grain</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-01 → 2026-12-31</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>4</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-003">open in brief →</a></article>
+<article class="cluster-card" data-cluster-id="cluster-2026-05-13-004"><div class="cluster-head"><span class="axis-label">industry · ports_terminals</span><span class="score">10.0</span></div><p class="cluster-window">2026-05-01 → 2027-03-31</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>5</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-004">open in brief →</a></article>
+<article class="cluster-card" data-cluster-id="cluster-2026-05-13-005"><div class="cluster-head"><span class="axis-label">industry · shipping_container</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-15 → 2027-04-30</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>8</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-005">open in brief →</a></article>
+<!-- BRIEF:TOP_OVERLAPS_END -->
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Live events</h2>
+    <div class="ticker-wrap">
+      <div class="ticker-rail" id="ticker-rail"><span class="ticker-item">Pending first run.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Force-majeure pulse — active declarations by industry</h2>
+    <div class="fm-pulse" id="fm-pulse"></div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Custom analyses</h2>
+    <div class="analyses-strip" id="analyses-strip"></div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="brand">Resilience Engineers</span>
+  <span>Marco Felsberger · marco.felsberger@resilience-engineers.com</span>
+  <span>Calendar updated daily 06:00 UTC · methodology private · sources tiered</span>
+</footer>
+
+<div class="pdf-export" aria-hidden="true">
+  <section class="pdf-slide">
+    <div class="ps-header"><span class="brand">Resilience Engineers</span><span class="doc-title">Window of Vulnerability · daily brief</span></div>
+    <div class="ps-content">
+      <h1>Window of Vulnerability</h1>
+      <p style="font-family:'Iowan Old Style',Palatino,serif;font-size:14pt;color:var(--accent)" id="ps-cover-date"></p>
+      <p id="ps-cover-summary" style="font-size:12pt;margin-top:8mm;"></p>
+    </div>
+    <div class="ps-footer"><span>marco.felsberger@resilience-engineers.com</span><span>1 / 6</span></div>
+  </section>
+  <section class="pdf-slide">
+    <div class="ps-header"><span class="brand">Resilience Engineers</span><span class="doc-title" id="ps-h2-date"></span></div>
+    <div class="ps-content"><h2>Top convergence clusters</h2><div id="ps-clusters"></div></div>
+    <div class="ps-footer"><span>marco.felsberger@resilience-engineers.com</span><span>2 / 6</span></div>
+  </section>
+  <section class="pdf-slide">
+    <div class="ps-header"><span class="brand">Resilience Engineers</span><span class="doc-title" id="ps-h3-date"></span></div>
+    <div class="ps-content"><h2>Live events (top by signal)</h2><div id="ps-events"></div></div>
+    <div class="ps-footer"><span>marco.felsberger@resilience-engineers.com</span><span>3 / 6</span></div>
+  </section>
+  <section class="pdf-slide">
+    <div class="ps-header"><span class="brand">Resilience Engineers</span><span class="doc-title" id="ps-h4-date"></span></div>
+    <div class="ps-content"><h2>Force-majeure pulse</h2><div id="ps-fm"></div></div>
+    <div class="ps-footer"><span>marco.felsberger@resilience-engineers.com</span><span>4 / 6</span></div>
+  </section>
+  <section class="pdf-slide">
+    <div class="ps-header"><span class="brand">Resilience Engineers</span><span class="doc-title" id="ps-h5-date"></span></div>
+    <div class="ps-content"><h2>Custom analyses</h2><div id="ps-analyses"></div></div>
+    <div class="ps-footer"><span>marco.felsberger@resilience-engineers.com</span><span>5 / 6</span></div>
+  </section>
+  <section class="pdf-slide">
+    <div class="ps-header"><span class="brand">Resilience Engineers</span><span class="doc-title" id="ps-h6-date"></span></div>
+    <div class="ps-content"><h2>Methodology &amp; sources</h2>
+      <p>This calendar uses a tiered signal-weighting framework. Only verified physical events from primary sources can shape band creation. Convergence scoring runs deterministically over the union of seasonal, active, FM, and user-analysis bands. The full operating ruleset is kept private to preserve analytical edge. Six tiers of source attribution: T1 primary/official; T2 specialised commercial intelligence; T3 analytical institutions; T4 commercial analysts with track records; T5 wire services and regional press; T6 excluded by default.</p>
+    </div>
+    <div class="ps-footer"><span>marco.felsberger@resilience-engineers.com</span><span>6 / 6</span></div>
+  </section>
+</div>
+
+<!-- BRIEF:DATA_VERSION_START -->
+{"computed_at": "2026-05-13T07:56:00Z", "today": "2026-05-13"}
+<!-- BRIEF:DATA_VERSION_END -->
+
+<script>
+const HAZARD_COLORS = {
+  tropical_cyclone: "#c1272d",
+  monsoon: "#1f5fa0",
+  flood: "#2d7fb6",
+  wildfire: "#d76b1e",
+  drought: "#9a7a1c",
+  winter_storm: "#6a4fa0",
+  dust_storm: "#a07a3c",
+  tornado_season: "#c44a8e",
+  locust_outbreak: "#5a8a2c",
+  enso_modulator: "#7a7a7a",
+};
+const SIGNAL_COLORS = { hard: "#c1272d", medium: "#b67a08", soft: "#2c7a4a", noise: "#9a9a9a" };
+
+async function fetchJSON(path) { const r = await fetch(path, { cache: "no-store" }); return r.json(); }
+function dayOfYear(d) { const start = new Date(d.getFullYear(), 0, 0); return Math.floor((d - start) / 86400000); }
+function parseISODate(s) { const [y,m,d] = s.split("-").map(Number); return new Date(Date.UTC(y, m-1, d)); }
+function diffDays(a, b) { return Math.round((b - a) / 86400000); }
+
+function renderGantt(bands) {
+  const svg = document.getElementById("gantt");
+  svg.innerHTML = "";
+  const today = new Date();
+  const startWindow = new Date(today); startWindow.setUTCDate(startWindow.getUTCDate() - 30);
+  const endWindow = new Date(today); endWindow.setUTCDate(endWindow.getUTCDate() + 335);
+  const totalDays = diffDays(startWindow, endWindow);
+
+  const rowH = 22;
+  const labelW = 220;
+  const padding = { top: 30, right: 20, bottom: 12, left: labelW };
+  const grouped = {};
+  for (const b of bands) { (grouped[b.hazard_type] = grouped[b.hazard_type] || []).push(b); }
+  const orderedTypes = Object.keys(grouped).sort();
+  const rows = [];
+  for (const ht of orderedTypes) for (const b of grouped[ht]) rows.push(b);
+
+  const width = 1200;
+  const innerW = width - padding.left - padding.right;
+  const height = padding.top + rows.length * rowH + padding.bottom;
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+  const dayToX = d => padding.left + (diffDays(startWindow, d) / totalDays) * innerW;
+
+  const monthLabels = [];
+  let cur = new Date(Date.UTC(startWindow.getUTCFullYear(), startWindow.getUTCMonth(), 1));
+  while (cur < endWindow) {
+    monthLabels.push(new Date(cur));
+    cur.setUTCMonth(cur.getUTCMonth() + 1);
+  }
+  for (const m of monthLabels) {
+    const x = dayToX(m);
+    svg.insertAdjacentHTML("beforeend", `<line class="grid-line" x1="${x.toFixed(1)}" y1="${padding.top}" x2="${x.toFixed(1)}" y2="${height - padding.bottom}"/>`);
+    svg.insertAdjacentHTML("beforeend", `<text class="month-label" x="${(x + 4).toFixed(1)}" y="${padding.top - 8}">${m.toLocaleString("en-US", { month: "short", year: "2-digit", timeZone: "UTC" })}</text>`);
+  }
+
+  rows.forEach((b, i) => {
+    const y = padding.top + i * rowH;
+    svg.insertAdjacentHTML("beforeend", `<rect class="row-bg" x="0" y="${y}" width="${width}" height="${rowH}"/>`);
+    svg.insertAdjacentHTML("beforeend", `<text class="row-label" x="8" y="${y + rowH / 2 + 4}">${b.name}</text>`);
+    const color = HAZARD_COLORS[b.hazard_type] || "#888";
+    const bx0 = Math.max(padding.left, dayToX(parseISODate(b.start_date)));
+    const bx1 = Math.min(width - padding.right, dayToX(parseISODate(b.end_date)));
+    const px0 = b.peak_window ? Math.max(padding.left, dayToX(parseISODate(b.peak_window[0]))) : null;
+    const px1 = b.peak_window ? Math.min(width - padding.right, dayToX(parseISODate(b.peak_window[1]))) : null;
+    if (bx1 <= padding.left || bx0 >= width - padding.right) return;
+    svg.insertAdjacentHTML("beforeend", `<g class="band"><title>${b.name} — ${b.start_date} → ${b.end_date} · severity ${b.baseline_severity}</title><rect class="band-shoulder" x="${bx0.toFixed(1)}" y="${y + 4}" width="${(bx1 - bx0).toFixed(1)}" height="${rowH - 8}" fill="${color}"/>${px0 !== null && px1 !== null ? `<rect class="band-peak" x="${px0.toFixed(1)}" y="${y + 4}" width="${Math.max(2, px1 - px0).toFixed(1)}" height="${rowH - 8}" fill="${color}"/>` : ""}</g>`);
+  });
+
+  const nx = dayToX(today);
+  svg.insertAdjacentHTML("beforeend", `<line class="now-line" x1="${nx.toFixed(1)}" y1="${padding.top - 14}" x2="${nx.toFixed(1)}" y2="${height - padding.bottom}"/>`);
+  svg.insertAdjacentHTML("beforeend", `<text class="now-label" x="${(nx + 4).toFixed(1)}" y="${padding.top - 18}">NOW</text>`);
+
+  const legend = document.getElementById("gantt-legend");
+  legend.innerHTML = orderedTypes.map(ht => `<label><span class="legend-swatch" style="background:${HAZARD_COLORS[ht] || "#888"}"></span>${ht.replaceAll("_", " ")}</label>`).join("");
+}
+
+function renderTicker(events) {
+  const rail = document.getElementById("ticker-rail");
+  const recent = events.filter(e => ["hard", "medium"].includes(e.signal_tier));
+  if (!recent.length) { rail.innerHTML = '<span class="ticker-item">No live events at hard/medium tier today.</span>'; return; }
+  const html = recent.map(e => `<span class="ticker-item"><span class="pip pip-${e.signal_tier}"></span>${e.title} · sev ${e.severity}</span>`).join("");
+  rail.innerHTML = html + html;
+}
+
+function renderFMPulse(fm, industries) {
+  const indName = Object.fromEntries(industries.map(i => [i.id, i.name]));
+  const counts = {};
+  for (const e of fm.events) for (const ind of (e.industries_downstream || [])) counts[ind] = (counts[ind] || 0) + 1;
+  const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  const max = Math.max(1, ...entries.map(([, c]) => c));
+  const root = document.getElementById("fm-pulse");
+  if (!entries.length) { root.innerHTML = '<p class="empty">No active force-majeure declarations recorded.</p>'; return; }
+  root.innerHTML = entries.map(([id, c]) => {
+    const w = (c / max) * 100;
+    return `<div class="fm-row"><span>${indName[id] || id}</span><div class="fm-bar"><div class="fm-bar-fill" style="width:${w}%"></div></div><span class="fm-count">${c}</span></div>`;
+  }).join("");
+}
+
+function renderAnalyses(analyses) {
+  const root = document.getElementById("analyses-strip");
+  if (!analyses.analyses.length) { root.innerHTML = '<p class="empty">No custom analyses uploaded yet. Drop a YAML in <code>uploads/</code> to add one.</p>'; return; }
+  root.innerHTML = analyses.analyses.map(a => `<a class="analysis-card" href="brief.html#analysis-${a.id}"><h3>${a.trigger_commodity} → ${a.regions_affected.join(", ")}</h3><p class="ac-meta">${a.uploaded_at.slice(0, 10)} · ${a.industry_chain.length} stages · ${a.timeline_projection.length} horizons</p></a>`).join("");
+}
+
+function syncPdfSlides() {
+  const dh = document.querySelector("[data-today]")?.textContent || document.title;
+  document.getElementById("ps-cover-date").textContent = dh;
+  ["ps-h2-date","ps-h3-date","ps-h4-date","ps-h5-date","ps-h6-date"].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = dh; });
+  document.getElementById("ps-clusters").innerHTML = document.querySelector(".clusters-grid")?.innerHTML || "";
+  document.getElementById("ps-events").innerHTML = document.getElementById("ticker-rail")?.innerHTML.split("</span>").slice(0, 12).join("</span>") || "";
+  document.getElementById("ps-fm").innerHTML = document.getElementById("fm-pulse")?.innerHTML || "";
+  document.getElementById("ps-analyses").innerHTML = document.getElementById("analyses-strip")?.innerHTML || "";
+  const summary = document.querySelector(".hero-strip")?.innerText.replace(/\s+/g, " ") || "";
+  document.getElementById("ps-cover-summary").textContent = summary;
+}
+window.addEventListener("beforeprint", syncPdfSlides);
+
+(async () => {
+  try {
+    const [seasonal, active, fm, analyses, industries] = await Promise.all([
+      fetchJSON("data/seasonal_bands.json"),
+      fetchJSON("data/active_events.json"),
+      fetchJSON("data/fm_events.json"),
+      fetchJSON("data/user_analyses.json"),
+      fetchJSON("data/vocab/industries.json"),
+    ]);
+    renderGantt(seasonal.bands);
+    renderTicker(active.events);
+    renderFMPulse(fm, industries.industries);
+    renderAnalyses(analyses);
+  } catch (e) {
+    console.error("WoV render failed:", e);
+  }
+})();
+</script>
+
+</body>
+</html>

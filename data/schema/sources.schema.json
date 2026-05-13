@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/sources.schema.json",
+  "title": "Source registry",
+  "type": "object",
+  "required": ["sources"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "tier", "domains"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_-]+$" },
+          "name": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "tier": { "type": "integer", "minimum": 1, "maximum": 6 },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "seasonality", "maritime", "geopolitical", "sanctions",
+                "energy_markets", "shipping_data", "labor", "natcat",
+                "fm_declarations", "upstream_tracker", "political_violence",
+                "analytical", "wire", "regional_press"
+              ]
+            }
+          },
+          "reliability_score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "last_calibrated": { "type": "string", "format": "date" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

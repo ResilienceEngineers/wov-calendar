@@ -1,0 +1,4 @@
+{
+  "$comment": "Live geopolitical / strike / port-closure events. Bot-owned. Refreshed daily by triage_with_claude.py. Empty at launch.",
+  "events": []
+}

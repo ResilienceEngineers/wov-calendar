@@ -1,0 +1,58 @@
+{
+  "$comment": "Severity 1-5 with explicit operational triggers. Triage assigns severity by matching candidate signal against trigger. Convergence score uses these as inputs.",
+  "levels": [
+    {
+      "level": 1,
+      "label": "Routine",
+      "color": "#2c7a4a",
+      "trigger": "Baseline volatility within climatological or operational norms; no operational disruption; insurance / freight rates at baseline.",
+      "examples": [
+        "Hurricane season start within +/- 2 weeks of climatological norm",
+        "Routine port-worker collective bargaining without strike authorization"
+      ]
+    },
+    {
+      "level": 2,
+      "label": "Elevated",
+      "color": "#7a9a3d",
+      "trigger": "Heightened rhetoric, limited incidents (<=2 in 30 days), no measurable flow impact, premium <0.5% hull value.",
+      "examples": [
+        "Above-normal seasonal outlook from issuing agency (e.g., NOAA +60% Atlantic)",
+        "Strike authorization vote passed but no strike date set"
+      ]
+    },
+    {
+      "level": 3,
+      "label": "Concerning",
+      "color": "#b67a08",
+      "trigger": "Operational disruption visible — delays >24h average, queues forming, premium 0.5-1.0% hull value, >=3 incidents in 30 days, or a port restriction in force.",
+      "examples": [
+        "Active tropical storm tracking toward landfall in T-72h",
+        "Strike action affecting one major port",
+        "Force-majeure declared on one major commodity stream"
+      ]
+    },
+    {
+      "level": 4,
+      "label": "Severe",
+      "color": "#c1272d",
+      "trigger": "Sustained multi-front escalation — >30% volume reduction on the relevant flow OR alternative routes activated under stress; mediation channel still open; insurance >1.0% hull value.",
+      "examples": [
+        "Cat-3+ hurricane landfall on energy hub",
+        "Multi-port strike across regional federation",
+        "Major FM cascade across an industry"
+      ]
+    },
+    {
+      "level": 5,
+      "label": "Crisis",
+      "color": "#7a1719",
+      "trigger": "Sustained de-facto closure (>80% volume reduction sustained >=7 days) AND any of: (a) formal closure announcement, (b) confirmed strike on critical infra, (c) alternative-route saturation forcing rationing on a refined-product class, (d) insurance unobtainable or >5%, (e) public collapse of mediation channel with no successor.",
+      "examples": [
+        "Hormuz formal closure",
+        "Cat-5 direct hit on Houston refining complex with sustained outage",
+        "Multi-week sustained shipping shutdown at a global chokepoint"
+      ]
+    }
+  ]
+}

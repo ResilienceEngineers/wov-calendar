@@ -1,0 +1,75 @@
+name: Ingest user-uploaded analyses
+
+on:
+  push:
+    paths:
+      - 'uploads/**.yaml'
+      - 'uploads/**.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wov-ingest-uploads
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Skip self-triggered commits
+        id: skip
+        shell: bash
+        run: |
+          AUTHOR=$(git log -1 --pretty=format:'%an')
+          if [[ "$AUTHOR" == "WoV Bot" ]]; then
+            echo "Bot commit — skipping to avoid loop."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.skip.outputs.skip != 'true'
+        uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: Install dependencies
+        if: steps.skip.outputs.skip != 'true'
+        run: pip install -r .github/scripts/requirements.txt
+
+      - name: Convert YAML uploads to JSON
+        if: steps.skip.outputs.skip != 'true'
+        run: python .github/scripts/ingest_user_yaml.py
+
+      - name: Recompute overlaps
+        if: steps.skip.outputs.skip != 'true'
+        run: python .github/scripts/compute_overlaps.py
+
+      - name: Re-render pages
+        if: steps.skip.outputs.skip != 'true'
+        run: python .github/scripts/render_pages.py
+
+      - name: Validate
+        if: steps.skip.outputs.skip != 'true'
+        run: python .github/scripts/validate_schemas.py
+
+      - name: Commit and push if changed
+        if: steps.skip.outputs.skip != 'true'
+        run: |
+          git config user.name "WoV Bot"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --quiet --cached; then
+            echo "No changes to commit."
+          else
+            git commit -m "Ingest user upload: $(date -u +%Y-%m-%dT%H:%M)"
+            git push
+          fi

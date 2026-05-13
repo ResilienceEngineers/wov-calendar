@@ -1,0 +1,16 @@
+{
+  "$comment": "Snapshot of hormuz-tracker daily brief. Bot-owned. Refreshed daily by ingest_hormuz.py.",
+  "scraped_at": "2026-05-13T00:00:00Z",
+  "source_url": "https://resilienceengineers.github.io/hormuz-daily-brief/",
+  "snapshot": {
+    "brief_date": "pending first run",
+    "day_of_war": null,
+    "trend": "Same",
+    "trend_confidence": null,
+    "threat_level": 1,
+    "threat_label": "Routine",
+    "oneliner": "Awaiting first ingest run.",
+    "watchlist": [],
+    "map_pins": []
+  }
+}

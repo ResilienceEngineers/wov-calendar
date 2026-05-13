@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/active_events.schema.json",
+  "title": "Active events",
+  "type": "object",
+  "required": ["events"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "event_type", "title", "start_date",
+          "regions", "industries", "commodities", "chokepoints",
+          "severity", "source_tier", "signal_tier", "source_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^evt-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9-]+$" },
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "geopolitical_threat", "strike_labor", "strike_political",
+              "infrastructure_attack", "port_closure", "sanctions",
+              "cyber_incident", "natural_realized", "other"
+            ]
+          },
+          "title": { "type": "string", "minLength": 5 },
+          "start_date": { "type": "string", "format": "date" },
+          "end_date": { "type": ["string", "null"], "format": "date" },
+          "est_end": { "type": ["string", "null"], "format": "date" },
+          "regions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "countries_iso3": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z]{3}$" } },
+          "industries": { "type": "array", "items": { "type": "string" } },
+          "commodities": { "type": "array", "items": { "type": "string" } },
+          "chokepoints": { "type": "array", "items": { "type": "string" } },
+          "severity": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "source_tier": { "type": "integer", "minimum": 1, "maximum": 6 },
+          "signal_tier": { "type": "string", "enum": ["hard", "medium", "soft", "noise"] },
+          "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "upstream_tracker": { "type": ["string", "null"], "enum": ["hormuz-tracker", "fm-tracker", null] },
+          "supersedes": { "type": ["string", "null"] },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

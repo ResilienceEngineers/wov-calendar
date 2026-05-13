@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/fm_events.schema.json",
+  "title": "Force-majeure events (ingested from fm-tracker)",
+  "type": "object",
+  "required": ["scraped_at", "source_url", "events"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "scraped_at": { "type": "string", "format": "date-time" },
+    "source_url": { "type": "string", "format": "uri" },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "declarant", "facility", "country_iso3", "declared_at", "commodity_class", "regions_affected"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^fm-[a-z0-9-]+$" },
+          "declarant": { "type": "string" },
+          "facility": { "type": "string" },
+          "country_iso3": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "declared_at": { "type": "string", "format": "date" },
+          "commodity_class": { "type": "string" },
+          "products": { "type": "array", "items": { "type": "string" } },
+          "wave": { "type": ["integer", "null"], "minimum": 1, "maximum": 3 },
+          "fm_type": { "type": ["string", "null"], "enum": ["Production", "Shipping", "Downstream", "Distribution", "Restart", "Cascade", null] },
+          "status": { "type": ["string", "null"], "enum": ["red", "amber", "green", null] },
+          "signal_tier": { "type": ["string", "null"], "enum": ["hard", "medium", "soft", "noise", null] },
+          "source_tier": { "type": ["integer", "null"], "minimum": 1, "maximum": 6 },
+          "regions_affected": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "industries_downstream": { "type": "array", "items": { "type": "string" } },
+          "estimated_duration_days": { "type": ["integer", "null"], "minimum": 0 },
+          "source_doc_url": { "type": ["string", "null"], "format": "uri" }
+        }
+      }
+    }
+  }
+}

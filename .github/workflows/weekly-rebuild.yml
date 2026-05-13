@@ -1,0 +1,65 @@
+name: Weekly WoV calibration
+
+on:
+  schedule:
+    - cron: '30 6 * * 5'   # Fridays 06:30 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wov-weekly
+  cancel-in-progress: false
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: { fetch-depth: 30 }
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/requirements.txt
+
+      - name: Recompute overlaps
+        run: python .github/scripts/compute_overlaps.py
+
+      - name: Re-render pages
+        run: python .github/scripts/render_pages.py
+
+      - name: Validate
+        run: python .github/scripts/validate_schemas.py
+
+      - name: Append weekly stub to backtest-log.md
+        shell: bash
+        run: |
+          WEEK_TAG=$(date -u +%Y-W%V)
+          STUB="## Week-in-Review ${WEEK_TAG}
+
+- Brier score on cluster confidence: TBD (placeholder; weekly script TODO)
+- Hit / miss / false-alarm tally: TBD
+- Source reliability adjustments: TBD
+- Methodology delta: TBD
+"
+          if ! grep -q "Week-in-Review ${WEEK_TAG}" backtest-log.md; then
+            printf "\n%s\n" "$STUB" >> backtest-log.md
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "WoV Bot"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --quiet --cached; then
+            echo "No changes."
+          else
+            git commit -m "Weekly WoV calibration: $(date -u +%Y-%m-%d)"
+            git push
+          fi

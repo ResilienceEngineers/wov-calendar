@@ -1,0 +1,6 @@
+{
+  "$comment": "Force-majeure events scraped from fm-tracker. Bot-owned. IDs are sha1(declared_at + declarant + facility + commodity_class)[:12].",
+  "scraped_at": "2026-05-13T00:00:00Z",
+  "source_url": "https://resilienceengineers.github.io/fm-tracker/",
+  "events": []
+}
