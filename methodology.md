@@ -102,8 +102,16 @@ Input: union of seasonal + active + FM + hormuz + user-analysis bands.
 For each `axis in {region, industry, commodity, chokepoint}`, for each `axis_value`:
 1. Filter bands containing that value.
 2. Sweep-line on date intervals to find connected components.
-3. Components with ≥2 members → candidate cluster.
+3. Components with ≥N members → candidate cluster. **N = 1 for `axis == "chokepoint"`** (Theory-of-Constraints rule — see §5.1). **N = 2 for all other axes** (normal convergence rule).
 4. Cross-axis dedup: if two clusters share ≥80% members, keep the higher-scoring one.
+
+### 5.1 Theory-of-Constraints rule for maritime chokepoints
+
+A maritime chokepoint *is* the constraint of global flow through that geography. There is no substitute path of equivalent capacity. Hormuz, Bab el-Mandeb, Suez, Malacca, Panama Canal, Taiwan Strait, Bosphorus — each carries a single-digit-percent of global trade through a single point. The system therefore monitors every named maritime chokepoint individually and surfaces any single event touching one. That observation appears on the `chokepoint_board` in `overlaps.json` (rendered as the "Chokepoint constraint board" on `index.html`) regardless of cluster convergence.
+
+This rule applies only to maritime chokepoints. For strikes at non-chokepoint ports, generic geopolitical events, or labour disputes inland, the standard 2-or-more convergence requirement applies. A non-chokepoint port strike must intersect another band on a shared region/industry/commodity to surface as a cluster.
+
+Triage prompt enforces the upstream half: Claude must return a JSON_EVENT for any candidate signal that touches a chokepoint ID, even from a single Tier-3 source. The downstream half is encoded in `compute_overlaps.py` via the per-axis minimum-member threshold.
 
 **Score** (clamp [0, 10]):
 ```
@@ -165,9 +173,15 @@ Every methodology change is logged in §11 with date and reason. Marco audits dr
 
 ---
 
-## 9. The fm-tracker ingestion note (provisional)
+## 9. The FM ingestion — dual path
 
-Upstream fm-tracker stores events in delimited `BRIEF:*` HTML blocks, not in a JSON sidecar. We compute stable IDs as `sha1(declared_at + declarant + facility + commodity_class)[:12]`. This is sufficient for dedup but brittle if the upstream changes its display fields. A proposed upstream contribution: a `BRIEF:DATA_START/END` block emitting `data/events.json` with stable upstream IDs. Until then, parser changes are logged with a Friday delta.
+Force-majeure declarations enter the calendar through two complementary paths:
+
+**Path 1 — upstream fm-tracker scrape (`ingest_fm_tracker.py`).** Pulls `index.html` from the `resilienceengineers/fm-tracker` `main` branch. Upstream stores events in delimited `BRIEF:*` HTML blocks, not in a JSON sidecar. We compute stable IDs as `sha1(declared_at + declarant + facility + commodity_class)[:12]`. This is sufficient for dedup but brittle if the upstream changes its display fields. A proposed upstream contribution: a `BRIEF:DATA_START/END` block emitting `data/events.json` with stable upstream IDs. Until then, parser changes are logged with a Friday delta.
+
+**Path 2 — web-search supplement (`ingest_fm_websearch.py`).** Claude + `web_search` searches global press (Reuters, FT, Bloomberg, Argus, S&P Platts, ICIS, Chemical Week, OPIS, Lloyd's List, Hellenic Shipping News, sector trade press, corporate press releases, regulatory filings) for FM declarations issued in the trailing 14 days that are not already in our database. Claude returns `###BEGIN:JSON_FM_EVENT###` delimiter blocks; the script computes IDs via the same hash scheme and upserts. Schema-validated before persist.
+
+The orchestrator runs Path 2 with `--if-thin`: it only fires when Path 1 added <3 events on the same day. This makes Path 2 a cheap fallback rather than a duplicating supplement on busy days. Marco can remove the flag in `update_brief.py` to make Path 2 run every day. Both paths converge into the same `data/fm_events.json` keyed by the same ID scheme — no separation of provenance beyond `source_doc_url`. Dedup keeps the first arriver.
 
 ---
 
@@ -187,5 +201,8 @@ In any of these, the run exits non-zero; the workflow surfaces the failure; no c
 | Date | Change | Reason |
 |------|--------|--------|
 | 2026-05-13 | Initial methodology established | Tracker launch |
+| 2026-05-13 | Theory-of-Constraints rule added for maritime chokepoints: single-event chokepoint observations surface on a dedicated constraint board, bypassing the 2-or-more convergence requirement | Marco directive: any disruption on the constraint is a disruption on the whole flow |
+| 2026-05-13 | FM ingestion split into dual path: upstream fm-tracker scrape + Claude-driven web-search supplement | Resilience against upstream parser drift + coverage of FM events the upstream tracker has not yet ingested |
+| 2026-05-13 | Renderer now emits "Today at a glance" deterministic summary, per-cluster "What this means" translations, and "How to read this page" disclosures on both HTML pages | Marco directive: site must be self-explanatory and easy to read at one glance |
 
 (Future changes appended here with date and reason.)

@@ -24,18 +24,19 @@ ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS = ROOT / ".github" / "scripts"
 
 STEPS = [
-    ("ingest hormuz",    "ingest_hormuz.py",     True),
-    ("ingest FM tracker","ingest_fm_tracker.py", True),
-    ("triage signals",   "triage_with_claude.py",False),  # requires ANTHROPIC_API_KEY
-    ("compute overlaps", "compute_overlaps.py",  True),
-    ("render pages",     "render_pages.py",      True),
-    ("validate",         "validate_schemas.py",  True),
+    ("ingest hormuz",      "ingest_hormuz.py",       True,  []),
+    ("ingest FM upstream", "ingest_fm_tracker.py",   True,  []),
+    ("ingest FM web",      "ingest_fm_websearch.py", False, ["--if-thin"]),
+    ("triage signals",     "triage_with_claude.py",  False, []),
+    ("compute overlaps",   "compute_overlaps.py",    True,  []),
+    ("render pages",       "render_pages.py",        True,  []),
+    ("validate",           "validate_schemas.py",    True,  []),
 ]
 
 
-def run(name: str, script: str) -> int:
-    print(f"\n[orchestrator] === {name} ({script}) ===", flush=True)
-    rc = subprocess.call([sys.executable, str(SCRIPTS / script)])
+def run(name: str, script: str, extra_args: list[str]) -> int:
+    print(f"\n[orchestrator] === {name} ({script} {' '.join(extra_args)}) ===", flush=True)
+    rc = subprocess.call([sys.executable, str(SCRIPTS / script), *extra_args])
     if rc != 0:
         print(f"[orchestrator] step '{name}' failed with exit {rc}", file=sys.stderr)
     return rc
@@ -44,11 +45,11 @@ def run(name: str, script: str) -> int:
 def main() -> int:
     has_api = "ANTHROPIC_API_KEY" in os.environ
 
-    for name, script, always_run in STEPS:
+    for name, script, always_run, extra_args in STEPS:
         if not always_run and not has_api:
             print(f"\n[orchestrator] === {name} ({script}) === SKIPPED (no ANTHROPIC_API_KEY)", flush=True)
             continue
-        rc = run(name, script)
+        rc = run(name, script, extra_args)
         if rc != 0:
             return rc
 

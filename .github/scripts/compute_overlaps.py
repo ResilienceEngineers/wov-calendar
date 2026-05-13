@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Convergence-cluster engine.
+"""Convergence-cluster engine + chokepoint constraint board (Theory of Constraints).
 
 Reads union of seasonal_bands, active_events, fm_events, user_analyses into typed
 Band records. For each axis in {region, industry, commodity, chokepoint}, for each
-axis_value, sweeps temporal overlaps and emits clusters with >=2 members.
+axis_value, sweeps temporal overlaps and emits clusters.
+
+**Theory-of-Constraints rule for chokepoints (Marco's directive):** a chokepoint IS
+the constraint. Any event touching a maritime chokepoint matters disproportionately.
+We therefore surface chokepoint-axis clusters with n>=1 members (not n>=2 like other
+axes). For region/industry/commodity axes the normal n>=2 convergence rule applies.
 
 Score formula:
     score = 2.0 * log(n + 1)
@@ -15,6 +20,7 @@ Score formula:
     clamp [0, 10]
 
 Surface threshold: 5.5. Top 5 by score → index.html executive view.
+Single-member chokepoint observations surface separately on the chokepoint board.
 """
 from __future__ import annotations
 
@@ -176,9 +182,12 @@ def cluster_by_axis(bands: list[Band], axis: str) -> list[dict]:
     for b in bands:
         values |= getattr(b, attr)
 
+    # Theory of Constraints rule: chokepoint axis surfaces single-member observations.
+    min_members = 1 if axis == "chokepoint" else 2
+
     for axis_value in sorted(values):
         members = [b for b in bands if axis_value in getattr(b, attr)]
-        if len(members) < 2:
+        if len(members) < min_members:
             continue
         # Sweep: sort by start, walk, group connected by interval overlap.
         members.sort(key=lambda b: b.start)
@@ -202,7 +211,7 @@ def cluster_by_axis(bands: list[Band], axis: str) -> list[dict]:
             groups.append(current)
 
         for grp in groups:
-            if len(grp) < 2:
+            if len(grp) < min_members:
                 continue
             score = score_cluster(grp, axis_value)
             t_start = min(m.start for m in grp)
@@ -245,6 +254,156 @@ def cross_axis_dedup(clusters: list[dict]) -> list[dict]:
     return kept
 
 
+def vocab_name_lookup() -> dict[str, dict[str, str]]:
+    """{kind: {id: display_name}}."""
+    out: dict[str, dict[str, str]] = {}
+    for kind, fname, key in [
+        ("region", "regions.json", "regions"),
+        ("industry", "industries.json", "industries"),
+        ("commodity", "commodities.json", "commodities"),
+        ("chokepoint", "chokepoints.json", "chokepoints"),
+    ]:
+        items = json.loads((DATA / "vocab" / fname).read_text(encoding="utf-8"))[key]
+        out[kind] = {item["id"]: item["name"] for item in items}
+    return out
+
+
+def all_band_titles(today: date) -> dict[str, str]:
+    """{band_id: human title} so narrative seeds can reference members by name."""
+    titles: dict[str, str] = {}
+    for b in json.loads((DATA / "seasonal_bands.json").read_text(encoding="utf-8"))["bands"]:
+        titles[b["id"]] = b["name"]
+    for e in json.loads((DATA / "active_events.json").read_text(encoding="utf-8"))["events"]:
+        titles[e["id"]] = e["title"]
+    for e in json.loads((DATA / "fm_events.json").read_text(encoding="utf-8"))["events"]:
+        titles[e["id"]] = f"FM · {e.get('declarant', '?')} · {e.get('facility', '?')}"
+    for a in json.loads((DATA / "user_analyses.json").read_text(encoding="utf-8"))["analyses"]:
+        titles[a["id"]] = f"Analysis · {a.get('trigger_commodity', '?')}"
+    return titles
+
+
+def narrate(cluster: dict, names: dict[str, dict[str, str]], titles: dict[str, str]) -> str:
+    """Deterministic plain-language seed. Claude can elevate later."""
+    axis = cluster["axis"]
+    value = cluster["axis_value"]
+    display = names.get(axis, {}).get(value, value)
+    n = len(cluster["member_event_ids"])
+    score = cluster["convergence_score"]
+    window = f"{cluster['time_window'][0]} → {cluster['time_window'][1]}"
+
+    member_names = [titles.get(mid, mid) for mid in cluster["member_event_ids"][:3]]
+    members_phrase = " + ".join(member_names)
+    if len(cluster["member_event_ids"]) > 3:
+        members_phrase += f" + {len(cluster['member_event_ids']) - 3} more"
+
+    industries = ", ".join(sorted(cluster.get("shared_industries", []))[:3]) or "—"
+    commodities = ", ".join(sorted(cluster.get("shared_commodities", []))[:3]) or "—"
+
+    if axis == "chokepoint":
+        lead = f"Transit chokepoint {display} is the bottleneck."
+    elif axis == "region":
+        lead = f"Region {display} has multiple risks stacking in the same window."
+    elif axis == "industry":
+        lead = f"Industry sector {display} is exposed from multiple directions at once."
+    else:
+        lead = f"Commodity flow {display} faces compound pressure."
+
+    return (
+        f"{lead} {n} band(s) converging {window} (score {score:.1f}/10). "
+        f"Members: {members_phrase}. "
+        f"Shared industries: {industries}. Shared commodities: {commodities}."
+    )
+
+
+def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict[str, dict[str, str]]) -> dict:
+    """One-paragraph plain-language summary for the page hero."""
+    n_total = len(bands)
+    n_clusters = len(clusters)
+    n_surfaced = sum(1 for c in clusters if c["convergence_score"] >= 5.5)
+    top = max((c["convergence_score"] for c in clusters), default=0.0)
+
+    chokepoint_clusters = [c for c in clusters if c["axis"] == "chokepoint"]
+    chokepoints_active = sorted({c["axis_value"] for c in chokepoint_clusters})
+    chokepoint_names = [names["chokepoint"].get(cp, cp) for cp in chokepoints_active]
+
+    top_cluster = clusters[0] if clusters else None
+    headline = "Calendar quiet — no convergence above surface threshold."
+    if top_cluster and top_cluster["convergence_score"] >= 5.5:
+        axis = top_cluster["axis"]
+        display = names.get(axis, {}).get(top_cluster["axis_value"], top_cluster["axis_value"])
+        headline = (
+            f"Top pressure: {display} ({axis}, score {top_cluster['convergence_score']:.1f}/10) "
+            f"between {top_cluster['time_window'][0]} and {top_cluster['time_window'][1]}."
+        )
+
+    chokepoint_phrase = (
+        f"{len(chokepoints_active)} maritime chokepoint(s) under active pressure"
+        + (f": {', '.join(chokepoint_names)}." if chokepoint_names else ".")
+    )
+
+    return {
+        "headline": headline,
+        "chokepoint_phrase": chokepoint_phrase,
+        "kpis": {
+            "bands_tracked": n_total,
+            "clusters_detected": n_clusters,
+            "clusters_above_threshold": n_surfaced,
+            "top_score": round(top, 2),
+            "chokepoints_active": len(chokepoints_active),
+        },
+    }
+
+
+def build_chokepoint_board(bands: list[Band], names: dict[str, dict[str, str]]) -> list[dict]:
+    """One tile per named chokepoint: name, state, exposure summary, what to watch.
+
+    State logic (ToC — single event suffices to move state):
+      red    = any active/FM/user-analysis band with severity >=4 OR signal_tier=hard touches it
+      amber  = any band severity 2-3 OR signal_tier=medium touches it
+      green  = only seasonal/baseline bands touch it (or none at all)
+    """
+    cp_meta = json.loads((DATA / "vocab" / "chokepoints.json").read_text(encoding="utf-8"))["chokepoints"]
+    tiles: list[dict] = []
+    for cp in cp_meta:
+        cpid = cp["id"]
+        if cp["kind"] not in ("maritime",):
+            continue
+        members = [b for b in bands if cpid in b.chokepoints]
+        if not members:
+            tiles.append({
+                "id": cpid, "name": cp["name"], "kind": cp["kind"],
+                "lat": cp["lat"], "lon": cp["lon"],
+                "throughput_note": cp.get("throughput_note", ""),
+                "state": "green",
+                "exposure": "No active events or seasonal bands touching this chokepoint right now.",
+                "what_to_watch": "—",
+                "member_count": 0,
+            })
+            continue
+        max_sev = max(m.severity for m in members)
+        any_hard = any(m.signal_tier == "hard" for m in members)
+        any_medium = any(m.signal_tier == "medium" for m in members)
+        non_seasonal = [m for m in members if not m.id.endswith("-2026") and not m.id.startswith("atl-") and not m.id.startswith("ep-") and not m.id.startswith("nwpac-") and not m.id.startswith("nio-") and not m.id.startswith("monsoon-") and not m.id.startswith("eu-windstorm") and not m.id.startswith("us-tornado") and not m.id.startswith("wildfire-") and not m.id.startswith("panama-drought") and not m.id.startswith("rhine-lowwater") and not m.id.startswith("swio-") and not m.id.startswith("locust-") and not m.id.startswith("enso-")]
+        if max_sev >= 4 and (any_hard or non_seasonal):
+            state = "red"
+        elif max_sev >= 2 and (any_hard or any_medium or non_seasonal):
+            state = "amber"
+        else:
+            state = "green"
+        top_member = max(members, key=lambda b: (b.severity, b.signal_tier == "hard"))
+        tiles.append({
+            "id": cpid, "name": cp["name"], "kind": cp["kind"],
+            "lat": cp["lat"], "lon": cp["lon"],
+            "throughput_note": cp.get("throughput_note", ""),
+            "state": state,
+            "exposure": f"{len(members)} band(s) touching: max severity {max_sev}/5; signal mix {'hard' if any_hard else 'medium' if any_medium else 'soft'}.",
+            "what_to_watch": f"Highest-impact member: {top_member.id} (sev {top_member.severity}, {top_member.signal_tier}).",
+            "member_count": len(members),
+        })
+    tiles.sort(key=lambda t: ({"red": 0, "amber": 1, "green": 2}[t["state"]], -t["member_count"]))
+    return tiles
+
+
 def main() -> int:
     today = datetime.now(timezone.utc).date()
     bands = load_bands(today)
@@ -261,14 +420,26 @@ def main() -> int:
     for i, c in enumerate(clusters, start=1):
         c["id"] = f"cluster-{today_iso}-{i:03d}"
 
+    names = vocab_name_lookup()
+    titles = all_band_titles(today)
+    for c in clusters:
+        c["narrative_seed"] = narrate(c, names, titles)
+
+    executive_summary = build_executive_summary(clusters, bands, names)
+    chokepoint_board = build_chokepoint_board(bands, names)
+
     out = {
-        "$comment": "Derived convergence clusters. Bot-owned. Rebuilt from scratch every daily run.",
+        "$comment": "Derived convergence clusters + chokepoint constraint board. Bot-owned. Rebuilt from scratch every daily run.",
         "computed_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "executive_summary": executive_summary,
+        "chokepoint_board": chokepoint_board,
         "clusters": clusters,
     }
     (DATA / "overlaps.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     above_threshold = sum(1 for c in clusters if c["convergence_score"] >= 5.5)
-    print(f"[overlaps] wrote {len(clusters)} clusters; {above_threshold} at score >= 5.5.")
+    n_red = sum(1 for t in chokepoint_board if t["state"] == "red")
+    n_amber = sum(1 for t in chokepoint_board if t["state"] == "amber")
+    print(f"[overlaps] wrote {len(clusters)} clusters; {above_threshold} at score >= 5.5; chokepoint board {n_red} red / {n_amber} amber.")
     return 0
 
 
