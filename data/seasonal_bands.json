@@ -1,7 +1,7 @@
 {
   "$comment": "GENERATED from data/patterns.csv by build_patterns.py. Do not hand-edit; edit patterns.csv (weather rows) and rebuild.",
   "version": "2026.143",
-  "generated_at": "2026-05-23T19:24:40Z",
+  "generated_at": "2026-05-23T19:56:48Z",
   "bands": [
     {
       "id": "atl-hurricane-2026",
@@ -619,6 +619,329 @@
       ],
       "confidence": "medium",
       "notes": "NOAA CPC ENSO Alert; modulator only, provides context for other bands"
+    },
+    {
+      "id": "eu-flood-central-2026",
+      "hazard_type": "flood",
+      "name": "Central European river flood season",
+      "regions": [
+        "EU-Industrial",
+        "EU-North"
+      ],
+      "geo_bbox": [
+        45.0,
+        2.0,
+        55.0,
+        20.0
+      ],
+      "start_date": "2026-04-01",
+      "peak_window": [
+        "2026-06-01",
+        "2026-08-31"
+      ],
+      "end_date": "2026-09-30",
+      "baseline_severity": 3,
+      "affected_industries": [
+        "chem_basic",
+        "metals_steel",
+        "rail_freight",
+        "warehousing",
+        "ports_terminals",
+        "energy_power"
+      ],
+      "affected_commodities": [
+        "coal_thermal",
+        "diesel"
+      ],
+      "affected_chokepoints": [
+        "rhine_inland"
+      ],
+      "source_ids": [
+        "copernicus_efas",
+        "dwd",
+        "ecmwf"
+      ],
+      "confidence": "high",
+      "notes": "Spring snowmelt + summer Vb-cyclone convective floods; 2002/2013/2021/2024 damaging events May-Sep; Rhine/Danube/Elbe/Oder basins; chem + steel + barge logistics"
+    },
+    {
+      "id": "eu-flood-med-2026",
+      "hazard_type": "flood",
+      "name": "Mediterranean autumn flood (DANA / gota fria)",
+      "regions": [
+        "EU-Med"
+      ],
+      "geo_bbox": [
+        36.0,
+        -6.0,
+        46.0,
+        20.0
+      ],
+      "start_date": "2026-09-01",
+      "peak_window": [
+        "2026-10-01",
+        "2026-11-30"
+      ],
+      "end_date": "2026-12-31",
+      "baseline_severity": 3,
+      "affected_industries": [
+        "ports_terminals",
+        "trucking",
+        "agriculture_citrus",
+        "food_processing"
+      ],
+      "affected_commodities": [
+        "orange_juice"
+      ],
+      "affected_chokepoints": [],
+      "source_ids": [
+        "copernicus_efas",
+        "ecmwf"
+      ],
+      "confidence": "high",
+      "notes": "Cut-off-low autumn flash floods on W Med coast; Valencia 2024 catastrophic; Spain/SE France/Italy; citrus + ports + road"
+    },
+    {
+      "id": "cn-flood-meiyu-2026",
+      "hazard_type": "flood",
+      "name": "East Asia / China flood season (Meiyu rains)",
+      "regions": [
+        "AS-NWPacific"
+      ],
+      "geo_bbox": [
+        22.0,
+        105.0,
+        42.0,
+        130.0
+      ],
+      "start_date": "2026-05-01",
+      "peak_window": [
+        "2026-06-01",
+        "2026-08-31"
+      ],
+      "end_date": "2026-09-30",
+      "baseline_severity": 4,
+      "affected_industries": [
+        "semiconductors",
+        "electronics_assembly",
+        "auto_components",
+        "ports_terminals",
+        "shipping_container"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "semiconductors_legacy"
+      ],
+      "affected_chokepoints": [
+        "shanghai_port"
+      ],
+      "source_ids": [
+        "jma_rsmc",
+        "ecmwf"
+      ],
+      "confidence": "high",
+      "notes": "Meiyu/Baiu front + Yangtze/Pearl basin floods Jun-Aug; manufacturing + Yangtze shipping + Shanghai port; 2020 Yangtze flooding major"
+    },
+    {
+      "id": "sea-monsoon-flood-2026",
+      "hazard_type": "flood",
+      "name": "SE Asia NE-monsoon flood season",
+      "regions": [
+        "AS-Malacca"
+      ],
+      "geo_bbox": [
+        -8.0,
+        95.0,
+        15.0,
+        120.0
+      ],
+      "start_date": "2026-11-01",
+      "peak_window": [
+        "2026-12-01",
+        "2027-01-31"
+      ],
+      "end_date": "2027-02-28",
+      "baseline_severity": 3,
+      "affected_industries": [
+        "electronics_assembly",
+        "semiconductors",
+        "ports_terminals",
+        "agriculture_palm"
+      ],
+      "affected_commodities": [
+        "palm_oil",
+        "semiconductors_legacy",
+        "containerized_general"
+      ],
+      "affected_chokepoints": [
+        "singapore_port"
+      ],
+      "source_ids": [
+        "ecmwf",
+        "jma_rsmc"
+      ],
+      "confidence": "medium",
+      "notes": "NE monsoon flooding in Malaysia/Thailand/Indonesia; Thailand 2011 floods crippled HDD supply chain; electronics + palm oil + ports"
+    },
+    {
+      "id": "na-winterstorm-2026",
+      "hazard_type": "winter_storm",
+      "name": "North American winter storm season",
+      "regions": [
+        "NA-Gulf"
+      ],
+      "geo_bbox": [
+        25.0,
+        -105.0,
+        50.0,
+        -65.0
+      ],
+      "start_date": "2026-11-01",
+      "peak_window": [
+        "2026-12-01",
+        "2027-02-28"
+      ],
+      "end_date": "2027-03-31",
+      "baseline_severity": 3,
+      "affected_industries": [
+        "energy_power",
+        "energy_gas_distribution",
+        "rail_freight",
+        "trucking",
+        "ports_terminals"
+      ],
+      "affected_commodities": [
+        "natural_gas_pipeline",
+        "diesel",
+        "lng"
+      ],
+      "affected_chokepoints": [
+        "houston_port"
+      ],
+      "source_ids": [
+        "noaa_cpc",
+        "noaa_spc"
+      ],
+      "confidence": "high",
+      "notes": "Noreasters + polar-vortex outbreaks + Gulf freeze (Feb 2021 Texas grid + petchem); energy demand + grid + refining + rail"
+    },
+    {
+      "id": "us-flood-spring-2026",
+      "hazard_type": "flood",
+      "name": "US spring river flood season (Mississippi / Midwest)",
+      "regions": [
+        "NA-Gulf"
+      ],
+      "geo_bbox": [
+        29.0,
+        -100.0,
+        48.0,
+        -82.0
+      ],
+      "start_date": "2026-03-01",
+      "peak_window": [
+        "2026-04-01",
+        "2026-05-31"
+      ],
+      "end_date": "2026-06-30",
+      "baseline_severity": 3,
+      "affected_industries": [
+        "agriculture_grain",
+        "rail_freight",
+        "warehousing",
+        "food_processing"
+      ],
+      "affected_commodities": [
+        "maize",
+        "soybean",
+        "wheat"
+      ],
+      "affected_chokepoints": [
+        "mississippi_inland",
+        "new_orleans_port"
+      ],
+      "source_ids": [
+        "noaa_cpc"
+      ],
+      "confidence": "high",
+      "notes": "Snowmelt + spring rain river flooding on Mississippi/Missouri; barge grain/fertilizer disruption; 2019 historic flooding"
+    },
+    {
+      "id": "me-dust-storm-2026",
+      "hazard_type": "dust_storm",
+      "name": "Arabian / Gulf dust storm season (shamal)",
+      "regions": [
+        "ME-PersianGulf",
+        "ME-RedSea"
+      ],
+      "geo_bbox": [
+        22.0,
+        38.0,
+        33.0,
+        58.0
+      ],
+      "start_date": "2026-03-01",
+      "peak_window": [
+        "2026-05-01",
+        "2026-07-31"
+      ],
+      "end_date": "2026-08-31",
+      "baseline_severity": 2,
+      "affected_industries": [
+        "ports_terminals",
+        "air_freight",
+        "energy_renewables",
+        "shipping_tanker"
+      ],
+      "affected_commodities": [
+        "crude_oil"
+      ],
+      "affected_chokepoints": [
+        "hormuz"
+      ],
+      "source_ids": [
+        "ecmwf"
+      ],
+      "confidence": "medium",
+      "notes": "Summer shamal dust storms cut visibility; Gulf port/aviation delays + solar output loss; Iraq/Kuwait/Gulf"
+    },
+    {
+      "id": "us-westcoast-atmos-river-2026",
+      "hazard_type": "flood",
+      "name": "US West Coast atmospheric river season",
+      "regions": [
+        "NA-USWest"
+      ],
+      "geo_bbox": [
+        32.0,
+        -125.0,
+        49.0,
+        -117.0
+      ],
+      "start_date": "2026-11-01",
+      "peak_window": [
+        "2026-12-01",
+        "2027-02-28"
+      ],
+      "end_date": "2027-03-31",
+      "baseline_severity": 3,
+      "affected_industries": [
+        "ports_terminals",
+        "rail_freight",
+        "trucking",
+        "agriculture_grain"
+      ],
+      "affected_commodities": [
+        "containerized_general"
+      ],
+      "affected_chokepoints": [
+        "la_long_beach"
+      ],
+      "source_ids": [
+        "noaa_cpc"
+      ],
+      "confidence": "medium",
+      "notes": "Atmospheric rivers Nov-Mar; California flooding + Central Valley ag + LA/LB port + rail (2023 AR sequence major)"
     }
   ]
 }
