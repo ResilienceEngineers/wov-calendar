@@ -114,8 +114,19 @@ def render_today_glance(executive: dict) -> str:
     headline = html_lib.escape(executive.get("headline", ""))
     cp_phrase = html_lib.escape(executive.get("chokepoint_phrase", ""))
     kpis = executive.get("kpis", {})
+    prep = ""
+    if executive.get("prepare_what"):
+        prep = (
+            '<div class="tg-prepare">'
+            f'<span><span class="pl">Prepare for</span> {html_lib.escape(executive.get("prepare_what", ""))}</span>'
+            f'<span><span class="pl">When</span> {html_lib.escape(executive.get("prepare_when", ""))}</span>'
+            f'<span><span class="pl">Act</span> {html_lib.escape(executive.get("prepare_by", ""))}</span>'
+            f'<span><span class="pl">Why</span> {html_lib.escape(executive.get("prepare_why", ""))}</span>'
+            '</div>'
+        )
     return (
         f'<p class="tg-headline">{headline}</p>'
+        f'{prep}'
         f'<p class="tg-chokepoint">{cp_phrase}</p>'
         f'<p class="tg-kpis">'
         f'{kpis.get("bands_tracked", 0)} bands tracked · '
@@ -124,6 +135,27 @@ def render_today_glance(executive: dict) -> str:
         f'top score {kpis.get("top_score", 0):.1f}/10'
         f'</p>'
     )
+
+
+def render_risk_by_month(months: list[dict]) -> str:
+    if not months:
+        return '<p class="empty">Pending first run.</p>'
+    peak = max((m["intensity"] for m in months), default=0.0) or 1.0
+    bars = []
+    for m in months:
+        h = int(round((m["intensity"] / peak) * 100))
+        cls = "rbm-bar peak" if m.get("is_peak") else "rbm-bar"
+        title = f'{m["label"]}: intensity {m["intensity"]} from {m.get("cluster_count",0)} cluster(s)'
+        bars.append(
+            f'<div class="rbm-col" title="{html_lib.escape(title)}">'
+            f'<div class="rbm-track"><div class="{cls}" style="height:{h}%"></div></div>'
+            f'<div class="rbm-label">{html_lib.escape(m["label"])}</div>'
+            f'</div>'
+        )
+    peak_month = next((m for m in months if m.get("is_peak")), None)
+    caption = (f'Riskiest month ahead: <strong>{html_lib.escape(peak_month["label"])}</strong> '
+               f'(intensity {peak_month["intensity"]} from {peak_month.get("cluster_count",0)} converging clusters).') if peak_month and peak_month["intensity"] > 0 else "No surfaced convergence in the next 12 months."
+    return f'<p class="rbm-caption">{caption}</p><div class="rbm-chart">{"".join(bars)}</div>'
 
 
 def update_titles(s: str, date_human: str, prefix: str) -> str:
@@ -164,21 +196,23 @@ def main() -> int:
     top_score = max((c["convergence_score"] for c in overlaps["clusters"]), default=0.0)
 
     summary_html = (
-        f'<span class="kpi"><strong>{n_total_bands}</strong> bands tracked<small>seasonal + active + FM</small></span>'
+        f'<span class="kpi"><strong>{n_total_bands}</strong> bands tracked<small>patterns + active + FM</small></span>'
         f'<span class="kpi"><strong>{n_clusters}</strong> clusters detected<small>before / after threshold</small></span>'
-        f'<span class="kpi"><strong>{n_surfaced}</strong> above threshold<small>score &ge; 5.5/10</small></span>'
+        f'<span class="kpi"><strong>{n_surfaced}</strong> above threshold<small>score &ge; 5.0/10</small></span>'
         f'<span class="kpi"><strong>{top_score:.1f}</strong> top score<small>highest convergence today</small></span>'
     )
 
     overlaps_html = render_top_overlaps(overlaps["clusters"], names)
     chokepoint_html = render_chokepoint_board(overlaps.get("chokepoint_board", []))
     today_glance_html = render_today_glance(overlaps.get("executive_summary", {}))
+    risk_by_month_html = render_risk_by_month(overlaps.get("risk_by_month", []))
 
     shared_blocks = {
         "TODAY_HUMAN": human_date,
         "TODAY_ISO": today_iso,
         "LAST_UPDATED": f"{last_updated}",
         "DATA_VERSION": json.dumps({"computed_at": overlaps["computed_at"], "today": today_iso}),
+        "RISK_BY_MONTH": risk_by_month_html,
     }
     index_only_blocks = {
         "HERO_KPIS": summary_html,

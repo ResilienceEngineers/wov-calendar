@@ -415,8 +415,18 @@ def narrate(cluster: dict, names: dict[str, dict[str, str]], titles: dict[str, s
     )
 
 
-def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict[str, dict[str, str]]) -> dict:
-    """One-paragraph plain-language summary for the page hero."""
+def humanize(d: date) -> str:
+    return d.strftime("%-d %b %Y") if hasattr(d, "strftime") else str(d)
+
+
+def _fmt(d: date) -> str:
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    return f"{d.day} {months[d.month - 1]} {d.year}"
+
+
+def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict[str, dict[str, str]],
+                            titles: dict[str, str], today: date) -> dict:
+    """Action-first summary: what to prepare for, by when, and why."""
     n_total = len(bands)
     n_clusters = len(clusters)
     n_surfaced = sum(1 for c in clusters if c["convergence_score"] >= SURFACE_THRESHOLD)
@@ -427,13 +437,37 @@ def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict
     chokepoint_names = [names["chokepoint"].get(cp, cp) for cp in chokepoints_active]
 
     top_cluster = clusters[0] if clusters else None
-    headline = "Calendar quiet — no convergence above surface threshold."
+    headline = "Calendar quiet — no convergence above the surface threshold right now."
+    prepare_what = prepare_when = prepare_why = prepare_by = ""
     if top_cluster and top_cluster["convergence_score"] >= SURFACE_THRESHOLD:
         axis = top_cluster["axis"]
         display = names.get(axis, {}).get(top_cluster["axis_value"], top_cluster["axis_value"])
+        win_start = datetime.strptime(top_cluster["time_window"][0], "%Y-%m-%d").date()
+        win_end = datetime.strptime(top_cluster["time_window"][1], "%Y-%m-%d").date()
+        depth = top_cluster.get("peak_depth", 2)
+        inds = top_cluster.get("shared_industries") or []
+        coms = top_cluster.get("shared_commodities") or []
+        # who should prepare
+        ind_names = [names["industry"].get(i, i) for i in inds[:3]]
+        who = ", ".join(ind_names) if ind_names else "exposed operators"
+        # what / why
+        peak_ids = top_cluster.get("peak_member_ids") or top_cluster["member_event_ids"]
+        drivers = " + ".join(titles.get(m, m) for m in peak_ids[:3])
+        commodity_phrase = (" hitting " + ", ".join(names["commodity"].get(c, c) for c in coms[:3])) if coms else ""
+        # lead time: prepare ~30 days before window start, or "now" if already open
+        lead_buffer = timedelta(days=30)
+        if win_start <= today:
+            prepare_by = "now — window already open"
+        else:
+            by_date = max(today, win_start - lead_buffer)
+            prepare_by = f"by {_fmt(by_date)}"
+        axis_word = {"chokepoint": "transit chokepoint", "region": "region", "industry": "industry", "commodity": "commodity flow"}.get(axis, axis)
+        prepare_what = f"{display} ({axis_word}){commodity_phrase}"
+        prepare_when = f"{_fmt(win_start)} → {_fmt(win_end)}"
+        prepare_why = f"{depth} risks peak together: {drivers}"
         headline = (
-            f"Top pressure: {display} ({axis}, score {top_cluster['convergence_score']:.1f}/10) "
-            f"between {top_cluster['time_window'][0]} and {top_cluster['time_window'][1]}."
+            f"Prepare {who} for {display} disruption — peak {prepare_when}. "
+            f"{depth} risks stack here (score {top_cluster['convergence_score']:.1f}/10). Act {prepare_by}."
         )
 
     chokepoint_phrase = (
@@ -443,6 +477,10 @@ def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict
 
     return {
         "headline": headline,
+        "prepare_what": prepare_what,
+        "prepare_when": prepare_when,
+        "prepare_by": prepare_by,
+        "prepare_why": prepare_why,
         "chokepoint_phrase": chokepoint_phrase,
         "kpis": {
             "bands_tracked": n_total,
@@ -452,6 +490,40 @@ def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict
             "chokepoints_active": len(chokepoints_active),
         },
     }
+
+
+def build_risk_by_month(clusters: list[dict], today: date) -> list[dict]:
+    """12-month forward risk-intensity profile so the 'riskiest time' is obvious.
+
+    Each month's intensity = sum of convergence scores of clusters whose peak window
+    intersects that month. Surfaced (>= threshold) clusters only.
+    """
+    months: list[dict] = []
+    surfaced = [c for c in clusters if c["convergence_score"] >= SURFACE_THRESHOLD]
+    cur = date(today.year, today.month, 1)
+    for _ in range(12):
+        m_start = cur
+        nxt = date(cur.year + (1 if cur.month == 12 else 0), 1 if cur.month == 12 else cur.month + 1, 1)
+        m_end = nxt - timedelta(days=1)
+        intensity = 0.0
+        count = 0
+        for c in surfaced:
+            ws = datetime.strptime(c["time_window"][0], "%Y-%m-%d").date()
+            we = datetime.strptime(c["time_window"][1], "%Y-%m-%d").date()
+            if ws <= m_end and we >= m_start:
+                intensity += c["convergence_score"]
+                count += 1
+        months.append({
+            "month": cur.strftime("%Y-%m"),
+            "label": cur.strftime("%b %y"),
+            "intensity": round(intensity, 1),
+            "cluster_count": count,
+        })
+        cur = nxt
+    peak = max((m["intensity"] for m in months), default=0.0)
+    for m in months:
+        m["is_peak"] = bool(peak > 0 and m["intensity"] == peak)
+    return months
 
 
 def build_chokepoint_board(bands: list[Band], titles: dict[str, str]) -> list[dict]:
@@ -540,13 +612,15 @@ def main() -> int:
     for c in clusters:
         c["narrative_seed"] = narrate(c, names, titles)
 
-    executive_summary = build_executive_summary(clusters, bands, names)
+    executive_summary = build_executive_summary(clusters, bands, names, titles, today)
     chokepoint_board = build_chokepoint_board(bands, titles)
+    risk_by_month = build_risk_by_month(clusters, today)
 
     out = {
-        "$comment": "Derived convergence clusters + chokepoint constraint board. Bot-owned. Rebuilt from scratch every daily run.",
+        "$comment": "Derived convergence clusters + chokepoint constraint board + monthly risk profile. Bot-owned. Rebuilt from scratch every daily run.",
         "computed_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "executive_summary": executive_summary,
+        "risk_by_month": risk_by_month,
         "chokepoint_board": chokepoint_board,
         "clusters": clusters,
     }

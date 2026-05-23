@@ -1,16 +1,211 @@
 {
   "$comment": "Snapshot of hormuz-tracker daily brief. Bot-owned. Refreshed daily by ingest_hormuz.py.",
-  "scraped_at": "2026-05-13T00:00:00Z",
+  "scraped_at": "2026-05-23T21:17:58Z",
   "source_url": "https://resilienceengineers.github.io/hormuz-daily-brief/",
   "snapshot": {
-    "brief_date": "pending first run",
-    "day_of_war": null,
+    "brief_date": "23 May 2026",
+    "day_of_war": 85,
     "trend": "Same",
-    "trend_confidence": null,
-    "threat_level": 1,
-    "threat_label": "Routine",
-    "oneliner": "Awaiting first ingest run.",
-    "watchlist": [],
-    "map_pins": []
+    "trend_confidence": "Medium",
+    "threat_level": 4,
+    "threat_label": "Severe",
+    "oneliner": "Highest-intensity shuttle yet — Munir and Qatar team both in Tehran on Day 85 — yields no named deliverable; Iran closes western airspace under NOTAM; Hormuz at 2% baseline; uranium impasse structurally unchanged.",
+    "watchlist": [
+      {
+        "label": "W1 Iran NOTAM OIIX A1010/26 western airspace expiry — kinetics window or diplomatic signal. EOD Mon 25 May If extended or coincides with US strike: Threat 4→5; activate rerouting. If lifted quietly: reduces near-term kinetic P by ~10pp.",
+        "deadline": "EOD Mon 25 May",
+        "implication": "If extended or coincides with US strike: Threat 4→5; activate rerouting. If lifted quietly: reduces near-term kinetic P by ~10pp."
+      },
+      {
+        "label": "W2 Trump \"limited timeframe\" strike resumption deadline — rolling 72–96h from 23 May (Sat–Tue window). Rolling to 26 May Kinetics resumption = Houthi trigger activation; Brent +15–20%; Threat 5. Fourth Gulf-state deferral if applied = unprecedented mechanism signal.",
+        "deadline": "Rolling to 26 May",
+        "implication": "Kinetics resumption = Houthi trigger activation; Brent +15–20%; Threat 5. Fourth Gulf-state deferral if applied = unprecedented mechanism signal."
+      },
+      {
+        "label": "W3 Israeli nuclear-facility strike execution — preparations confirmed; Gulf-state deferral active fourth time. Rolling 72h If executed: ceasefire collapses; US forced into binary choice; Hormuz closure hardens for 30+ days; re-escalation scenario becomes near-certain.",
+        "deadline": "Rolling 72h",
+        "implication": "If executed: ceasefire collapses; US forced into binary choice; Hormuz closure hardens for 30+ days; re-escalation scenario becomes near-certain."
+      },
+      {
+        "label": "W4 Barakah NPP inner-perimeter attack — outer-perimeter proof-of-concept established; Iraqi proxy chain unresolved; Iraq investigation unlikely to produce rapid deterrence. Rolling 72h Inner-perimeter hit = standalone Threat 4→5 threshold; IAEA emergency session; UAE escalatory response options unlocked.",
+        "deadline": "Rolling 72h",
+        "implication": "Inner-perimeter hit = standalone Threat 4→5 threshold; IAEA emergency session; UAE escalatory response options unlocked."
+      },
+      {
+        "label": "W5 Socotra small-craft incident follow-up — UKMTO confirmed approach 23 May; no group claimed; test of Houthi ceasefire perimeter. 48h / 25 May If attributed to Houthi: ceasefire violated; Red Sea Elevated→Severe; MARAD upgrade; re-escalation scenario gains ~5pp.",
+        "deadline": "48h / 25 May",
+        "implication": "If attributed to Houthi: ceasefire violated; Red Sea Elevated→Severe; MARAD upgrade; re-escalation scenario gains ~5pp."
+      }
+    ],
+    "map_pins": [
+      {
+        "lat": 27.18,
+        "lng": 56.27,
+        "name": "Bandar Abbas",
+        "color": "red",
+        "status": "Iranian military"
+      },
+      {
+        "lat": 26.55,
+        "lng": 56.45,
+        "name": "Strait choke",
+        "color": "red",
+        "status": "Active incident"
+      },
+      {
+        "lat": 28.97,
+        "lng": 50.84,
+        "name": "Bushehr",
+        "color": "red",
+        "status": "Iranian military"
+      },
+      {
+        "lat": 29.25,
+        "lng": 50.32,
+        "name": "Kharg Island",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 30.34,
+        "lng": 48.3,
+        "name": "Abadan",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 25.94,
+        "lng": 49.67,
+        "name": "Abqaiq",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 26.65,
+        "lng": 50.17,
+        "name": "Ras Tanura",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 26.95,
+        "lng": 49.65,
+        "name": "Jubail",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 25.92,
+        "lng": 51.56,
+        "name": "Ras Laffan",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 25.0,
+        "lng": 55.13,
+        "name": "Jebel Ali",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 24.1,
+        "lng": 52.73,
+        "name": "Ruwais",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 25.34,
+        "lng": 56.36,
+        "name": "Khor Fakkan",
+        "color": "green",
+        "status": "Operating"
+      },
+      {
+        "lat": 25.13,
+        "lng": 56.34,
+        "name": "Fujairah",
+        "color": "green",
+        "status": "Operating"
+      },
+      {
+        "lat": 24.36,
+        "lng": 56.74,
+        "name": "Sohar",
+        "color": "green",
+        "status": "Operating"
+      },
+      {
+        "lat": 24.1,
+        "lng": 38.1,
+        "name": "Yanbu",
+        "color": "green",
+        "status": "Operating"
+      },
+      {
+        "lat": 21.49,
+        "lng": 39.18,
+        "name": "Jeddah",
+        "color": "green",
+        "status": "Operating"
+      },
+      {
+        "lat": 31.0,
+        "lng": 29.97,
+        "name": "Sidi Kerir",
+        "color": "green",
+        "status": "Operating"
+      },
+      {
+        "lat": 29.6,
+        "lng": 32.32,
+        "name": "Ain Sukhna",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 30.95,
+        "lng": 32.55,
+        "name": "Suez Canal",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 14.79,
+        "lng": 42.95,
+        "name": "Hodeida",
+        "color": "red",
+        "status": "Iranian military"
+      },
+      {
+        "lat": 12.78,
+        "lng": 45.04,
+        "name": "Aden",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 12.6,
+        "lng": 43.4,
+        "name": "Bab al-Mandeb",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 29.55,
+        "lng": 34.95,
+        "name": "Eilat",
+        "color": "amber",
+        "status": "At risk"
+      },
+      {
+        "lat": 31.67,
+        "lng": 34.55,
+        "name": "Ashkelon",
+        "color": "amber",
+        "status": "At risk"
+      }
+    ]
   }
 }

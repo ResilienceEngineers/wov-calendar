@@ -20,7 +20,7 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
 
-RAW_URL = "https://raw.githubusercontent.com/resilienceengineers/hormuz-tracker/main/index.html"
+RAW_URL = "https://raw.githubusercontent.com/resilienceengineers/hormuz-daily-brief/main/index.html"
 PUBLIC_URL = "https://resilienceengineers.github.io/hormuz-daily-brief/"
 
 BLOCK_RE = re.compile(

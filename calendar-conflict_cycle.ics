@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT24H
 X-PUBLISHED-TTL:PT24H
 BEGIN:VEVENT
 UID:conflict-sahel-dryseason-2025@resilienceengineers.github.io
-DTSTAMP:20260523T210525Z
+DTSTAMP:20260523T212308Z
 DTSTART;VALUE=DATE:20251001
 DTEND;VALUE=DATE:20260601
 SUMMARY:[Conflict cycle] Sahel dry-season violence cycle (sev 3/5)
@@ -28,7 +28,7 @@ TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:conflict-blacksea-grain-2026@resilienceengineers.github.io
-DTSTAMP:20260523T210525Z
+DTSTAMP:20260523T212308Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20261201
 SUMMARY:[Conflict cycle] Black Sea grain corridor disruption window (sev 

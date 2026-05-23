@@ -17,6 +17,21 @@
         "kpis": { "type": "object", "additionalProperties": true }
       }
     },
+    "risk_by_month": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["month", "intensity"],
+        "properties": {
+          "month": { "type": "string" },
+          "label": { "type": "string" },
+          "intensity": { "type": "number" },
+          "cluster_count": { "type": "integer" },
+          "is_peak": { "type": "boolean" }
+        }
+      }
+    },
     "chokepoint_board": {
       "type": "array",
       "items": {

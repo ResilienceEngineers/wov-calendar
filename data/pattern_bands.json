@@ -1,6 +1,6 @@
 {
   "$comment": "GENERATED from data/patterns.csv by build_patterns.py. Single source of truth is patterns.csv.",
-  "generated_at": "2026-05-23T21:05:24Z",
+  "generated_at": "2026-05-23T21:23:07Z",
   "source_of_truth": "data/patterns.csv",
   "bands": [
     {

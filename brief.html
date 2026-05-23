@@ -7,6 +7,8 @@
 <title>WoV — deep view · 23 May 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
 <style>
   :root { --ink: #14171c; --ink-soft: #54616e; --rule: #e6e2da; --paper: #fcfaf6; --accent: #a4242a; --hard: #c1272d; --med: #b67a08; --soft: #2c7a4a; }
   *, *::before, *::after { box-sizing: border-box; }
@@ -31,6 +33,13 @@
   details.how-to-read p { font-size: 14px; margin: 8px 0; }
   details.how-to-read ul { font-size: 14px; margin: 8px 0 8px 18px; padding: 0; } details.how-to-read li { margin: 4px 0; }
 
+  .rbm-caption { font-size: 13px; color: var(--ink-soft); margin: 0 0 10px; }
+  .rbm-chart { display: flex; gap: 6px; align-items: flex-end; background: #fff; border: 1px solid var(--rule); padding: 14px 16px; }
+  .rbm-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .rbm-track { width: 100%; height: 90px; display: flex; align-items: flex-end; background: var(--paper); }
+  .rbm-bar { width: 100%; background: var(--med); min-height: 2px; }
+  .rbm-bar.peak { background: var(--accent); }
+  .rbm-label { font-family: ui-monospace, monospace; font-size: 10px; color: var(--ink-soft); }
   .heatmap-wrap { background: #fff; border: 1px solid var(--rule); padding: 16px; overflow-x: auto; }
   table.heatmap { border-collapse: collapse; font-size: 11px; min-width: 900px; }
   table.heatmap th, table.heatmap td { padding: 0; border: 1px solid var(--rule); }
@@ -87,7 +96,7 @@
 23 May 2026
 <!-- BRIEF:TODAY_HUMAN_END --></span>
     <span>Last updated <!-- BRIEF:LAST_UPDATED_START -->
-21:05 UTC
+21:23 UTC
 <!-- BRIEF:LAST_UPDATED_END --></span>
     <span>ISO <!-- BRIEF:TODAY_ISO_START -->
 2026-05-23
@@ -116,6 +125,14 @@
     </ul>
     <p><strong>Scoring &amp; windows.</strong> The window shown is the <em>peak-overlap</em> period — when the most bands peak simultaneously — not the full season. Score 0–10 is additive across five bounded parts: depth (how many peak together), severity, concentration (shared industries × commodities), signal reliability, and chokepoint criticality. Surface threshold 5.0. The ENSO modulator is context only and does not drive clusters.</p>
   </details>
+
+  <section>
+    <h2 class="section-title">When is the riskiest time? <small>next 12 months · convergence intensity</small></h2>
+    <p class="section-hint">Each bar sums the scores of surfaced convergence clusters peaking that month. Tallest (red) = the month to be ready for.</p>
+    <!-- BRIEF:RISK_BY_MONTH_START -->
+<p class="rbm-caption">Riskiest month ahead: <strong>May 26</strong> (intensity 47.4 from 8 converging clusters).</p><div class="rbm-chart"><div class="rbm-col" title="May 26: intensity 47.4 from 8 cluster(s)"><div class="rbm-track"><div class="rbm-bar peak" style="height:100%"></div></div><div class="rbm-label">May 26</div></div><div class="rbm-col" title="Jun 26: intensity 6.3 from 1 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:13%"></div></div><div class="rbm-label">Jun 26</div></div><div class="rbm-col" title="Jul 26: intensity 24.0 from 4 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:51%"></div></div><div class="rbm-label">Jul 26</div></div><div class="rbm-col" title="Aug 26: intensity 45.9 from 8 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:97%"></div></div><div class="rbm-label">Aug 26</div></div><div class="rbm-col" title="Sep 26: intensity 11.1 from 2 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:23%"></div></div><div class="rbm-label">Sep 26</div></div><div class="rbm-col" title="Oct 26: intensity 5.5 from 1 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:12%"></div></div><div class="rbm-label">Oct 26</div></div><div class="rbm-col" title="Nov 26: intensity 5.5 from 1 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:12%"></div></div><div class="rbm-label">Nov 26</div></div><div class="rbm-col" title="Dec 26: intensity 10.9 from 2 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:23%"></div></div><div class="rbm-label">Dec 26</div></div><div class="rbm-col" title="Jan 27: intensity 0.0 from 0 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:0%"></div></div><div class="rbm-label">Jan 27</div></div><div class="rbm-col" title="Feb 27: intensity 0.0 from 0 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:0%"></div></div><div class="rbm-label">Feb 27</div></div><div class="rbm-col" title="Mar 27: intensity 0.0 from 0 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:0%"></div></div><div class="rbm-label">Mar 27</div></div><div class="rbm-col" title="Apr 27: intensity 0.0 from 0 cluster(s)"><div class="rbm-track"><div class="rbm-bar" style="height:0%"></div></div><div class="rbm-label">Apr 27</div></div></div>
+<!-- BRIEF:RISK_BY_MONTH_END -->
+  </section>
 
   <section>
     <h2 class="section-title">Daily severity heatmap <small>next 31 days × risk family</small></h2>
@@ -180,19 +197,23 @@
 </footer>
 
 <!-- BRIEF:DATA_VERSION_START -->
-{"computed_at": "2026-05-23T21:05:25Z", "today": "2026-05-23"}
+{"computed_at": "2026-05-23T21:23:07Z", "today": "2026-05-23"}
 <!-- BRIEF:DATA_VERSION_END -->
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 const HAZARD_COLORS = { tropical_cyclone:"#c1272d", monsoon:"#1f5fa0", flood:"#2d7fb6", wildfire:"#d76b1e", drought:"#9a7a1c", winter_storm:"#6a4fa0", dust_storm:"#a07a3c", tornado_season:"#c44a8e", locust_outbreak:"#5a8a2c", enso_modulator:"#7a7a7a" };
 const CATEGORY_COLORS = { cargo_crime:"#8e44ad", cyber:"#16707a", conflict_cycle:"#7a1719", labor_cycle:"#2c5f2d" };
 const SEVERITY_BG = ["#fff","#fff7e6","#ffe3c2","#ffbf99","#f4836a","#c1272d"];
+let REGION_NAMES = {};
 
 async function fetchJSON(p){ const r=await fetch(p,{cache:"no-store"}); return r.json(); }
 function parseISODate(s){ const [y,m,d]=s.split("-").map(Number); return new Date(Date.UTC(y,m-1,d)); }
 function inWindow(d,s,e){ return d>=s && d<=e; }
+function esc(t){ return (t==null?"":String(t)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function regList(ids){ return (ids||[]).map(r=>REGION_NAMES[r]||r).join(", "); }
 
 function renderHeatmap(seasonal, patterns){
   const today=new Date(Date.UTC(new Date().getUTCFullYear(),new Date().getUTCMonth(),new Date().getUTCDate()));
@@ -233,38 +254,83 @@ function renderHeatmap(seasonal, patterns){
 }
 
 const mapState={map:null,layers:{}};
+function row(label,val){ return val ? `<div style="margin:2px 0"><span style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#54616e">${esc(label)}</span> ${esc(val)}</div>` : ""; }
+function popupActive(ev){
+  return `<div style="min-width:230px;max-width:300px"><strong style="font-size:14px">${esc(ev.title)}</strong>`
+    + row("Type", (ev.event_type||"").replace(/_/g," "))
+    + row("Severity", `${ev.severity}/5 · signal ${ev.signal_tier} · source tier ${ev.source_tier}`)
+    + row("Window", `${ev.start_date}${ev.est_end?(" → est. "+ev.est_end):" → ongoing"}`)
+    + row("Regions", regList(ev.regions))
+    + row("Industries", (ev.industries||[]).join(", "))
+    + row("Commodities", (ev.commodities||[]).join(", "))
+    + row("Chokepoints", (ev.chokepoints||[]).join(", "))
+    + (ev.notes?`<div style="margin-top:6px;font-size:12px">${esc(ev.notes)}</div>`:"")
+    + `</div>`;
+}
+function popupFM(ev){
+  return `<div style="min-width:230px;max-width:300px"><strong style="font-size:14px">${esc(ev.declarant)} — ${esc(ev.facility)}</strong>`
+    + row("Declared", ev.declared_at)
+    + row("Commodity", ev.commodity_class)
+    + row("Wave / type", `${ev.wave?("W"+ev.wave):"—"} · ${ev.fm_type||"—"}`)
+    + row("Status", ev.status)
+    + row("Country", ev.country_iso3)
+    + row("Regions", regList(ev.regions_affected))
+    + row("Downstream", (ev.industries_downstream||[]).join(", "))
+    + row("Est. duration", ev.estimated_duration_days?`${ev.estimated_duration_days} days`:"")
+    + `<div style="margin-top:6px;font-size:11px;color:#54616e">Source: fm-tracker</div></div>`;
+}
+function popupHormuz(p){
+  return `<div style="min-width:180px"><strong style="font-size:14px">${esc(p.name)}</strong>`
+    + row("Status", p.status) + row("Marker", p.color)
+    + `<div style="margin-top:6px;font-size:11px;color:#54616e">Source: Hormuz daily brief</div></div>`;
+}
+function popupChoke(c){
+  return `<div style="min-width:200px"><strong style="font-size:14px">${esc(c.name)}</strong>`
+    + row("Kind", c.kind) + row("Throughput", c.throughput_note) + `</div>`;
+}
+function popupBand(b, cat){
+  const peak = b.peak_window?`${b.peak_window[0]} → ${b.peak_window[1]}`:"—";
+  return `<div style="min-width:220px;max-width:300px"><strong style="font-size:14px">${esc(b.name)}</strong>`
+    + row("Family", cat) + row("Season", `${b.start_date} → ${b.end_date}`) + row("Peak", peak)
+    + row("Severity", `${b.baseline_severity}/5`)
+    + row("Regions", regList(b.regions))
+    + (b.methodology_note||b.notes?`<div style="margin-top:6px;font-size:12px">${esc(b.methodology_note||b.notes)}</div>`:"")
+    + `</div>`;
+}
 function renderMap(seasonal,patterns,active,fm,hormuz,regions,chokepoints){
   const map=L.map("map",{scrollWheelZoom:false,worldCopyJump:true}).setView([25,20],2);
   L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{attribution:"&copy; OpenStreetMap &copy; CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
   mapState.map=map;
   const regById=Object.fromEntries(regions.map(r=>[r.id,r]));
+  const clusterOpts={maxClusterRadius:45, spiderfyOnMaxZoom:true};
 
   const seasonalLayer=L.layerGroup();
   for(const b of seasonal.bands){ if(!b.geo_bbox) continue; const [s,w,n,e]=b.geo_bbox;
-    L.rectangle([[s,w],[n,e]],{color:HAZARD_COLORS[b.hazard_type]||"#888",weight:1,fillOpacity:0.05}).bindTooltip(`<strong>${b.name}</strong><br/>${b.start_date} → ${b.end_date} · sev ${b.baseline_severity}`).addTo(seasonalLayer); }
+    L.rectangle([[s,w],[n,e]],{color:HAZARD_COLORS[b.hazard_type]||"#888",weight:1,fillOpacity:0.05}).bindPopup(popupBand(b,b.hazard_type)).addTo(seasonalLayer); }
   seasonalLayer.addTo(map); mapState.layers.seasonal=seasonalLayer;
 
   const patLayer=L.layerGroup();
   for(const b of (patterns.bands||[])){ if(!b.geo_bbox) continue; const [s,w,n,e]=b.geo_bbox;
-    L.rectangle([[s,w],[n,e]],{color:CATEGORY_COLORS[b.category]||"#888",weight:1,dashArray:"4 3",fillOpacity:0.05}).bindTooltip(`<strong>${b.name}</strong><br/>${b.category} · ${b.start_date} → ${b.end_date} · sev ${b.baseline_severity}`).addTo(patLayer); }
+    L.rectangle([[s,w],[n,e]],{color:CATEGORY_COLORS[b.category]||"#888",weight:1,dashArray:"4 3",fillOpacity:0.05}).bindPopup(popupBand(b,b.category)).addTo(patLayer); }
   patLayer.addTo(map); mapState.layers.patterns=patLayer;
 
-  const activeLayer=L.layerGroup();
-  for(const ev of active.events) for(const rid of ev.regions){ const r=regById[rid]; if(!r) continue; const [s,w,n,e]=r.geo_bbox;
-    L.circleMarker([(s+n)/2,(w+e)/2],{radius:6,color:"#fff",weight:1.6,fillColor:"#c1272d",fillOpacity:0.9}).bindTooltip(`<strong>${ev.title}</strong><br/>sev ${ev.severity} · ${ev.signal_tier}`).addTo(activeLayer); }
+  // jitter overlapping markers in the same region so they spiderfy nicely when clustered
+  const activeLayer=L.markerClusterGroup(clusterOpts); let ai=0;
+  for(const ev of active.events){ const r=regById[(ev.regions||[])[0]]; if(!r) continue; const [s,w,n,e]=r.geo_bbox; const j=(ai++%4)*0.25;
+    L.circleMarker([(s+n)/2+j,(w+e)/2+j],{radius:7,color:"#fff",weight:1.6,fillColor:"#c1272d",fillOpacity:0.9}).bindPopup(popupActive(ev)).addTo(activeLayer); }
   activeLayer.addTo(map); mapState.layers.active=activeLayer;
 
-  const fmLayer=L.layerGroup();
-  for(const ev of fm.events){ const r=regById[ev.regions_affected[0]]; if(!r) continue; const [s,w,n,e]=r.geo_bbox;
-    L.circleMarker([(s+n)/2+0.7,(w+e)/2+0.7],{radius:5,color:"#fff",weight:1.4,fillColor:"#b67a08",fillOpacity:0.9}).bindTooltip(`<strong>${ev.declarant}</strong> · ${ev.facility}<br/>${ev.commodity_class} · ${ev.declared_at}`).addTo(fmLayer); }
+  const fmLayer=L.markerClusterGroup(clusterOpts); let fi=0;
+  for(const ev of fm.events){ const r=regById[(ev.regions_affected||[])[0]]; if(!r) continue; const [s,w,n,e]=r.geo_bbox; const j=(fi++%5)*0.3;
+    L.circleMarker([(s+n)/2+0.6+j,(w+e)/2+0.6-j],{radius:6,color:"#fff",weight:1.4,fillColor:"#b67a08",fillOpacity:0.9}).bindPopup(popupFM(ev)).addTo(fmLayer); }
   fmLayer.addTo(map); mapState.layers.fm=fmLayer;
 
   const chokeLayer=L.layerGroup();
-  for(const c of chokepoints.chokepoints) L.circleMarker([c.lat,c.lon],{radius:7,color:"#000",weight:1,fillColor:"#fff",fillOpacity:1}).bindTooltip(`<strong>${c.name}</strong><br/>${c.throughput_note}`).addTo(chokeLayer);
+  for(const c of chokepoints.chokepoints) L.circleMarker([c.lat,c.lon],{radius:7,color:"#000",weight:1,fillColor:"#fff",fillOpacity:1}).bindPopup(popupChoke(c)).addTo(chokeLayer);
   chokeLayer.addTo(map); mapState.layers.chokepoints=chokeLayer;
 
-  const hormuzLayer=L.layerGroup();
-  for(const p of (hormuz.snapshot.map_pins||[])) L.circleMarker([p.lat,p.lng],{radius:6,color:"#fff",weight:1.6,fillColor:p.color||"#a4242a",fillOpacity:0.85}).bindTooltip(`<strong>${p.name}</strong><br/>${p.status}`).addTo(hormuzLayer);
+  const hormuzLayer=L.markerClusterGroup(clusterOpts);
+  for(const p of (hormuz.snapshot.map_pins||[])) L.circleMarker([p.lat,p.lng],{radius:6,color:"#fff",weight:1.6,fillColor:p.color||"#a4242a",fillOpacity:0.85}).bindPopup(popupHormuz(p)).addTo(hormuzLayer);
   hormuzLayer.addTo(map); mapState.layers.hormuz=hormuzLayer;
 
   document.getElementById("map-controls").addEventListener("change",ev=>{ const l=mapState.layers[ev.target.dataset.layer]; if(!l) return; if(ev.target.checked) l.addTo(map); else map.removeLayer(l); });
@@ -321,6 +387,7 @@ function renderSources(sources){
       fetchJSON("data/vocab/regions.json").then(d=>d.regions),fetchJSON("data/vocab/chokepoints.json"),
       fetchJSON("data/sources.json"),fetchJSON("data/overlaps.json"),
     ]);
+    REGION_NAMES = Object.fromEntries(regions.map(r=>[r.id,r.name]));
     renderHeatmap(seasonal,patterns);
     renderMap(seasonal,patterns,active,fm,hormuz,regions,chokepoints);
     renderClusters(overlaps,regions);

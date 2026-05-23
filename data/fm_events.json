@@ -1,6 +1,318 @@
 {
   "$comment": "Force-majeure events scraped from fm-tracker. Bot-owned. IDs are sha1(declared_at + declarant + facility + commodity_class)[:12].",
-  "scraped_at": "2026-05-13T00:00:00Z",
+  "scraped_at": "2026-05-23T21:17:42Z",
   "source_url": "https://resilienceengineers.github.io/fm-tracker/",
-  "events": []
+  "events": [
+    {
+      "id": "fm-6bd6f178c849",
+      "declarant": "Trump / US State Dept",
+      "facility": "Strait toll regime negotiation",
+      "country_iso3": "USA",
+      "declared_at": "2026-05-22",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": null,
+      "fm_type": null,
+      "status": "amber",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "energy_oil"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-9ed1bcca9986",
+      "declarant": "Windward",
+      "facility": "Vessel traffic (Hormuz)",
+      "country_iso3": "ARE",
+      "declared_at": "2026-05-20",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": null,
+      "fm_type": "Shipping",
+      "status": "amber",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "shipping_tanker"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-5bc9c0279304",
+      "declarant": "US SPR",
+      "facility": "Strategic Petroleum Reserve release",
+      "country_iso3": "USA",
+      "declared_at": "2026-05-19",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": null,
+      "fm_type": "Restart",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "NA-Gulf"
+      ],
+      "industries_downstream": [
+        "energy_oil"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-43efd00c18ee",
+      "declarant": "Iran (PGSA)",
+      "facility": "Strait of Hormuz toll regime",
+      "country_iso3": "IRN",
+      "declared_at": "2026-05-18",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": null,
+      "fm_type": "Cascade",
+      "status": "amber",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "shipping_tanker",
+        "energy_oil"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-0ec11366f751",
+      "declarant": "QatarEnergy",
+      "facility": "Ras Laffan LNG (5yr contract)",
+      "country_iso3": "QAT",
+      "declared_at": "2026-05-12",
+      "commodity_class": "lng",
+      "products": [],
+      "wave": 1,
+      "fm_type": "Restart",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "energy_lng"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-eea359c8aa65",
+      "declarant": "IRGC Navy",
+      "facility": "Strait operational control zone",
+      "country_iso3": "IRN",
+      "declared_at": "2026-05-12",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": null,
+      "fm_type": "Cascade",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "shipping_tanker",
+        "energy_oil"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-66d45c1f087f",
+      "declarant": "EIA / IEA",
+      "facility": "Global crude oil / LNG supply",
+      "country_iso3": "QAT",
+      "declared_at": "2026-05-12",
+      "commodity_class": "lng",
+      "products": [],
+      "wave": null,
+      "fm_type": "Production",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "energy_lng"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-2c42a24da13d",
+      "declarant": "Bunker fuel market",
+      "facility": "Singapore / global ports",
+      "country_iso3": "SGP",
+      "declared_at": "2026-05-12",
+      "commodity_class": "fuel_oil",
+      "products": [],
+      "wave": null,
+      "fm_type": "Distribution",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "AS-Malacca"
+      ],
+      "industries_downstream": [
+        "shipping"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-d15a1f20ab24",
+      "declarant": "Saudi Aramco",
+      "facility": "OSP June crude pricing",
+      "country_iso3": "SAU",
+      "declared_at": "2026-05-12",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": 1,
+      "fm_type": null,
+      "status": "amber",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "energy_oil"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-73d31390b3ee",
+      "declarant": "EGA",
+      "facility": "Al Taweelah (aluminium)",
+      "country_iso3": "ARE",
+      "declared_at": "2026-04-29",
+      "commodity_class": "aluminium",
+      "products": [],
+      "wave": 1,
+      "fm_type": "Restart",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "metals_aluminium"
+      ],
+      "estimated_duration_days": 365,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-d1e4de724450",
+      "declarant": "SABIC",
+      "facility": "Jubail complex (26 units)",
+      "country_iso3": "SAU",
+      "declared_at": "2026-04-14",
+      "commodity_class": "petrochemicals",
+      "products": [],
+      "wave": 1,
+      "fm_type": "Restart",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "chem_petrochem",
+        "chem_basic"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-a7b6f9f9b665",
+      "declarant": "KPC",
+      "facility": "Crude oil (country)",
+      "country_iso3": "KWT",
+      "declared_at": "2026-04-04",
+      "commodity_class": "crude_oil",
+      "products": [],
+      "wave": 1,
+      "fm_type": "Restart",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "energy_oil"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-627a69a1f859",
+      "declarant": "Lufthansa Group",
+      "facility": "Middle East airspace / routes",
+      "country_iso3": "DEU",
+      "declared_at": "2026-03-05",
+      "commodity_class": "jet_fuel",
+      "products": [],
+      "wave": 2,
+      "fm_type": "Distribution",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "air_freight"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    },
+    {
+      "id": "fm-949e97c17c55",
+      "declarant": "Maersk / MSC / Hapag / CMA CGM",
+      "facility": "Middle East Gulf container routes",
+      "country_iso3": "ARE",
+      "declared_at": "2026-02-28",
+      "commodity_class": "containerized_general",
+      "products": [],
+      "wave": 2,
+      "fm_type": "Distribution",
+      "status": "red",
+      "signal_tier": "hard",
+      "source_tier": 1,
+      "regions_affected": [
+        "ME-PersianGulf"
+      ],
+      "industries_downstream": [
+        "shipping_container"
+      ],
+      "estimated_duration_days": 45,
+      "source_doc_url": null
+    }
+  ]
 }
