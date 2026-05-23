@@ -1,0 +1,62 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Resilience Engineers//Window of Vulnerability//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Window of Vulnerability - Cyber
+X-WR-CALDESC:Recurring windows of vulnerability (weather, cargo crime, cy
+ ber, conflict, labour). Auto-updates daily.
+X-WR-TIMEZONE:UTC
+REFRESH-INTERVAL;VALUE=DURATION:PT24H
+X-PUBLISHED-TTL:PT24H
+BEGIN:VEVENT
+UID:cyber-ransomware-holiday-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270201
+SUMMARY:[Cyber] Holiday / long-weekend ransomware surge (sev 4/5)
+DESCRIPTION:Family: Cyber (ransomware_holiday). Severity 4/5. Peak window
+ : 2026-12-01 to 2026-12-31. Regions: US Gulf / Houston\, EU industrial c
+ orridor (DE/FR/BE/NL). Industries: ports_terminals\, warehousing\, truck
+ ing\, energy_power\, food_processing. Tracked metric: ransomware_inciden
+ ts_logistics_monthly. CISA/FBI repeated advisories: attacks timed to hol
+ idays/weekends when SOC staffing is thin\; logistics + manufacturing tar
+ geted Source: Window of Vulnerability — resilienceengineers.github.io/wo
+ v-calendar
+CATEGORIES:Cyber
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cyber-tax-phishing-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260101
+DTEND;VALUE=DATE:20260501
+SUMMARY:[Cyber] Tax-season phishing & BEC (sev 2/5)
+DESCRIPTION:Family: Cyber (phishing_tax). Severity 2/5. Peak window: 2026
+ -02-01 to 2026-04-30. Regions: US Gulf / Houston\, EU industrial corrido
+ r (DE/FR/BE/NL). Industries: warehousing\, food_processing\, auto_oem. T
+ racked metric: bec_complaints_q1. IC3: Q1 phishing/BEC spike around US (
+ Jan-Apr) and UK (Jan) tax filing windows Source: Window of Vulnerability
+  — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Cyber
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cyber-blackfriday-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Cyber] Black Friday / Cyber Monday attack surge (sev 3/5)
+DESCRIPTION:Family: Cyber (ecommerce_peak). Severity 3/5. Peak window: 20
+ 26-11-01 to 2026-12-31. Regions: US Gulf / Houston\, EU industrial corri
+ dor (DE/FR/BE/NL). Industries: warehousing\, food_processing. Tracked me
+ tric: web_attacks_retail_nov. Check Point: retail/e-commerce + logistics
+  attack volume rises sharply mid-Nov to early-Dec Source: Window of Vuln
+ erability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Cyber
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

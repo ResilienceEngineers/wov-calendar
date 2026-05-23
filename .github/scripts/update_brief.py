@@ -31,6 +31,7 @@ STEPS = [
     ("triage signals",     "triage_with_claude.py",  False, []),
     ("compute overlaps",   "compute_overlaps.py",    True,  []),
     ("render pages",       "render_pages.py",        True,  []),
+    ("build ICS feeds",    "build_ics.py",           True,  []),
     ("validate",           "validate_schemas.py",    True,  []),
 ]
 

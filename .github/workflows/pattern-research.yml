@@ -47,10 +47,11 @@ jobs:
       - name: Rebuild bands from patterns.csv
         run: python .github/scripts/build_patterns.py
 
-      - name: Recompute overlaps + re-render + validate
+      - name: Recompute overlaps + re-render + build ICS + validate
         run: |
           python .github/scripts/compute_overlaps.py
           python .github/scripts/render_pages.py
+          python .github/scripts/build_ics.py
           python .github/scripts/validate_schemas.py
 
       - name: Commit and push if changed

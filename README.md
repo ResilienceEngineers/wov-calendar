@@ -56,6 +56,22 @@ Brier score on last week's convergence predictions, source reliability tally, me
 ### Quarterly — Jan/Apr/Jul/Oct 1
 Manual PR reviewing `seasonal_bands.json` against authoritative outlooks (NOAA, JMA, IMD, Météo-France, Copernicus).
 
+## Calendar export & subscription
+
+The executive page has a **Build & export your calendar** panel (stored only in the browser — no login, no server):
+
+1. **Add your own windows** — a small form writes private custom windows to `localStorage`; they appear on the Gantt and in your download.
+2. **Choose which pre-analysed windows to see** — per-pattern checkboxes (and per-family all/none). Drives both the "My selection only" Gantt view and the download.
+3. **Export**:
+   - **Download (.ics)** — client-side file built from your selection + custom windows. One-time import into Outlook / Google / Apple. Includes your private windows.
+   - **Subscribe (auto-updating)** — hosted `.ics` feeds regenerated every build by `build_ics.py` and served by GitHub Pages. Subscribe by URL and your calendar refreshes automatically when a window changes (stable per-event `UID` means updates replace, not duplicate). Pre-analysed patterns only.
+
+Feeds (one whole-calendar + one per family):
+- `https://resilienceengineers.github.io/wov-calendar/calendar.ics`
+- `calendar-weather.ics`, `calendar-cargo_crime.ics`, `calendar-cyber.ics`, `calendar-conflict_cycle.ics`, `calendar-labor_cycle.ics`
+
+`webcal://` links one-click-subscribe in Apple Calendar / Outlook; Google Calendar takes the `https` URL under *Other calendars → From URL*.
+
 ## Claude's role — explicit boundary
 
 Claude is the interpreter, not the engine. It is used **only** for:

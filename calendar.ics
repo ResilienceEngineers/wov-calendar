@@ -1,0 +1,590 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Resilience Engineers//Window of Vulnerability//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Window of Vulnerability - all patterns
+X-WR-CALDESC:Recurring windows of vulnerability (weather, cargo crime, cy
+ ber, conflict, labour). Auto-updates daily.
+X-WR-TIMEZONE:UTC
+REFRESH-INTERVAL;VALUE=DURATION:PT24H
+X-PUBLISHED-TTL:PT24H
+BEGIN:VEVENT
+UID:atl-hurricane-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20261201
+SUMMARY:[Weather] North Atlantic hurricane season (sev 4/5)
+DESCRIPTION:Family: Weather (tropical_cyclone). Severity 4/5. Peak window
+ : 2026-08-01 to 2026-10-31. Regions: US Gulf / Houston. Industries: ener
+ gy_oil\, energy_refining\, energy_lng\, shipping_tanker\, shipping_conta
+ iner\, agriculture_citrus. Chokepoints: houston_port\, new_orleans_port\
+ , panama_canal. NOAA NHC climatological season\; peak Aug-Oct\; hits Gul
+ f energy + Caribbean lanes + citrus + reinsurance Source: Window of Vuln
+ erability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ep-hurricane-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261201
+SUMMARY:[Weather] East / Central Pacific hurricane season (sev 3/5)
+DESCRIPTION:Family: Weather (tropical_cyclone). Severity 3/5. Peak window
+ : 2026-08-01 to 2026-09-30. Regions: US Gulf / Houston. Industries: ship
+ ping_container\, ports_terminals. Chokepoints: panama_canal. West Mexico
+  ports + Hawaii lane + Panama approach Source: Window of Vulnerability —
+  resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:nwpac-typhoon-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Weather] NW Pacific typhoon season (sev 4/5)
+DESCRIPTION:Family: Weather (tropical_cyclone). Severity 4/5. Peak window
+ : 2026-07-01 to 2026-10-31. Regions: NW Pacific (CN/JP/KR)\, Taiwan Stra
+ it. Industries: shipping_container\, ports_terminals\, semiconductors\, 
+ electronics_assembly\, auto_components. Chokepoints: shanghai_port\, tai
+ wan_strait. JMA/JTWC\; peak Jul-Oct\; China/JP/KR ports + semis + intra-
+ Asia ocean Source: Window of Vulnerability — resilienceengineers.github.
+ io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:nio-cyclone-pre-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260401
+DTEND;VALUE=DATE:20260701
+SUMMARY:[Weather] N Indian Ocean cyclone (pre-monsoon) (sev 3/5)
+DESCRIPTION:Family: Weather (tropical_cyclone). Severity 3/5. Peak window
+ : 2026-05-01 to 2026-05-31. Regions: South Asia (IN/BD). Industries: shi
+ pping_tanker\, shipping_container\, textiles_apparel\, pharma_api. IMD b
+ imodal NIO\; Apr-Jun more intense\; Indian/Bangladesh ports Source: Wind
+ ow of Vulnerability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:nio-cyclone-post-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Weather] N Indian Ocean cyclone (post-monsoon) (sev 3/5)
+DESCRIPTION:Family: Weather (tropical_cyclone). Severity 3/5. Peak window
+ : 2026-10-01 to 2026-11-30. Regions: South Asia (IN/BD). Industries: shi
+ pping_tanker\, shipping_container\, textiles_apparel. IMD second peak Oc
+ t-Dec Source: Window of Vulnerability — resilienceengineers.github.io/wo
+ v-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:monsoon-sw-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Weather] South Asian SW monsoon (sev 3/5)
+DESCRIPTION:Family: Weather (monsoon). Severity 3/5. Peak window: 2026-07
+ -01 to 2026-08-31. Regions: South Asia (IN/BD). Industries: textiles_app
+ arel\, pharma_api\, agriculture_grain\, ports_terminals. IMD\; Mumbai/Ch
+ ennai port disruption + Bangladesh apparel logistics Source: Window of V
+ ulnerability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:monsoon-ne-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Weather] South Asian NE monsoon (sev 2/5)
+DESCRIPTION:Family: Weather (monsoon). Severity 2/5. Peak window: 2026-10
+ -01 to 2026-12-31. Regions: South Asia (IN/BD). Industries: agriculture_
+ grain\, textiles_apparel. IMD\; SE India + Sri Lanka Source: Window of V
+ ulnerability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eu-windstorm-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20270401
+SUMMARY:[Weather] European windstorm season (sev 3/5)
+DESCRIPTION:Family: Weather (winter_storm). Severity 3/5. Peak window: 20
+ 26-12-01 to 2027-02-28. Regions: North Sea / Baltic\, EU industrial corr
+ idor (DE/FR/BE/NL). Industries: shipping_container\, ports_terminals\, e
+ nergy_power\, energy_renewables. Chokepoints: rotterdam_port\, antwerp_p
+ ort. ECMWF/DWD\; Oct-Mar\, peak Dec-Feb\; N Europe ports + offshore wind
+  Source: Window of Vulnerability — resilienceengineers.github.io/wov-cal
+ endar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:us-tornado-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260301
+DTEND;VALUE=DATE:20260801
+SUMMARY:[Weather] North American tornado season (sev 2/5)
+DESCRIPTION:Family: Weather (tornado_season). Severity 2/5. Peak window: 
+ 2026-04-01 to 2026-06-30. Regions: US Gulf / Houston. Industries: wareho
+ using\, rail_freight\, trucking\, food_processing. NOAA SPC\; Apr-Jun pe
+ ak\; Midwest/South distribution Source: Window of Vulnerability — resili
+ enceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:wildfire-eu-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20261101
+SUMMARY:[Weather] European wildfire season (sev 3/5)
+DESCRIPTION:Family: Weather (wildfire). Severity 3/5. Peak window: 2026-0
+ 7-01 to 2026-09-30. Regions: Mediterranean / Suez approach. Industries: 
+ energy_power\, ports_terminals\, agriculture_grain. Copernicus EFFIS\; J
+ ul-Sep peak\; Med power + logistics Source: Window of Vulnerability — re
+ silienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:wildfire-us-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261101
+SUMMARY:[Weather] US / Canada wildfire season (sev 3/5)
+DESCRIPTION:Family: Weather (wildfire). Severity 3/5. Peak window: 2026-0
+ 7-01 to 2026-09-30. Regions: US Gulf / Houston. Industries: energy_power
+ \, rail_freight\, trucking. NIFC/CWFIS\; Jul-Sep peak\; power + rail Sou
+ rce: Window of Vulnerability — resilienceengineers.github.io/wov-calenda
+ r
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:panama-drought-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260101
+DTEND;VALUE=DATE:20260601
+SUMMARY:[Weather] Panama Canal dry-season draft restriction (sev 3/5)
+DESCRIPTION:Family: Weather (drought). Severity 3/5. Peak window: 2026-03
+ -01 to 2026-05-31. Regions: Panama Canal. Industries: shipping_container
+ \, shipping_drybulk\, energy_lng. Chokepoints: panama_canal. ENSO-modula
+ ted dry season\; check NOAA CPC ENSO quarterly Source: Window of Vulnera
+ bility — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:rhine-lowwater-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260701
+DTEND;VALUE=DATE:20261101
+SUMMARY:[Weather] Rhine low-water draft restriction (sev 3/5)
+DESCRIPTION:Family: Weather (drought). Severity 3/5. Peak window: 2026-08
+ -01 to 2026-10-31. Regions: EU industrial corridor (DE/FR/BE/NL). Indust
+ ries: chem_basic\, chem_specialty\, metals_steel\, energy_refining. Chok
+ epoints: rhine_inland. Copernicus EFAS\; 2018 + 2022 set the severe bar\
+ ; chem + steel logistics Source: Window of Vulnerability — resilienceeng
+ ineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:swio-cyclone-2025@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20251101
+DTEND;VALUE=DATE:20260501
+SUMMARY:[Weather] SW Indian Ocean cyclone season (sev 3/5)
+DESCRIPTION:Family: Weather (tropical_cyclone). Severity 3/5. Peak window
+ : 2026-01-01 to 2026-02-28. Regions: South Asia (IN/BD). Industries: shi
+ pping_tanker\, shipping_container. Meteo-France RSMC\; Madagascar/Mozamb
+ ique approach lanes Source: Window of Vulnerability — resilienceengineer
+ s.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:locust-ho-africa-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260101
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Weather] Horn of Africa desert locust window (sev 2/5)
+DESCRIPTION:Family: Weather (locust_outbreak). Severity 2/5. Peak window:
+  2026-04-01 to 2026-08-31. Regions: Red Sea / Bab el-Mandeb. Industries:
+  agriculture_grain. FAO DLIS\; outbreak-driven\, monitor monthly bulleti
+ n Source: Window of Vulnerability — resilienceengineers.github.io/wov-ca
+ lendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:enso-modulator-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260101
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Weather] ENSO state (modulates all weather bands) (sev 2/5)
+DESCRIPTION:Family: Weather (enso_modulator). Severity 2/5. Peak window: 
+ 2026-06-01 to 2026-12-31. Regions: Persian Gulf / Hormuz\, Red Sea / Bab
+  el-Mandeb\, Malacca Strait\, Taiwan Strait\, NW Pacific (CN/JP/KR)\, So
+ uth Asia (IN/BD)\, EU industrial corridor (DE/FR/BE/NL)\, North Sea / Ba
+ ltic\, Mediterranean / Suez approach\, US Gulf / Houston\, Panama Canal\
+ , Arctic shipping (Northern Sea Route + Northwest Passage)\, US West Coa
+ st (LA / Long Beach / Oakland / Seattle-Tacoma)\, Sahel (Mali / Niger / 
+ Burkina Faso / Chad / N Nigeria)\, Black Sea grain corridor (Ukraine / R
+ ussia / Romania / Bulgaria / Turkey). Chokepoints: panama_canal. NOAA CP
+ C ENSO Alert\; modulator only\, provides context for other bands Source:
+  Window of Vulnerability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eu-flood-central-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260401
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Weather] Central European river flood season (sev 3/5)
+DESCRIPTION:Family: Weather (flood). Severity 3/5. Peak window: 2026-06-0
+ 1 to 2026-08-31. Regions: EU industrial corridor (DE/FR/BE/NL)\, North S
+ ea / Baltic. Industries: chem_basic\, metals_steel\, rail_freight\, ware
+ housing\, ports_terminals\, energy_power. Chokepoints: rhine_inland. Spr
+ ing snowmelt + summer Vb-cyclone convective floods\; 2002/2013/2021/2024
+  damaging events May-Sep\; Rhine/Danube/Elbe/Oder basins\; chem + steel 
+ + barge logistics Source: Window of Vulnerability — resilienceengineers.
+ github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eu-flood-med-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Weather] Mediterranean autumn flood (DANA / gota fria) (sev 3/5)
+DESCRIPTION:Family: Weather (flood). Severity 3/5. Peak window: 2026-10-0
+ 1 to 2026-11-30. Regions: Mediterranean / Suez approach. Industries: por
+ ts_terminals\, trucking\, agriculture_citrus\, food_processing. Cut-off-
+ low autumn flash floods on W Med coast\; Valencia 2024 catastrophic\; Sp
+ ain/SE France/Italy\; citrus + ports + road Source: Window of Vulnerabil
+ ity — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cn-flood-meiyu-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Weather] East Asia / China flood season (Meiyu rains) (sev 4/5)
+DESCRIPTION:Family: Weather (flood). Severity 4/5. Peak window: 2026-06-0
+ 1 to 2026-08-31. Regions: NW Pacific (CN/JP/KR). Industries: semiconduct
+ ors\, electronics_assembly\, auto_components\, ports_terminals\, shippin
+ g_container. Chokepoints: shanghai_port. Meiyu/Baiu front + Yangtze/Pear
+ l basin floods Jun-Aug\; manufacturing + Yangtze shipping + Shanghai por
+ t\; 2020 Yangtze flooding major Source: Window of Vulnerability — resili
+ enceengineers.github.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sea-monsoon-flood-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270301
+SUMMARY:[Weather] SE Asia NE-monsoon flood season (sev 3/5)
+DESCRIPTION:Family: Weather (flood). Severity 3/5. Peak window: 2026-12-0
+ 1 to 2027-01-31. Regions: Malacca Strait. Industries: electronics_assemb
+ ly\, semiconductors\, ports_terminals\, agriculture_palm. Chokepoints: s
+ ingapore_port. NE monsoon flooding in Malaysia/Thailand/Indonesia\; Thai
+ land 2011 floods crippled HDD supply chain\; electronics + palm oil + po
+ rts Source: Window of Vulnerability — resilienceengineers.github.io/wov-
+ calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:na-winterstorm-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270401
+SUMMARY:[Weather] North American winter storm season (sev 3/5)
+DESCRIPTION:Family: Weather (winter_storm). Severity 3/5. Peak window: 20
+ 26-12-01 to 2027-02-28. Regions: US Gulf / Houston. Industries: energy_p
+ ower\, energy_gas_distribution\, rail_freight\, trucking\, ports_termina
+ ls. Chokepoints: houston_port. Noreasters + polar-vortex outbreaks + Gul
+ f freeze (Feb 2021 Texas grid + petchem)\; energy demand + grid + refini
+ ng + rail Source: Window of Vulnerability — resilienceengineers.github.i
+ o/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:us-flood-spring-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260301
+DTEND;VALUE=DATE:20260701
+SUMMARY:[Weather] US spring river flood season (Mississippi / Midwest) (s
+ ev 3/5)
+DESCRIPTION:Family: Weather (flood). Severity 3/5. Peak window: 2026-04-0
+ 1 to 2026-05-31. Regions: US Gulf / Houston. Industries: agriculture_gra
+ in\, rail_freight\, warehousing\, food_processing. Chokepoints: mississi
+ ppi_inland\, new_orleans_port. Snowmelt + spring rain river flooding on 
+ Mississippi/Missouri\; barge grain/fertilizer disruption\; 2019 historic
+  flooding Source: Window of Vulnerability — resilienceengineers.github.i
+ o/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:me-dust-storm-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260301
+DTEND;VALUE=DATE:20260901
+SUMMARY:[Weather] Arabian / Gulf dust storm season (shamal) (sev 2/5)
+DESCRIPTION:Family: Weather (dust_storm). Severity 2/5. Peak window: 2026
+ -05-01 to 2026-07-31. Regions: Persian Gulf / Hormuz\, Red Sea / Bab el-
+ Mandeb. Industries: ports_terminals\, air_freight\, energy_renewables\, 
+ shipping_tanker. Chokepoints: hormuz. Summer shamal dust storms cut visi
+ bility\; Gulf port/aviation delays + solar output loss\; Iraq/Kuwait/Gul
+ f Source: Window of Vulnerability — resilienceengineers.github.io/wov-ca
+ lendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:us-westcoast-atmos-river-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270401
+SUMMARY:[Weather] US West Coast atmospheric river season (sev 3/5)
+DESCRIPTION:Family: Weather (flood). Severity 3/5. Peak window: 2026-12-0
+ 1 to 2027-02-28. Regions: US West Coast (LA / Long Beach / Oakland / Sea
+ ttle-Tacoma). Industries: ports_terminals\, rail_freight\, trucking\, ag
+ riculture_grain. Chokepoints: la_long_beach. Atmospheric rivers Nov-Mar\
+ ; California flooding + Central Valley ag + LA/LB port + rail (2023 AR s
+ equence major) Source: Window of Vulnerability — resilienceengineers.git
+ hub.io/wov-calendar
+CATEGORIES:Weather
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cargo-theft-us-q4-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20270201
+SUMMARY:[Cargo crime] US Q4 holiday cargo-theft surge (sev 3/5)
+DESCRIPTION:Family: Cargo crime (holiday_surge). Severity 3/5. Peak windo
+ w: 2026-11-01 to 2026-12-31. Regions: US Gulf / Houston. Industries: tru
+ cking\, warehousing\, rail_freight\, food_processing. Tracked metric: re
+ ported_cargo_theft_incidents_us_monthly. CargoNet/Verisk: consistent Nov
+ -Dec spike\; food-beverage + electronics most stolen\; long-haul trucklo
+ ad + warehouse Source: Window of Vulnerability — resilienceengineers.git
+ hub.io/wov-calendar
+CATEGORIES:Cargo crime
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cargo-theft-us-summer-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Cargo crime] US summer long-weekend cargo theft (sev 2/5)
+DESCRIPTION:Family: Cargo crime (long_weekend). Severity 2/5. Peak window
+ : 2026-07-01 to 2026-07-31. Regions: US Gulf / Houston. Industries: truc
+ king\, warehousing. Tracked metric: cargo_theft_incidents_holiday_weeken
+ d. CargoNet: theft spikes around US long weekends (Memorial Day\, July 4
+ \, Labor Day) when facilities unstaffed Source: Window of Vulnerability 
+ — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Cargo crime
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cargo-theft-eu-festive-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270201
+SUMMARY:[Cargo crime] EU festive-period cargo theft (sev 3/5)
+DESCRIPTION:Family: Cargo crime (holiday_surge). Severity 3/5. Peak windo
+ w: 2026-12-01 to 2026-12-31. Regions: EU industrial corridor (DE/FR/BE/N
+ L)\, North Sea / Baltic\, Mediterranean / Suez approach. Industries: tru
+ cking\, warehousing. Tracked metric: tapa_incidents_emea_monthly. TAPA E
+ MEA: elevated December\; food + tobacco + electronics\; parked-vehicle +
+  facility theft Source: Window of Vulnerability — resilienceengineers.gi
+ thub.io/wov-calendar
+CATEGORIES:Cargo crime
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cyber-ransomware-holiday-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270201
+SUMMARY:[Cyber] Holiday / long-weekend ransomware surge (sev 4/5)
+DESCRIPTION:Family: Cyber (ransomware_holiday). Severity 4/5. Peak window
+ : 2026-12-01 to 2026-12-31. Regions: US Gulf / Houston\, EU industrial c
+ orridor (DE/FR/BE/NL). Industries: ports_terminals\, warehousing\, truck
+ ing\, energy_power\, food_processing. Tracked metric: ransomware_inciden
+ ts_logistics_monthly. CISA/FBI repeated advisories: attacks timed to hol
+ idays/weekends when SOC staffing is thin\; logistics + manufacturing tar
+ geted Source: Window of Vulnerability — resilienceengineers.github.io/wo
+ v-calendar
+CATEGORIES:Cyber
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cyber-tax-phishing-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260101
+DTEND;VALUE=DATE:20260501
+SUMMARY:[Cyber] Tax-season phishing & BEC (sev 2/5)
+DESCRIPTION:Family: Cyber (phishing_tax). Severity 2/5. Peak window: 2026
+ -02-01 to 2026-04-30. Regions: US Gulf / Houston\, EU industrial corrido
+ r (DE/FR/BE/NL). Industries: warehousing\, food_processing\, auto_oem. T
+ racked metric: bec_complaints_q1. IC3: Q1 phishing/BEC spike around US (
+ Jan-Apr) and UK (Jan) tax filing windows Source: Window of Vulnerability
+  — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Cyber
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cyber-blackfriday-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Cyber] Black Friday / Cyber Monday attack surge (sev 3/5)
+DESCRIPTION:Family: Cyber (ecommerce_peak). Severity 3/5. Peak window: 20
+ 26-11-01 to 2026-12-31. Regions: US Gulf / Houston\, EU industrial corri
+ dor (DE/FR/BE/NL). Industries: warehousing\, food_processing. Tracked me
+ tric: web_attacks_retail_nov. Check Point: retail/e-commerce + logistics
+  attack volume rises sharply mid-Nov to early-Dec Source: Window of Vuln
+ erability — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Cyber
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:conflict-sahel-dryseason-2025@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20251001
+DTEND;VALUE=DATE:20260601
+SUMMARY:[Conflict cycle] Sahel dry-season violence cycle (sev 3/5)
+DESCRIPTION:Family: Conflict cycle (dry_season). Severity 3/5. Peak windo
+ w: 2026-01-01 to 2026-04-30. Regions: Sahel (Mali / Niger / Burkina Faso
+  / Chad / N Nigeria). Industries: energy_nuclear\, metals_critical. Trac
+ ked metric: acled_events_sahel_monthly. ACLED: armed-group mobility rise
+ s in dry season (Oct-May)\; affects Niger uranium + regional gold corrid
+ ors Source: Window of Vulnerability — resilienceengineers.github.io/wov-
+ calendar
+CATEGORIES:Conflict cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:conflict-blacksea-grain-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260701
+DTEND;VALUE=DATE:20261201
+SUMMARY:[Conflict cycle] Black Sea grain corridor disruption window (sev 
+ 3/5)
+DESCRIPTION:Family: Conflict cycle (harvest_escalation). Severity 3/5. Pe
+ ak window: 2026-08-01 to 2026-10-31. Regions: Black Sea grain corridor (
+ Ukraine / Russia / Romania / Bulgaria / Turkey). Industries: agriculture
+ _grain\, shipping_drybulk. Chokepoints: bosphorus. Tracked metric: grain
+ _vessel_transits_black_sea. Harvest-season volumes + recurring strike/de
+ al-renewal tension elevate Jul-Nov disruption risk on the corridor Sourc
+ e: Window of Vulnerability — resilienceengineers.github.io/wov-calendar
+ 
+CATEGORIES:Conflict cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:labor-de-spring-wage-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260201
+DTEND;VALUE=DATE:20260501
+SUMMARY:[Labour cycle] German spring wage round (IG Metall / Verdi) (sev 
+ 3/5)
+DESCRIPTION:Family: Labour cycle (wage_round). Severity 3/5. Peak window:
+  2026-03-01 to 2026-04-30. Regions: EU industrial corridor (DE/FR/BE/NL)
+ . Industries: auto_oem\, auto_components\, metals_steel\, ports_terminal
+ s\, rail_freight. Tracked metric: warning_strike_days_de. Annual collect
+ ive-bargaining warning strikes Feb-Apr\; intermittent plant + port + rai
+ l stoppages Source: Window of Vulnerability — resilienceengineers.github
+ .io/wov-calendar
+CATEGORIES:Labour cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:labor-fr-autumn-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Labour cycle] French autumn strike season (sev 3/5)
+DESCRIPTION:Family: Labour cycle (social_unrest). Severity 3/5. Peak wind
+ ow: 2026-10-01 to 2026-11-30. Regions: EU industrial corridor (DE/FR/BE/
+ NL)\, Mediterranean / Suez approach. Industries: trucking\, rail_freight
+ \, ports_terminals\, energy_refining. Tracked metric: strike_days_fr_q4.
+  Recurring autumn mobilisation around budget/pension\; refinery + port +
+  rail disruption risk Source: Window of Vulnerability — resilienceengine
+ ers.github.io/wov-calendar
+CATEGORIES:Labour cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:labor-uswest-port-cycle-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Labour cycle] US West Coast port labour-contract tension (sev 3/
+ 5)
+DESCRIPTION:Family: Labour cycle (contract_cycle). Severity 3/5. Peak win
+ dow: 2026-06-01 to 2026-08-31. Regions: US West Coast (LA / Long Beach /
+  Oakland / Seattle-Tacoma). Industries: ports_terminals\, shipping_conta
+ iner. Chokepoints: la_long_beach. Tracked metric: ilwu_negotiation_statu
+ s. Pre-expiry slowdown risk on ILWU-PMA cycle\; episodic not strictly an
+ nual - review against contract calendar Source: Window of Vulnerability 
+ — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Labour cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

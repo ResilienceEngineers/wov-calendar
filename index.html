@@ -112,6 +112,38 @@
   footer .brand { font-family: "Iowan Old Style", Palatino, serif; font-size: 14px; color: var(--ink); }
   .empty { font-style: italic; color: var(--ink-soft); padding: 14px; }
 
+  details.my-calendar { background: #fff; border: 1px solid var(--ink); padding: 16px 20px; margin: 18px 0; }
+  details.my-calendar summary { cursor: pointer; font-family: "Iowan Old Style", Palatino, serif; font-size: 18px; }
+  details.my-calendar[open] summary { margin-bottom: 12px; }
+  .mc-intro { font-size: 13px; color: var(--ink-soft); margin: 0 0 14px; }
+  .mc-block { border-top: 1px solid var(--rule); padding-top: 14px; margin-top: 14px; }
+  .mc-block h3 { font-family: "Iowan Old Style", Palatino, serif; font-size: 16px; margin: 0 0 4px; }
+  .mc-block .mc-sub { font-size: 12px; color: var(--ink-soft); margin: 0 0 10px; }
+  .mc-fam { margin-bottom: 10px; }
+  .mc-fam-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .mc-fam-head .fam-name { font-family: ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .mc-fam-head button { font: inherit; font-size: 11px; background: transparent; border: 1px solid var(--rule); padding: 1px 7px; cursor: pointer; color: var(--ink-soft); }
+  .mc-patterns { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px 16px; padding-left: 20px; }
+  .mc-patterns label { font-size: 13px; display: flex; align-items: center; gap: 6px; padding: 2px 0; cursor: pointer; }
+  .mc-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+  .mc-form .field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--ink-soft); }
+  .mc-form input, .mc-form select { font: inherit; font-size: 13px; padding: 5px 7px; border: 1px solid var(--rule); }
+  .mc-form input[type=text] { min-width: 200px; }
+  .mc-form button.add { font: inherit; background: var(--ink); color: #fff; border: none; padding: 7px 14px; cursor: pointer; }
+  .mc-custom-list { list-style: none; padding: 0; margin: 12px 0 0; }
+  .mc-custom-list li { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 4px 0; border-bottom: 1px dotted var(--rule); }
+  .mc-custom-list .cw-del { font: inherit; font-size: 11px; background: transparent; border: 1px solid var(--rule); padding: 1px 8px; cursor: pointer; color: var(--accent); }
+  .mc-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .mc-actions button.export { font: inherit; background: var(--accent); color: #fff; border: none; padding: 8px 16px; cursor: pointer; }
+  .mc-actions .count-note { font-size: 12px; color: var(--ink-soft); }
+  .subscribe-box { margin-top: 6px; }
+  .feed-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; margin: 6px 0; }
+  .feed-row .feed-name { font-family: ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); min-width: 90px; }
+  .feed-row a, .feed-row button { font: inherit; font-size: 12px; padding: 3px 9px; border: 1px solid var(--rule); background: transparent; cursor: pointer; color: var(--ink); text-decoration: none; }
+  .feed-row code { font-size: 11px; background: var(--paper); padding: 2px 5px; word-break: break-all; }
+  .subscribe-help { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .subscribe-help li { margin: 2px 0; }
+
   .pdf-export { display: none; }
   @media print {
     @page { size: A4 landscape; margin: 0; }
@@ -139,7 +171,7 @@
 23 May 2026
 <!-- BRIEF:TODAY_HUMAN_END --></span>
     <span><span class="label">Last updated</span> <!-- BRIEF:LAST_UPDATED_START -->
-19:56 UTC
+20:44 UTC
 <!-- BRIEF:LAST_UPDATED_END --></span>
     <span><span class="label">ISO</span> <!-- BRIEF:TODAY_ISO_START -->
 2026-05-23
@@ -201,6 +233,51 @@
 <!-- BRIEF:CHOKEPOINT_BOARD_END -->
   </section>
 
+  <details class="my-calendar" id="my-calendar">
+    <summary>Build &amp; export your calendar — add your own windows, pick what to see, subscribe</summary>
+    <p class="mc-intro">Everything here is stored only in your browser. Pick which pre-analysed windows you want, add your own, then download a one-time file or subscribe to an auto-updating feed.</p>
+
+    <div class="mc-block">
+      <h3>1 · Add your own window of vulnerability</h3>
+      <p class="mc-sub">Your private windows — stored locally, included in your download, never uploaded.</p>
+      <form class="mc-form" id="cw-form">
+        <div class="field">Title<input type="text" id="cw-title" placeholder="e.g. Key supplier audit blackout" required /></div>
+        <div class="field">Family<select id="cw-cat"><option value="custom">custom</option><option value="weather">weather</option><option value="cargo_crime">cargo crime</option><option value="cyber">cyber</option><option value="conflict_cycle">conflict</option><option value="labor_cycle">labour</option></select></div>
+        <div class="field">Start<input type="date" id="cw-start" required /></div>
+        <div class="field">End<input type="date" id="cw-end" required /></div>
+        <div class="field">Note (optional)<input type="text" id="cw-note" placeholder="why it matters" /></div>
+        <button type="submit" class="add">Add window</button>
+      </form>
+      <ul class="mc-custom-list" id="cw-list"></ul>
+    </div>
+
+    <div class="mc-block">
+      <h3>2 · Choose which pre-analysed windows to include</h3>
+      <p class="mc-sub">Unticking removes a window from your view (with "My selection only" on) and from your download. Defaults to everything.</p>
+      <div id="mc-selection"></div>
+    </div>
+
+    <div class="mc-block">
+      <h3>3 · Export</h3>
+      <div class="mc-actions">
+        <button class="export" id="mc-download">Download my calendar (.ics)</button>
+        <span class="count-note" id="mc-count"></span>
+      </div>
+      <p class="mc-sub" style="margin-top:14px;">One-time file — includes your custom windows. Opens in Outlook, Google Calendar, or Apple Calendar (File → Import / Add).</p>
+
+      <div class="mc-block" style="border:none;padding:0;margin-top:14px;">
+        <h3>Subscribe to an auto-updating feed</h3>
+        <p class="mc-sub">Pre-analysed patterns only. When we update a window, your calendar refreshes automatically (Apple/Outlook every few hours, Google ~daily). Pick the whole calendar or one family.</p>
+        <div class="subscribe-box" id="subscribe-box"></div>
+        <ul class="subscribe-help">
+          <li><strong>Apple Calendar / Outlook desktop:</strong> click the <em>Subscribe</em> (webcal) link — it opens the add-calendar dialog.</li>
+          <li><strong>Google Calendar:</strong> click <em>Copy URL</em>, then Google Calendar → Other calendars → <em>From URL</em> → paste.</li>
+          <li><strong>Outlook web:</strong> Add calendar → Subscribe from web → paste the URL.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
   <section>
     <h2 class="section-title">12-month risk calendar <small>patterns + live events on one timeline</small></h2>
     <p class="section-hint">Lighter band = shoulder season. Darker = peak window (highest historical likelihood). Red dashed line = today. Click a band for detail. Use the filters to narrow the view.</p>
@@ -219,6 +296,7 @@
       </div>
       <div class="fg">
         <label><input type="checkbox" id="filter-chokepoint-only" /> Chokepoints only</label>
+        <label><input type="checkbox" id="filter-selected-only" /> My selection only</label>
       </div>
       <button class="reset" id="filter-reset">Reset filters</button>
     </div>
@@ -300,16 +378,28 @@
 </div>
 
 <!-- BRIEF:DATA_VERSION_START -->
-{"computed_at": "2026-05-23T19:56:48Z", "today": "2026-05-23"}
+{"computed_at": "2026-05-23T20:44:36Z", "today": "2026-05-23"}
 <!-- BRIEF:DATA_VERSION_END -->
 
 <script>
 const HAZARD_COLORS = { tropical_cyclone:"#c1272d", monsoon:"#1f5fa0", flood:"#2d7fb6", wildfire:"#d76b1e", drought:"#9a7a1c", winter_storm:"#6a4fa0", dust_storm:"#a07a3c", tornado_season:"#c44a8e", locust_outbreak:"#5a8a2c", enso_modulator:"#7a7a7a" };
-const CATEGORY_COLORS = { weather:"#c1272d", cargo_crime:"#8e44ad", cyber:"#16707a", conflict_cycle:"#7a1719", labor_cycle:"#2c5f2d" };
-const CATEGORY_LABEL = { weather:"WEATHER", cargo_crime:"CARGO CRIME", cyber:"CYBER", conflict_cycle:"CONFLICT", labor_cycle:"LABOUR" };
+const CATEGORY_COLORS = { weather:"#c1272d", cargo_crime:"#8e44ad", cyber:"#16707a", conflict_cycle:"#7a1719", labor_cycle:"#2c5f2d", custom:"#6b7280" };
+const CATEGORY_LABEL = { weather:"WEATHER", cargo_crime:"CARGO CRIME", cyber:"CYBER", conflict_cycle:"CONFLICT", labor_cycle:"LABOUR", custom:"MY WINDOWS" };
+const FAMILY_ORDER = ["weather","cargo_crime","cyber","conflict_cycle","labor_cycle","custom"];
+const FEED_BASE = "resilienceengineers.github.io/wov-calendar";
 
-let ALL_BANDS = [];        // unified list for the gantt
+let ALL_BANDS = [];        // unified list for the gantt (patterns + custom)
 let REGION_NAMES = {};
+
+// ---- personalisation (localStorage) ----
+function lsGet(key, fallback){ try{ return JSON.parse(localStorage.getItem(key)) ?? fallback; }catch(e){ return fallback; } }
+function lsSet(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+function bandKey(id){ return (id||"").replace(/-\d{4}$/, ""); }   // strip trailing -YYYY so selection survives yearly rebuild
+function deselected(){ return new Set(lsGet("wov_deselected", [])); }
+function setDeselected(set){ lsSet("wov_deselected", [...set]); }
+function isSelected(b){ return b.category==="custom" || !deselected().has(b.key); }
+function customWindows(){ return lsGet("wov_custom", []); }
+function setCustomWindows(arr){ lsSet("wov_custom", arr); }
 
 async function fetchJSON(p){ const r = await fetch(p,{cache:"no-store"}); return r.json(); }
 function parseISODate(s){ const [y,m,d]=s.split("-").map(Number); return new Date(Date.UTC(y,m-1,d)); }
@@ -321,12 +411,14 @@ function activeFilters(){
   const cats = new Set([...document.querySelectorAll('#filter-bar input[data-cat]:checked')].map(c=>c.dataset.cat));
   const region = document.getElementById("filter-region").value;
   const cpOnly = document.getElementById("filter-chokepoint-only").checked;
-  return { cats, region, cpOnly };
+  const selectedOnly = document.getElementById("filter-selected-only").checked;
+  return { cats, region, cpOnly, selectedOnly };
 }
 function bandPassesFilter(b, f){
-  if(!f.cats.has(b.category)) return false;
+  if(b.category!=="custom" && !f.cats.has(b.category)) return false;   // custom always passes family filter
   if(f.region!=="all" && !(b.regions||[]).includes(f.region)) return false;
   if(f.cpOnly && !(b.chokepoints||[]).length) return false;
+  if(f.selectedOnly && !isSelected(b)) return false;
   return true;
 }
 
@@ -344,7 +436,7 @@ function renderGantt(){
   const width = 1200, innerW = width-padding.left-padding.right;
 
   // group by category
-  const order = ["weather","cargo_crime","cyber","conflict_cycle","labor_cycle"];
+  const order = FAMILY_ORDER;
   const grouped = {}; for(const b of bands){ (grouped[b.category]=grouped[b.category]||[]).push(b); }
   const rows = []; // {type:'header'|'band', ...}
   for(const cat of order){ if(!grouped[cat]) continue; rows.push({type:"header",cat}); for(const b of grouped[cat]) rows.push({type:"band",band:b}); }
@@ -390,10 +482,14 @@ function renderGantt(){
 
 function buildUnifiedBands(seasonal, patterns){
   const out = [];
-  for(const b of seasonal.bands){ out.push({ name:b.name, category:"weather", type:b.hazard_type, start_date:b.start_date, peak_window:b.peak_window, end_date:b.end_date, regions:b.regions, chokepoints:b.affected_chokepoints||[], severity:b.baseline_severity, note:b.notes||"" }); }
-  for(const b of (patterns.bands||[])){ out.push({ name:b.name, category:b.category, type:b.subtype, start_date:b.start_date, peak_window:b.peak_window, end_date:b.end_date, regions:b.regions, chokepoints:b.chokepoints||[], severity:b.baseline_severity, note:b.methodology_note||"" }); }
+  for(const b of seasonal.bands){ out.push({ id:b.id, key:bandKey(b.id), name:b.name, category:"weather", type:b.hazard_type, start_date:b.start_date, peak_window:b.peak_window, end_date:b.end_date, regions:b.regions, chokepoints:b.affected_chokepoints||[], severity:b.baseline_severity, note:b.notes||"" }); }
+  for(const b of (patterns.bands||[])){ out.push({ id:b.id, key:bandKey(b.id), name:b.name, category:b.category, type:b.subtype, start_date:b.start_date, peak_window:b.peak_window, end_date:b.end_date, regions:b.regions, chokepoints:b.chokepoints||[], severity:b.baseline_severity, note:b.methodology_note||"" }); }
   return out;
 }
+function customBands(){
+  return customWindows().map(c=>({ id:c.id, key:c.id, name:c.name, category:"custom", type:c.family||"custom", start_date:c.start_date, peak_window:null, end_date:c.end_date, regions:[], chokepoints:[], severity:3, note:c.note||"", custom:true, family:c.family }));
+}
+function rebuildBands(seasonal, patterns){ ALL_BANDS = buildUnifiedBands(seasonal, patterns).concat(customBands()); }
 
 function populateRegionFilter(){
   const sel = document.getElementById("filter-region");
@@ -406,8 +502,105 @@ function wireFilters(){
     document.querySelectorAll('#filter-bar input[data-cat]').forEach(c=>c.checked=true);
     document.getElementById("filter-region").value="all";
     document.getElementById("filter-chokepoint-only").checked=false;
+    document.getElementById("filter-selected-only").checked=false;
     renderGantt();
   });
+}
+
+// ---- My calendar: selection list, custom windows, ICS export, subscribe ----
+function renderSelection(){
+  const root=document.getElementById("mc-selection");
+  const patterns=ALL_BANDS.filter(b=>b.category!=="custom");
+  const grouped={}; for(const b of patterns){ (grouped[b.category]=grouped[b.category]||[]).push(b); }
+  const ds=deselected();
+  root.innerHTML=FAMILY_ORDER.filter(c=>grouped[c]).map(cat=>`
+    <div class="mc-fam">
+      <div class="mc-fam-head"><span class="legend-swatch" style="width:11px;height:11px;border-radius:2px;display:inline-block;background:${CATEGORY_COLORS[cat]}"></span><span class="fam-name">${CATEGORY_LABEL[cat]}</span>
+        <button data-fam-all="${cat}">all</button><button data-fam-none="${cat}">none</button></div>
+      <div class="mc-patterns">${grouped[cat].map(b=>`<label><input type="checkbox" data-sel-key="${b.key}" ${ds.has(b.key)?"":"checked"}/> ${b.name}</label>`).join("")}</div>
+    </div>`).join("");
+  root.querySelectorAll('input[data-sel-key]').forEach(cb=>cb.addEventListener("change",()=>{
+    const s=deselected(); if(cb.checked) s.delete(cb.dataset.selKey); else s.add(cb.dataset.selKey); setDeselected(s); afterSelectionChange();
+  }));
+  root.querySelectorAll('button[data-fam-all]').forEach(btn=>btn.addEventListener("click",()=>{
+    const s=deselected(); (grouped[btn.dataset.famAll]||[]).forEach(b=>s.delete(b.key)); setDeselected(s); renderSelection(); afterSelectionChange();
+  }));
+  root.querySelectorAll('button[data-fam-none]').forEach(btn=>btn.addEventListener("click",()=>{
+    const s=deselected(); (grouped[btn.dataset.famNone]||[]).forEach(b=>s.add(b.key)); setDeselected(s); renderSelection(); afterSelectionChange();
+  }));
+}
+function afterSelectionChange(){ renderGantt(); updateExportCount(); }
+
+function renderCustomList(){
+  const root=document.getElementById("cw-list");
+  const cw=customWindows();
+  if(!cw.length){ root.innerHTML='<li style="border:none;color:var(--ink-soft);font-style:italic">No custom windows yet.</li>'; return; }
+  root.innerHTML=cw.map(c=>`<li><span class="legend-swatch" style="width:10px;height:10px;border-radius:2px;display:inline-block;background:${CATEGORY_COLORS[c.family]||CATEGORY_COLORS.custom}"></span><strong>${c.name}</strong> <span style="color:var(--ink-soft)">${c.start_date} → ${c.end_date}${c.note?(" · "+c.note):""}</span> <button class="cw-del" data-del="${c.id}">remove</button></li>`).join("");
+  root.querySelectorAll('button[data-del]').forEach(btn=>btn.addEventListener("click",()=>{
+    setCustomWindows(customWindows().filter(c=>c.id!==btn.dataset.del)); refreshAfterCustomChange();
+  }));
+}
+function refreshAfterCustomChange(){
+  // rebuild custom bands into ALL_BANDS (keep pattern bands as-is)
+  ALL_BANDS = ALL_BANDS.filter(b=>b.category!=="custom").concat(customBands());
+  renderCustomList(); renderGantt(); updateExportCount();
+}
+function wireCustomForm(){
+  document.getElementById("cw-form").addEventListener("submit",ev=>{
+    ev.preventDefault();
+    const title=document.getElementById("cw-title").value.trim();
+    const start=document.getElementById("cw-start").value, end=document.getElementById("cw-end").value;
+    if(!title||!start||!end) return;
+    if(end<start){ alert("End date must be on or after start date."); return; }
+    const cw=customWindows();
+    cw.push({ id:"custom-"+Date.now(), name:title, family:document.getElementById("cw-cat").value, start_date:start, end_date:end, note:document.getElementById("cw-note").value.trim() });
+    setCustomWindows(cw);
+    ev.target.reset();
+    refreshAfterCustomChange();
+  });
+}
+
+function icsEsc(t){ return (t||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n"); }
+function ymd(s){ return s.replace(/-/g,""); }
+function ymdPlus1(s){ const d=parseISODate(s); d.setUTCDate(d.getUTCDate()+1); return d.toISOString().slice(0,10).replace(/-/g,""); }
+function buildICS(bands){
+  const stamp=new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
+  const lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Resilience Engineers//WoV (personal export)//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:My Window of Vulnerability","X-WR-TIMEZONE:UTC"];
+  for(const b of bands){
+    const fam=CATEGORY_LABEL[b.category]||b.category;
+    const peak=b.peak_window?`Peak: ${b.peak_window[0]} to ${b.peak_window[1]}. `:"";
+    const desc=`${fam}. Severity ${b.severity}/5. ${peak}${b.regions&&b.regions.length?("Regions: "+b.regions.map(r=>REGION_NAMES[r]||r).join(", ")+". "):""}${b.note||""}`.trim();
+    lines.push("BEGIN:VEVENT",`UID:${b.id}-personal@${FEED_BASE}`,`DTSTAMP:${stamp}`,`DTSTART;VALUE=DATE:${ymd(b.start_date)}`,`DTEND;VALUE=DATE:${ymdPlus1(b.end_date)}`,`SUMMARY:${icsEsc("[WoV] "+b.name)}`,`DESCRIPTION:${icsEsc(desc)}`,`CATEGORIES:${icsEsc(fam)}`,"TRANSP:TRANSPARENT","END:VEVENT");
+  }
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n")+"\r\n";
+}
+function selectedForExport(){ return ALL_BANDS.filter(b=>isSelected(b)); }
+function updateExportCount(){
+  const sel=selectedForExport(); const nCustom=sel.filter(b=>b.category==="custom").length;
+  document.getElementById("mc-count").textContent=`${sel.length} window(s) selected — ${sel.length-nCustom} pre-analysed + ${nCustom} of your own.`;
+}
+function downloadICS(){
+  const ics=buildICS(selectedForExport());
+  const blob=new Blob([ics],{type:"text/calendar;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a"); a.href=url; a.download="my-wov-calendar.ics"; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+function renderSubscribe(){
+  const feeds=[["Whole calendar","calendar.ics"],["Weather","calendar-weather.ics"],["Cargo crime","calendar-cargo_crime.ics"],["Cyber","calendar-cyber.ics"],["Conflict","calendar-conflict_cycle.ics"],["Labour","calendar-labor_cycle.ics"]];
+  const box=document.getElementById("subscribe-box");
+  box.innerHTML=feeds.map(([name,file])=>{
+    const https=`https://${FEED_BASE}/${file}`; const webcal=`webcal://${FEED_BASE}/${file}`;
+    return `<div class="feed-row"><span class="feed-name">${name}</span><a href="${webcal}">Subscribe (Apple/Outlook)</a><button data-copy="${https}">Copy URL</button><a href="https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcal)}" target="_blank" rel="noopener">Google</a></div>`;
+  }).join("");
+  box.querySelectorAll('button[data-copy]').forEach(btn=>btn.addEventListener("click",()=>{
+    navigator.clipboard?.writeText(btn.dataset.copy); const o=btn.textContent; btn.textContent="Copied!"; setTimeout(()=>btn.textContent=o,1500);
+  }));
+}
+function initMyCalendar(){
+  renderCustomList(); wireCustomForm(); renderSelection(); renderSubscribe(); updateExportCount();
+  document.getElementById("mc-download").addEventListener("click", downloadICS);
 }
 
 function renderTicker(events){
@@ -452,8 +645,9 @@ window.addEventListener("beforeprint", syncPdfSlides);
       fetchJSON("data/vocab/industries.json"),
     ]);
     REGION_NAMES = Object.fromEntries(regions.regions.map(r=>[r.id,r.name]));
-    ALL_BANDS = buildUnifiedBands(seasonal, patterns);
+    rebuildBands(seasonal, patterns);
     populateRegionFilter(); wireFilters(); renderGantt();
+    initMyCalendar();
     renderTicker(active.events); renderFMPulse(fm,industries.industries); renderAnalyses(analyses);
   }catch(e){ console.error("WoV render failed:",e); }
 })();

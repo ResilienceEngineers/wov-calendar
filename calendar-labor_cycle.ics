@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Resilience Engineers//Window of Vulnerability//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Window of Vulnerability - Labour cycle
+X-WR-CALDESC:Recurring windows of vulnerability (weather, cargo crime, cy
+ ber, conflict, labour). Auto-updates daily.
+X-WR-TIMEZONE:UTC
+REFRESH-INTERVAL;VALUE=DURATION:PT24H
+X-PUBLISHED-TTL:PT24H
+BEGIN:VEVENT
+UID:labor-de-spring-wage-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260201
+DTEND;VALUE=DATE:20260501
+SUMMARY:[Labour cycle] German spring wage round (IG Metall / Verdi) (sev 
+ 3/5)
+DESCRIPTION:Family: Labour cycle (wage_round). Severity 3/5. Peak window:
+  2026-03-01 to 2026-04-30. Regions: EU industrial corridor (DE/FR/BE/NL)
+ . Industries: auto_oem\, auto_components\, metals_steel\, ports_terminal
+ s\, rail_freight. Tracked metric: warning_strike_days_de. Annual collect
+ ive-bargaining warning strikes Feb-Apr\; intermittent plant + port + rai
+ l stoppages Source: Window of Vulnerability — resilienceengineers.github
+ .io/wov-calendar
+CATEGORIES:Labour cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:labor-fr-autumn-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20270101
+SUMMARY:[Labour cycle] French autumn strike season (sev 3/5)
+DESCRIPTION:Family: Labour cycle (social_unrest). Severity 3/5. Peak wind
+ ow: 2026-10-01 to 2026-11-30. Regions: EU industrial corridor (DE/FR/BE/
+ NL)\, Mediterranean / Suez approach. Industries: trucking\, rail_freight
+ \, ports_terminals\, energy_refining. Tracked metric: strike_days_fr_q4.
+  Recurring autumn mobilisation around budget/pension\; refinery + port +
+  rail disruption risk Source: Window of Vulnerability — resilienceengine
+ ers.github.io/wov-calendar
+CATEGORIES:Labour cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:labor-uswest-port-cycle-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Labour cycle] US West Coast port labour-contract tension (sev 3/
+ 5)
+DESCRIPTION:Family: Labour cycle (contract_cycle). Severity 3/5. Peak win
+ dow: 2026-06-01 to 2026-08-31. Regions: US West Coast (LA / Long Beach /
+  Oakland / Seattle-Tacoma). Industries: ports_terminals\, shipping_conta
+ iner. Chokepoints: la_long_beach. Tracked metric: ilwu_negotiation_statu
+ s. Pre-expiry slowdown risk on ILWU-PMA cycle\; episodic not strictly an
+ nual - review against contract calendar Source: Window of Vulnerability 
+ — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Labour cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,48 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Resilience Engineers//Window of Vulnerability//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Window of Vulnerability - Conflict cycle
+X-WR-CALDESC:Recurring windows of vulnerability (weather, cargo crime, cy
+ ber, conflict, labour). Auto-updates daily.
+X-WR-TIMEZONE:UTC
+REFRESH-INTERVAL;VALUE=DURATION:PT24H
+X-PUBLISHED-TTL:PT24H
+BEGIN:VEVENT
+UID:conflict-sahel-dryseason-2025@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20251001
+DTEND;VALUE=DATE:20260601
+SUMMARY:[Conflict cycle] Sahel dry-season violence cycle (sev 3/5)
+DESCRIPTION:Family: Conflict cycle (dry_season). Severity 3/5. Peak windo
+ w: 2026-01-01 to 2026-04-30. Regions: Sahel (Mali / Niger / Burkina Faso
+  / Chad / N Nigeria). Industries: energy_nuclear\, metals_critical. Trac
+ ked metric: acled_events_sahel_monthly. ACLED: armed-group mobility rise
+ s in dry season (Oct-May)\; affects Niger uranium + regional gold corrid
+ ors Source: Window of Vulnerability — resilienceengineers.github.io/wov-
+ calendar
+CATEGORIES:Conflict cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:conflict-blacksea-grain-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260701
+DTEND;VALUE=DATE:20261201
+SUMMARY:[Conflict cycle] Black Sea grain corridor disruption window (sev 
+ 3/5)
+DESCRIPTION:Family: Conflict cycle (harvest_escalation). Severity 3/5. Pe
+ ak window: 2026-08-01 to 2026-10-31. Regions: Black Sea grain corridor (
+ Ukraine / Russia / Romania / Bulgaria / Turkey). Industries: agriculture
+ _grain\, shipping_drybulk. Chokepoints: bosphorus. Tracked metric: grain
+ _vessel_transits_black_sea. Harvest-season volumes + recurring strike/de
+ al-renewal tension elevate Jul-Nov disruption risk on the corridor Sourc
+ e: Window of Vulnerability — resilienceengineers.github.io/wov-calendar
+ 
+CATEGORIES:Conflict cycle
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

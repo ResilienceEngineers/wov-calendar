@@ -1,0 +1,62 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Resilience Engineers//Window of Vulnerability//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Window of Vulnerability - Cargo crime
+X-WR-CALDESC:Recurring windows of vulnerability (weather, cargo crime, cy
+ ber, conflict, labour). Auto-updates daily.
+X-WR-TIMEZONE:UTC
+REFRESH-INTERVAL;VALUE=DURATION:PT24H
+X-PUBLISHED-TTL:PT24H
+BEGIN:VEVENT
+UID:cargo-theft-us-q4-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20270201
+SUMMARY:[Cargo crime] US Q4 holiday cargo-theft surge (sev 3/5)
+DESCRIPTION:Family: Cargo crime (holiday_surge). Severity 3/5. Peak windo
+ w: 2026-11-01 to 2026-12-31. Regions: US Gulf / Houston. Industries: tru
+ cking\, warehousing\, rail_freight\, food_processing. Tracked metric: re
+ ported_cargo_theft_incidents_us_monthly. CargoNet/Verisk: consistent Nov
+ -Dec spike\; food-beverage + electronics most stolen\; long-haul trucklo
+ ad + warehouse Source: Window of Vulnerability — resilienceengineers.git
+ hub.io/wov-calendar
+CATEGORIES:Cargo crime
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cargo-theft-us-summer-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20261001
+SUMMARY:[Cargo crime] US summer long-weekend cargo theft (sev 2/5)
+DESCRIPTION:Family: Cargo crime (long_weekend). Severity 2/5. Peak window
+ : 2026-07-01 to 2026-07-31. Regions: US Gulf / Houston. Industries: truc
+ king\, warehousing. Tracked metric: cargo_theft_incidents_holiday_weeken
+ d. CargoNet: theft spikes around US long weekends (Memorial Day\, July 4
+ \, Labor Day) when facilities unstaffed Source: Window of Vulnerability 
+ — resilienceengineers.github.io/wov-calendar
+CATEGORIES:Cargo crime
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cargo-theft-eu-festive-2026@resilienceengineers.github.io
+DTSTAMP:20260523T204436Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20270201
+SUMMARY:[Cargo crime] EU festive-period cargo theft (sev 3/5)
+DESCRIPTION:Family: Cargo crime (holiday_surge). Severity 3/5. Peak windo
+ w: 2026-12-01 to 2026-12-31. Regions: EU industrial corridor (DE/FR/BE/N
+ L)\, North Sea / Baltic\, Mediterranean / Suez approach. Industries: tru
+ cking\, warehousing. Tracked metric: tapa_incidents_emea_monthly. TAPA E
+ MEA: elevated December\; food + tobacco + electronics\; parked-vehicle +
+  facility theft Source: Window of Vulnerability — resilienceengineers.gi
+ thub.io/wov-calendar
+CATEGORIES:Cargo crime
+SEQUENCE:142
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
