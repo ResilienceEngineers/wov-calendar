@@ -59,7 +59,20 @@
           },
           "convergence_score": { "type": "number", "minimum": 0, "maximum": 10 },
           "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+          "peak_depth": { "type": "integer", "minimum": 1 },
+          "score_breakdown": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "depth": { "type": "number" },
+              "severity": { "type": "number" },
+              "concentration": { "type": "number" },
+              "signal": { "type": "number" },
+              "chokepoint": { "type": "number" }
+            }
+          },
           "member_event_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "peak_member_ids": { "type": "array", "items": { "type": "string" } },
           "shared_industries": { "type": "array", "items": { "type": "string" } },
           "shared_commodities": { "type": "array", "items": { "type": "string" } },
           "shared_regions": { "type": "array", "items": { "type": "string" } },

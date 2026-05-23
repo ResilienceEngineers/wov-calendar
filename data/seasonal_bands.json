@@ -1,7 +1,7 @@
 {
   "$comment": "GENERATED from data/patterns.csv by build_patterns.py. Do not hand-edit; edit patterns.csv (weather rows) and rebuild.",
   "version": "2026.143",
-  "generated_at": "2026-05-23T20:44:35Z",
+  "generated_at": "2026-05-23T21:05:24Z",
   "bands": [
     {
       "id": "atl-hurricane-2026",

@@ -38,6 +38,10 @@ MAJOR_CHOKEPOINTS = {"hormuz", "suez", "bab_mandeb", "panama_canal", "malacca", 
 NULL_END_DEFAULT_DAYS = 30
 SCORE_FLOOR = 0.0
 SCORE_CEIL = 10.0
+SURFACE_THRESHOLD = 5.0  # clusters at or above this surface on the executive view
+# Modulator subtypes that provide context but must NOT drive clusters (they are
+# near-year-long and would dilute every window). They still render on the Gantt.
+EXCLUDE_FROM_CLUSTERS = {"enso_modulator"}
 
 
 @dataclass(frozen=True)
@@ -53,10 +57,15 @@ class Band:
     source_tier: int
     signal_tier: str  # hard|medium|soft|noise
     kind: str = "seasonal"  # seasonal | pattern | active | fm | analysis
+    peak_start: date | None = None
+    peak_end: date | None = None
 
     @property
     def is_live(self) -> bool:
         return self.kind in ("active", "fm", "analysis")
+
+    def peak(self) -> tuple[date, date]:
+        return (self.peak_start or self.start, self.peak_end or self.end)
 
 
 def _parse_date(s: str | None, default: date) -> date:
@@ -68,8 +77,17 @@ def _parse_date(s: str | None, default: date) -> date:
 def load_bands(today: date) -> list[Band]:
     bands: list[Band] = []
 
+    def peak_dates(b):
+        pw = b.get("peak_window")
+        if pw and len(pw) == 2:
+            return _parse_date(pw[0], today), _parse_date(pw[1], today)
+        return None, None
+
     seasonal = json.loads((DATA / "seasonal_bands.json").read_text(encoding="utf-8"))
     for b in seasonal["bands"]:
+        if b.get("hazard_type") in EXCLUDE_FROM_CLUSTERS:
+            continue  # modulator: context only, never a cluster member
+        ps, pe = peak_dates(b)
         bands.append(Band(
             id=b["id"],
             start=_parse_date(b["start_date"], today),
@@ -82,6 +100,7 @@ def load_bands(today: date) -> list[Band]:
             source_tier=1,
             signal_tier="hard",
             kind="seasonal",
+            peak_start=ps, peak_end=pe,
         ))
 
     # Non-weather patterns (cargo crime, cyber, conflict cycle, labor) from patterns.csv.
@@ -90,6 +109,9 @@ def load_bands(today: date) -> list[Band]:
         confidence_to_signal = {"high": "hard", "medium": "medium", "low": "soft"}
         patterns = json.loads(pattern_path.read_text(encoding="utf-8"))
         for b in patterns["bands"]:
+            if b.get("subtype") in EXCLUDE_FROM_CLUSTERS:
+                continue
+            ps, pe = peak_dates(b)
             bands.append(Band(
                 id=b["id"],
                 start=_parse_date(b["start_date"], today),
@@ -102,6 +124,7 @@ def load_bands(today: date) -> list[Band]:
                 source_tier=2,
                 signal_tier=confidence_to_signal.get(b.get("confidence", "medium"), "medium"),
                 kind="pattern",
+                peak_start=ps, peak_end=pe,
             ))
 
     active = json.loads((DATA / "active_events.json").read_text(encoding="utf-8"))
@@ -163,43 +186,100 @@ def load_bands(today: date) -> list[Band]:
     return bands
 
 
-def jaccard(a: frozenset, b: frozenset) -> float:
-    if not a and not b:
+def jaccard_multi(sets: list[frozenset]) -> float:
+    """Intersection-over-union across >=2 sets. 0 if fewer than 2 non-context sets or empty union."""
+    sets = [s for s in sets]
+    if len(sets) < 2:
         return 0.0
-    u = a | b
-    if not u:
+    union = frozenset().union(*sets)
+    if not union:
         return 0.0
-    return len(a & b) / len(u)
+    inter = frozenset(sets[0]).intersection(*sets[1:])
+    return len(inter) / len(union)
 
 
-def score_cluster(members: list[Band], axis_value: str) -> float:
-    n = len(members)
-    s = 2.0 * math.log(n + 1)
-    s += sum(m.severity for m in members) / n
-    industries_union = frozenset().union(*(m.industries for m in members))
-    industries_inter = frozenset.intersection(*(m.industries for m in members)) if all(m.industries for m in members) else frozenset()
-    commodities_union = frozenset().union(*(m.commodities for m in members))
-    commodities_inter = frozenset.intersection(*(m.commodities for m in members)) if all(m.commodities for m in members) else frozenset()
-    j_ind = (len(industries_inter) / len(industries_union)) if industries_union else 0.0
-    j_com = (len(commodities_inter) / len(commodities_union)) if commodities_union else 0.0
-    s += 1.5 * j_ind * j_com
+def densest_overlap(items: list[tuple[date, date, Band]]) -> tuple[int, date | None, date | None, list[Band]]:
+    """Find the window of maximum simultaneous overlap.
 
-    tier_bonus = 0.0
+    Returns (depth, window_start, window_end, active_bands) where depth is the max number
+    of intervals active at once, the window spans the segments achieving that depth, and
+    active_bands is the union of bands active in those peak segments.
+    """
+    if not items:
+        return (0, None, None, [])
+    pts = sorted(set([s for s, _, _ in items] + [e + timedelta(days=1) for _, e, _ in items]))
+    segments: list[tuple[date, date, list[Band]]] = []
+    for i in range(len(pts) - 1):
+        seg_start = pts[i]
+        seg_end = pts[i + 1] - timedelta(days=1)
+        if seg_end < seg_start:
+            continue
+        active = [b for (s, e, b) in items if s <= seg_start and e >= seg_start]
+        if active:
+            segments.append((seg_start, seg_end, active))
+    if not segments:
+        return (0, None, None, [])
+    best_depth = max(len(a) for _, _, a in segments)
+    peak_segs = [(s, e, a) for s, e, a in segments if len(a) == best_depth]
+    win_start = min(s for s, _, _ in peak_segs)
+    win_end = max(e for _, e, _ in peak_segs)
+    seen: set[str] = set()
+    active_bands: list[Band] = []
+    for _, _, a in peak_segs:
+        for b in a:
+            if b.id not in seen:
+                seen.add(b.id)
+                active_bands.append(b)
+    return (best_depth, win_start, win_end, active_bands)
+
+
+def score_cluster(active: list[Band], depth: int, axis: str, axis_value: str) -> tuple[float, dict]:
+    """Bounded 0-10 score from five additive components. Returns (score, component_breakdown).
+
+    depth          0-3  how many bands peak simultaneously (log2 curve)
+    severity       0-3  mean severity of the peak-overlapping bands
+    concentration  0-2  shared industries x commodities (jaccard) — how tightly impact concentrates
+    signal         0-1  reliability: fraction hard-tier + fraction Tier-1
+    chokepoint     0-1  additive criticality bonus (NOT a multiplier)
+    """
+    n = max(1, len(active))
+    depth_c = min(3.0, 1.2 * math.log2(depth)) if depth >= 1 else 0.0
+    mean_sev = sum(m.severity for m in active) / n
+    sev_c = 0.6 * mean_sev
+    j_ind = jaccard_multi([m.industries for m in active])
+    j_com = jaccard_multi([m.commodities for m in active])
+    conc_c = 2.0 * (0.5 * j_ind + 0.5 * j_com)
+    frac_hard = sum(1 for m in active if m.signal_tier == "hard") / n
+    frac_t1 = sum(1 for m in active if m.source_tier == 1) / n
+    sig_c = 0.5 * frac_hard + 0.5 * frac_t1
+    if axis == "chokepoint":
+        choke_c = 1.0 if axis_value in MAJOR_CHOKEPOINTS else 0.5
+    else:
+        shared_cp = frozenset.intersection(*(m.chokepoints for m in active)) if all(m.chokepoints for m in active) else frozenset()
+        choke_c = 0.5 if (shared_cp & MAJOR_CHOKEPOINTS) else 0.0
+    raw = depth_c + sev_c + conc_c + sig_c + choke_c
+    breakdown = {"depth": round(depth_c, 2), "severity": round(sev_c, 2), "concentration": round(conc_c, 2),
+                 "signal": round(sig_c, 2), "chokepoint": round(choke_c, 2)}
+    return (max(SCORE_FLOOR, min(SCORE_CEIL, raw)), breakdown)
+
+
+def connected_groups(members: list[Band]) -> list[list[Band]]:
+    """Group members into temporally-connected components (full-window overlap)."""
+    members = sorted(members, key=lambda b: b.start)
+    groups: list[list[Band]] = []
+    current: list[Band] = []
+    current_end: date | None = None
     for m in members:
-        if m.source_tier == 1:
-            tier_bonus += 0.8
-        elif m.source_tier == 2:
-            tier_bonus += 0.5
-        if m.signal_tier == "hard":
-            tier_bonus += 0.6
-    s += tier_bonus
-
-    s -= 0.5 * sum(1 for m in members if m.signal_tier == "soft")
-
-    if axis_value in MAJOR_CHOKEPOINTS:
-        s *= 1.4
-
-    return max(SCORE_FLOOR, min(SCORE_CEIL, s))
+        if not current:
+            current = [m]; current_end = m.end; continue
+        if m.start <= current_end:
+            current.append(m)
+            current_end = max(current_end, m.end)
+        else:
+            groups.append(current); current = [m]; current_end = m.end
+    if current:
+        groups.append(current)
+    return groups
 
 
 def cluster_by_axis(bands: list[Band], axis: str) -> list[dict]:
@@ -211,50 +291,34 @@ def cluster_by_axis(bands: list[Band], axis: str) -> list[dict]:
     for b in bands:
         values |= getattr(b, attr)
 
-    # Theory of Constraints rule: chokepoint axis surfaces single-member observations.
-    min_members = 1 if axis == "chokepoint" else 2
-
     for axis_value in sorted(values):
         members = [b for b in bands if axis_value in getattr(b, attr)]
-        if len(members) < min_members:
+        if len(members) < 2:
             continue
-        # Sweep: sort by start, walk, group connected by interval overlap.
-        members.sort(key=lambda b: b.start)
-        groups: list[list[Band]] = []
-        current: list[Band] = []
-        current_end: date | None = None
-        for m in members:
-            if not current:
-                current = [m]
-                current_end = m.end
+        for grp in connected_groups(members):
+            if len(grp) < 2:
                 continue
-            if m.start <= current_end:
-                current.append(m)
-                if m.end > current_end:
-                    current_end = m.end
-            else:
-                groups.append(current)
-                current = [m]
-                current_end = m.end
-        if current:
-            groups.append(current)
-
-        for grp in groups:
-            if len(grp) < min_members:
+            # Actionable window = where the most members PEAK simultaneously.
+            depth, ws, we, active = densest_overlap([(m.peak()[0], m.peak()[1], m) for m in grp])
+            if depth < 2:
+                # peaks don't overlap — fall back to densest full-window overlap
+                depth, ws, we, active = densest_overlap([(m.start, m.end, m) for m in grp])
+            if depth < 2 or ws is None:
                 continue
-            score = score_cluster(grp, axis_value)
-            t_start = min(m.start for m in grp)
-            t_end = max(m.end for m in grp)
-            shared_ind = frozenset.intersection(*(m.industries for m in grp)) if all(m.industries for m in grp) else frozenset()
-            shared_com = frozenset.intersection(*(m.commodities for m in grp)) if all(m.commodities for m in grp) else frozenset()
-            shared_reg = frozenset.intersection(*(m.regions for m in grp)) if all(m.regions for m in grp) else frozenset()
-            shared_cp  = frozenset.intersection(*(m.chokepoints for m in grp)) if all(m.chokepoints for m in grp) else frozenset()
+            score, breakdown = score_cluster(active, depth, axis, axis_value)
+            shared_ind = frozenset.intersection(*(m.industries for m in active)) if all(m.industries for m in active) else frozenset()
+            shared_com = frozenset.intersection(*(m.commodities for m in active)) if all(m.commodities for m in active) else frozenset()
+            shared_reg = frozenset.intersection(*(m.regions for m in active)) if all(m.regions for m in active) else frozenset()
+            shared_cp  = frozenset.intersection(*(m.chokepoints for m in active)) if all(m.chokepoints for m in active) else frozenset()
             out.append({
                 "axis": axis,
                 "axis_value": axis_value,
-                "time_window": [t_start.isoformat(), t_end.isoformat()],
+                "time_window": [ws.isoformat(), we.isoformat()],
                 "convergence_score": round(score, 2),
+                "peak_depth": depth,
+                "score_breakdown": breakdown,
                 "member_event_ids": [m.id for m in grp],
+                "peak_member_ids": [m.id for m in active],
                 "shared_industries": sorted(shared_ind),
                 "shared_commodities": sorted(shared_com),
                 "shared_regions": sorted(shared_reg),
@@ -320,31 +384,34 @@ def narrate(cluster: dict, names: dict[str, dict[str, str]], titles: dict[str, s
     axis = cluster["axis"]
     value = cluster["axis_value"]
     display = names.get(axis, {}).get(value, value)
-    n = len(cluster["member_event_ids"])
+    depth = cluster.get("peak_depth", len(cluster.get("peak_member_ids", [])) or 2)
+    total = len(cluster["member_event_ids"])
     score = cluster["convergence_score"]
-    window = f"{cluster['time_window'][0]} → {cluster['time_window'][1]}"
+    window = f"{cluster['time_window'][0]} to {cluster['time_window'][1]}"
 
-    member_names = [titles.get(mid, mid) for mid in cluster["member_event_ids"][:3]]
+    peak_ids = cluster.get("peak_member_ids") or cluster["member_event_ids"]
+    member_names = [titles.get(mid, mid) for mid in peak_ids[:3]]
     members_phrase = " + ".join(member_names)
-    if len(cluster["member_event_ids"]) > 3:
-        members_phrase += f" + {len(cluster['member_event_ids']) - 3} more"
+    if len(peak_ids) > 3:
+        members_phrase += f" + {len(peak_ids) - 3} more"
 
-    industries = ", ".join(sorted(cluster.get("shared_industries", []))[:3]) or "—"
-    commodities = ", ".join(sorted(cluster.get("shared_commodities", []))[:3]) or "—"
+    industries = ", ".join(sorted(cluster.get("shared_industries", []))[:3]) or "none shared"
+    commodities = ", ".join(sorted(cluster.get("shared_commodities", []))[:3]) or "none shared"
 
     if axis == "chokepoint":
-        lead = f"Transit chokepoint {display} is the bottleneck."
+        lead = f"Transit chokepoint {display}:"
     elif axis == "region":
-        lead = f"Region {display} has multiple risks stacking in the same window."
+        lead = f"Region {display}:"
     elif axis == "industry":
-        lead = f"Industry sector {display} is exposed from multiple directions at once."
+        lead = f"Industry {display}:"
     else:
-        lead = f"Commodity flow {display} faces compound pressure."
+        lead = f"Commodity {display}:"
 
+    extra = f" (of {total} related bands in this {axis})" if total > depth else ""
     return (
-        f"{lead} {n} band(s) converging {window} (score {score:.1f}/10). "
-        f"Members: {members_phrase}. "
-        f"Shared industries: {industries}. Shared commodities: {commodities}."
+        f"{lead} {depth} risks peak together {window}{extra}, score {score:.1f}/10. "
+        f"Peak-window members: {members_phrase}. "
+        f"Shared industries: {industries}; shared commodities: {commodities}."
     )
 
 
@@ -352,7 +419,7 @@ def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict
     """One-paragraph plain-language summary for the page hero."""
     n_total = len(bands)
     n_clusters = len(clusters)
-    n_surfaced = sum(1 for c in clusters if c["convergence_score"] >= 5.5)
+    n_surfaced = sum(1 for c in clusters if c["convergence_score"] >= SURFACE_THRESHOLD)
     top = max((c["convergence_score"] for c in clusters), default=0.0)
 
     chokepoint_clusters = [c for c in clusters if c["axis"] == "chokepoint"]
@@ -361,7 +428,7 @@ def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict
 
     top_cluster = clusters[0] if clusters else None
     headline = "Calendar quiet — no convergence above surface threshold."
-    if top_cluster and top_cluster["convergence_score"] >= 5.5:
+    if top_cluster and top_cluster["convergence_score"] >= SURFACE_THRESHOLD:
         axis = top_cluster["axis"]
         display = names.get(axis, {}).get(top_cluster["axis_value"], top_cluster["axis_value"])
         headline = (
@@ -484,10 +551,10 @@ def main() -> int:
         "clusters": clusters,
     }
     (DATA / "overlaps.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    above_threshold = sum(1 for c in clusters if c["convergence_score"] >= 5.5)
+    above_threshold = sum(1 for c in clusters if c["convergence_score"] >= SURFACE_THRESHOLD)
     n_red = sum(1 for t in chokepoint_board if t["state"] == "red")
     n_amber = sum(1 for t in chokepoint_board if t["state"] == "amber")
-    print(f"[overlaps] wrote {len(clusters)} clusters; {above_threshold} at score >= 5.5; chokepoint board {n_red} red / {n_amber} amber.")
+    print(f"[overlaps] wrote {len(clusters)} clusters; {above_threshold} at score >= {SURFACE_THRESHOLD}; chokepoint board {n_red} red / {n_amber} amber.")
     return 0
 
 

@@ -48,7 +48,7 @@ AXIS_GLOSS = {
 
 
 def render_top_overlaps(clusters: list[dict], names: dict[str, dict[str, str]]) -> str:
-    surfaced = [c for c in clusters if c["convergence_score"] >= 5.5][:5]
+    surfaced = [c for c in clusters if c["convergence_score"] >= 5.0][:5]
     if not surfaced:
         return '<p class="empty">No convergence clusters above surface threshold today.</p>'
     parts: list[str] = []
@@ -59,17 +59,24 @@ def render_top_overlaps(clusters: list[dict], names: dict[str, dict[str, str]]) 
         gloss = html_lib.escape(AXIS_GLOSS.get(axis, ""))
         score = f"{c['convergence_score']:.1f}"
         window = f"{c['time_window'][0]} → {c['time_window'][1]}"
-        n_members = len(c["member_event_ids"])
+        depth = c.get("peak_depth", len(c.get("peak_member_ids", [])) or 2)
+        total = len(c["member_event_ids"])
         seed = html_lib.escape(c.get("narrative_seed") or "(narrative pending)")
+        bd = c.get("score_breakdown", {})
+        bd_line = ""
+        if bd:
+            bd_line = (f'<p class="cluster-breakdown" title="Additive 0-10 score: how many bands peak together + their severity + how concentrated the impact + signal reliability + chokepoint criticality.">'
+                       f'depth {bd.get("depth",0)} · severity {bd.get("severity",0)} · concentration {bd.get("concentration",0)} · signal {bd.get("signal",0)} · chokepoint {bd.get("chokepoint",0)}</p>')
         parts.append(
             f'<article class="cluster-card" data-cluster-id="{html_lib.escape(c["id"])}">'
             f'<div class="cluster-head">'
             f'<span class="axis-label">{axis_label} · {display}</span>'
-            f'<span class="score" title="Convergence score 0-10. Threshold for surfacing is 5.5.">{score}</span>'
+            f'<span class="score" title="Convergence score 0-10 (surface threshold 5.0).">{score}</span>'
             f'</div>'
-            f'<p class="cluster-window">{window} · <strong>{n_members}</strong> band(s)</p>'
+            f'<p class="cluster-window">{window} · <strong>{depth}</strong> peak together of {total} related</p>'
             f'<p class="cluster-meaning"><strong>What this means:</strong> {gloss}</p>'
             f'<p class="cluster-seed">{seed}</p>'
+            f'{bd_line}'
             f'<a class="cluster-link" href="brief.html#cluster-{html_lib.escape(c["id"])}">open in brief →</a>'
             f'</article>'
         )
@@ -153,7 +160,7 @@ def main() -> int:
 
     n_total_bands = len(seasonal["bands"]) + len(pattern_bands) + len(active["events"]) + len(fm["events"])
     n_clusters = len(overlaps["clusters"])
-    n_surfaced = sum(1 for c in overlaps["clusters"] if c["convergence_score"] >= 5.5)
+    n_surfaced = sum(1 for c in overlaps["clusters"] if c["convergence_score"] >= 5.0)
     top_score = max((c["convergence_score"] for c in overlaps["clusters"]), default=0.0)
 
     summary_html = (
