@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>WoV — deep view · 13 May 2026</title>
+<title>WoV — deep view · 23 May 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <style>
@@ -12,48 +12,54 @@
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--paper); line-height: 1.45; font-size: 16px; }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
   header.masthead { padding: 28px 32px 18px; border-bottom: 2px solid var(--ink); }
-  header.masthead h1 { font-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Times New Roman", serif; font-weight: 600; font-size: 28px; margin: 0 0 6px; }
+  header.masthead h1 { font-family: "Iowan Old Style", Palatino, serif; font-weight: 600; font-size: 28px; margin: 0 0 6px; }
   header.masthead h1 .accent { color: var(--accent); }
   header.masthead .meta { display: flex; gap: 20px; font-family: ui-monospace, monospace; font-size: 12px; color: var(--ink-soft); }
-  nav.subnav { display: flex; gap: 18px; padding: 10px 32px; border-bottom: 1px solid var(--rule); font-size: 13px; }
+  nav.subnav { display: flex; gap: 18px; padding: 10px 32px; border-bottom: 1px solid var(--rule); font-size: 13px; flex-wrap: wrap; }
   nav.subnav a { color: var(--ink); }
   main { padding: 24px 32px 60px; max-width: 1320px; }
   section { margin: 36px 0; }
-  h2.section-title { font-family: "Iowan Old Style", Palatino, serif; font-size: 22px; margin: 0 0 14px; font-weight: 600; }
+  h2.section-title { font-family: "Iowan Old Style", Palatino, serif; font-size: 22px; margin: 0 0 6px; font-weight: 600; }
+  h2.section-title small, .small-cap { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; font-weight: normal; }
+  .section-hint { font-size: 13px; color: var(--ink-soft); margin: 0 0 12px; }
+
+  details.how-to-read { background: #fff; border: 1px solid var(--rule); padding: 14px 18px; margin: 18px 0; }
+  details.how-to-read summary { cursor: pointer; font-family: "Iowan Old Style", Palatino, serif; font-size: 16px; }
+  details.how-to-read[open] summary { margin-bottom: 10px; }
+  details.how-to-read p { font-size: 14px; margin: 8px 0; }
+  details.how-to-read ul { font-size: 14px; margin: 8px 0 8px 18px; padding: 0; } details.how-to-read li { margin: 4px 0; }
 
   .heatmap-wrap { background: #fff; border: 1px solid var(--rule); padding: 16px; overflow-x: auto; }
   table.heatmap { border-collapse: collapse; font-size: 11px; min-width: 900px; }
   table.heatmap th, table.heatmap td { padding: 0; border: 1px solid var(--rule); }
   table.heatmap th.col { width: 24px; text-align: center; font-family: ui-monospace, monospace; color: var(--ink-soft); font-weight: normal; }
-  table.heatmap th.row { padding: 4px 8px; text-align: left; font-family: ui-monospace, monospace; color: var(--ink); font-weight: normal; min-width: 160px; }
-  table.heatmap td { width: 24px; height: 22px; text-align: center; cursor: default; }
+  table.heatmap th.row { padding: 4px 8px; text-align: left; font-family: ui-monospace, monospace; color: var(--ink); font-weight: normal; min-width: 180px; }
+  table.heatmap td { width: 24px; height: 22px; text-align: center; }
   table.heatmap td.now { outline: 2px solid var(--accent); outline-offset: -2px; }
 
   #map { width: 100%; height: 520px; border: 1px solid var(--rule); }
   .map-controls { padding: 8px 12px; background: #fff; border: 1px solid var(--rule); border-bottom: none; font-size: 12px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .map-controls label { cursor: pointer; user-select: none; }
-  .map-controls input { margin-right: 4px; }
+  .map-controls label { cursor: pointer; user-select: none; } .map-controls input { margin-right: 4px; }
 
   .clusters-list { display: grid; grid-template-columns: 1fr; gap: 14px; }
   .cluster-detail { border: 1px solid var(--rule); padding: 18px; background: #fff; }
   .cluster-detail h3 { font-family: "Iowan Old Style", Palatino, serif; font-size: 18px; margin: 0 0 8px; }
   .cluster-detail .meta-row { display: flex; gap: 16px; flex-wrap: wrap; font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); margin-bottom: 10px; }
   .cluster-detail .meta-row .score { font-family: "Iowan Old Style", Palatino, serif; color: var(--accent); font-size: 22px; font-weight: 600; }
-  .cluster-detail .members { font-size: 13px; }
-  .cluster-detail .members li { margin: 4px 0; }
+  .cluster-detail .members { font-size: 13px; } .cluster-detail .members li { margin: 4px 0; }
   .cluster-detail .shared { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
-  .axis-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .axis-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
   .axis-tabs button { font: inherit; background: transparent; border: 1px solid var(--rule); padding: 6px 12px; cursor: pointer; }
   .axis-tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .axis-tabs select { font: inherit; padding: 5px 8px; margin-left: auto; }
 
   .analysis-detail { border: 1px solid var(--rule); padding: 20px; background: #fff; margin: 12px 0; }
   .analysis-detail h3 { font-family: "Iowan Old Style", Palatino, serif; font-size: 20px; margin: 0 0 8px; }
   .analysis-detail .ad-meta { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); margin-bottom: 14px; }
   .chain { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
-  .chain .stage { padding: 8px 12px; border: 1px solid var(--rule); background: var(--paper); font-size: 12px; flex: 0 0 auto; }
+  .chain .stage { padding: 8px 12px; border: 1px solid var(--rule); background: var(--paper); font-size: 12px; }
   .chain .stage strong { display: block; font-family: "Iowan Old Style", Palatino, serif; font-size: 14px; margin-bottom: 2px; }
   .chain .arrow { color: var(--ink-soft); }
   .horizons { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
@@ -66,9 +72,7 @@
   .sources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
   .source-tier { background: #fff; border: 1px solid var(--rule); padding: 14px; }
   .source-tier h4 { font-family: "Iowan Old Style", Palatino, serif; font-size: 15px; margin: 0 0 6px; color: var(--accent); }
-  .source-tier .descr { font-size: 12px; color: var(--ink-soft); }
-  .source-tier .count { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); margin-top: 8px; }
-
+  .source-tier .descr { font-size: 12px; color: var(--ink-soft); } .source-tier .count { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-soft); margin-top: 8px; }
   footer { padding: 24px 32px; border-top: 1px solid var(--rule); margin-top: 40px; font-size: 12px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
   footer .brand { font-family: "Iowan Old Style", Palatino, serif; font-size: 14px; color: var(--ink); }
   .empty { font-style: italic; color: var(--ink-soft); padding: 14px; }
@@ -80,13 +84,13 @@
   <h1>WoV · <span class="accent">deep view</span></h1>
   <div class="meta">
     <span><!-- BRIEF:TODAY_HUMAN_START -->
-13 May 2026
+23 May 2026
 <!-- BRIEF:TODAY_HUMAN_END --></span>
     <span>Last updated <!-- BRIEF:LAST_UPDATED_START -->
-07:57 UTC
+19:24 UTC
 <!-- BRIEF:LAST_UPDATED_END --></span>
     <span>ISO <!-- BRIEF:TODAY_ISO_START -->
-2026-05-13
+2026-05-23
 <!-- BRIEF:TODAY_ISO_END --></span>
   </div>
 </header>
@@ -95,20 +99,36 @@
   <a href="index.html">← Executive view</a>
   <a href="https://github.com/resilienceengineers/wov-calendar/blob/main/methodology.md">Methodology (full)</a>
   <a href="https://github.com/resilienceengineers/wov-calendar/blob/main/sources.md">Sources (full)</a>
+  <a href="https://github.com/resilienceengineers/wov-calendar/blob/main/data/patterns.csv">Pattern database (CSV)</a>
   <a href="https://github.com/resilienceengineers/wov-calendar">GitHub</a>
 </nav>
 
 <main>
 
+  <details class="how-to-read">
+    <summary>How to read this page — open if you're new here</summary>
+    <p>The deep view complements the executive one-pager with full data layers and per-cluster detail.</p>
+    <ul>
+      <li><strong>Severity heatmap</strong> — 31-day forward look, one row per risk family (weather hazards + cargo crime + cyber + conflict + labour). Darker = higher severity that day. Today is the red-outlined column.</li>
+      <li><strong>Map</strong> — toggle layers. Polygons = pattern bounding boxes. Red dots = active events. Amber dots = force-majeure. White dots = monitored chokepoints. Persian-Gulf cluster = upstream Hormuz snapshot.</li>
+      <li><strong>Convergence clusters</strong> — tabbed by axis, filterable by region. The <em>chokepoint</em> tab includes single-event observations (Theory of Constraints). Other axes need 2+ overlapping bands.</li>
+      <li><strong>Custom analyses</strong> — your commodity-impact chains with cascade + timeline.</li>
+    </ul>
+    <p><strong>Scoring.</strong> 0–10 per cluster: overlapping-band count, average severity, source-tier bonus, chokepoint ×1.4, soft-signal penalty. Surface threshold 5.5.</p>
+  </details>
+
   <section>
-    <h2 class="section-title">Daily severity heatmap (next 31 days × hazard type)</h2>
+    <h2 class="section-title">Daily severity heatmap <small>next 31 days × risk family</small></h2>
+    <p class="section-hint">Darker cell = higher modelled severity for that family on that day. Red-outlined column is today. Pale shoulders flank deep-colour peak windows. Empty cells mean the family is off-season.</p>
     <div class="heatmap-wrap"><div id="heatmap"></div></div>
   </section>
 
   <section>
-    <h2 class="section-title">Geographic map — seasonal bands, active events, FM declarations</h2>
+    <h2 class="section-title">Geographic map <small>pattern polygons, active pins, FM pins, chokepoints</small></h2>
+    <p class="section-hint">Toggle layers to isolate a view. Hover any marker for the underlying title and severity.</p>
     <div class="map-controls" id="map-controls">
-      <label><input type="checkbox" data-layer="seasonal" checked /> Seasonal bands</label>
+      <label><input type="checkbox" data-layer="seasonal" checked /> Weather patterns</label>
+      <label><input type="checkbox" data-layer="patterns" checked /> Other patterns</label>
       <label><input type="checkbox" data-layer="active" checked /> Active events</label>
       <label><input type="checkbox" data-layer="fm" checked /> Force-majeure</label>
       <label><input type="checkbox" data-layer="chokepoints" checked /> Chokepoints</label>
@@ -118,19 +138,22 @@
   </section>
 
   <section>
-    <h2 class="section-title">Convergence clusters</h2>
+    <h2 class="section-title">Convergence clusters <small>faceted by axis</small></h2>
+    <p class="section-hint">Filter by axis or region. The <strong>by chokepoint</strong> tab follows Theory of Constraints: any named maritime chokepoint surfaces if even one band touches it. Other tabs apply the standard 2-or-more rule.</p>
     <div class="axis-tabs" id="axis-tabs">
       <button class="active" data-axis="all">All</button>
       <button data-axis="region">By region</button>
       <button data-axis="industry">By industry</button>
       <button data-axis="commodity">By commodity</button>
-      <button data-axis="chokepoint">By chokepoint</button>
+      <button data-axis="chokepoint">By chokepoint · ToC</button>
+      <select id="cluster-region"><option value="all">All regions</option></select>
     </div>
     <div class="clusters-list" id="clusters-list"></div>
   </section>
 
   <section>
-    <h2 class="section-title">Custom analyses</h2>
+    <h2 class="section-title">Custom analyses <small>commodity → industry chain → timeline projection</small></h2>
+    <p class="section-hint">Each card shows the upstream-to-downstream cascade with lead-time markers and the T+7 / T+30 / T+90 projection. Drop a YAML into <code>uploads/</code> to add one.</p>
     <div id="analyses-list"></div>
   </section>
 
@@ -138,7 +161,7 @@
     <h2 class="section-title">Methodology</h2>
     <div class="methodology-block">
       <!-- BRIEF:METHODOLOGY_START -->
-      <p>This calendar uses a tiered signal-weighting framework. Only verified physical events from primary sources can shape band creation. Trend movement requires confirmed change versus the prior 72 hours. The system continuously calibrates against outcomes — when convergence-cluster predictions miss, the underlying scoring is sharpened. The full operating ruleset is kept private to preserve analytical edge.</p>
+      <p>This calendar uses a tiered signal-weighting framework. Only verified physical events from primary sources shape band creation. Recurring patterns are evidence-based, catalogued in a single-source-of-truth CSV, and tracked fortnightly for materialisation. Convergence scoring runs deterministically over the union of pattern, active-event, force-majeure, and analysis bands. The full operating ruleset is kept private to preserve analytical edge.</p>
       <!-- BRIEF:METHODOLOGY_END -->
     </div>
   </section>
@@ -153,237 +176,157 @@
 <footer>
   <span class="brand">Resilience Engineers</span>
   <span>Marco Felsberger · marco.felsberger@resilience-engineers.com</span>
-  <span>Calendar updated daily 06:00 UTC · methodology private · sources tiered</span>
+  <span>Calendar updated daily 06:00 UTC · patterns reviewed fortnightly · methodology private</span>
 </footer>
 
-<!-- BRIEF:HERO_KPIS_START -->
-<span class="kpi"><strong>16</strong> bands tracked</span><span class="kpi"><strong>23</strong> clusters detected</span><span class="kpi"><strong>23</strong> above surface threshold</span><span class="kpi"><strong>10.0</strong> top convergence score</span>
-<!-- BRIEF:HERO_KPIS_END -->
-<!-- BRIEF:TOP_OVERLAPS_START -->
-<article class="cluster-card" data-cluster-id="cluster-2026-05-13-001"><div class="cluster-head"><span class="axis-label">region · South Asia (IN/BD)</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-01 → 2027-04-30</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>6</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-001">open in brief →</a></article>
-<article class="cluster-card" data-cluster-id="cluster-2026-05-13-002"><div class="cluster-head"><span class="axis-label">region · US Gulf / Houston</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-01 → 2026-12-31</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>5</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-002">open in brief →</a></article>
-<article class="cluster-card" data-cluster-id="cluster-2026-05-13-003"><div class="cluster-head"><span class="axis-label">industry · agriculture_grain</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-01 → 2026-12-31</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>4</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-003">open in brief →</a></article>
-<article class="cluster-card" data-cluster-id="cluster-2026-05-13-004"><div class="cluster-head"><span class="axis-label">industry · ports_terminals</span><span class="score">10.0</span></div><p class="cluster-window">2026-05-01 → 2027-03-31</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>5</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-004">open in brief →</a></article>
-<article class="cluster-card" data-cluster-id="cluster-2026-05-13-005"><div class="cluster-head"><span class="axis-label">industry · shipping_container</span><span class="score">10.0</span></div><p class="cluster-window">2026-01-15 → 2027-04-30</p><p class="cluster-seed">(narrative pending)</p><p class="cluster-members"><strong>8</strong> bands converging</p><a class="cluster-link" href="brief.html#cluster-cluster-2026-05-13-005">open in brief →</a></article>
-<!-- BRIEF:TOP_OVERLAPS_END -->
 <!-- BRIEF:DATA_VERSION_START -->
-{"computed_at": "2026-05-13T07:57:53Z", "today": "2026-05-13"}
+{"computed_at": "2026-05-23T19:24:40Z", "today": "2026-05-23"}
 <!-- BRIEF:DATA_VERSION_END -->
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
-const HAZARD_COLORS = {
-  tropical_cyclone: "#c1272d", monsoon: "#1f5fa0", flood: "#2d7fb6", wildfire: "#d76b1e",
-  drought: "#9a7a1c", winter_storm: "#6a4fa0", dust_storm: "#a07a3c",
-  tornado_season: "#c44a8e", locust_outbreak: "#5a8a2c", enso_modulator: "#7a7a7a"
-};
-const SEVERITY_BG = ["#fff", "#fff7e6", "#ffe3c2", "#ffbf99", "#f4836a", "#c1272d"];
+const HAZARD_COLORS = { tropical_cyclone:"#c1272d", monsoon:"#1f5fa0", flood:"#2d7fb6", wildfire:"#d76b1e", drought:"#9a7a1c", winter_storm:"#6a4fa0", dust_storm:"#a07a3c", tornado_season:"#c44a8e", locust_outbreak:"#5a8a2c", enso_modulator:"#7a7a7a" };
+const CATEGORY_COLORS = { cargo_crime:"#8e44ad", cyber:"#16707a", conflict_cycle:"#7a1719", labor_cycle:"#2c5f2d" };
+const SEVERITY_BG = ["#fff","#fff7e6","#ffe3c2","#ffbf99","#f4836a","#c1272d"];
 
-async function fetchJSON(p) { const r = await fetch(p, { cache: "no-store" }); return r.json(); }
-function parseISODate(s) { const [y,m,d] = s.split("-").map(Number); return new Date(Date.UTC(y, m-1, d)); }
-function diffDays(a, b) { return Math.round((b - a) / 86400000); }
-function inWindow(date, start, end) { return date >= start && date <= end; }
+async function fetchJSON(p){ const r=await fetch(p,{cache:"no-store"}); return r.json(); }
+function parseISODate(s){ const [y,m,d]=s.split("-").map(Number); return new Date(Date.UTC(y,m-1,d)); }
+function inWindow(d,s,e){ return d>=s && d<=e; }
 
-function renderHeatmap(seasonal, active, fm) {
-  const today = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
-  const days = []; for (let i = 0; i < 31; i++) { const d = new Date(today); d.setUTCDate(d.getUTCDate() + i); days.push(d); }
-  const types = ["tropical_cyclone","monsoon","flood","wildfire","drought","winter_storm","tornado_season","locust_outbreak"];
+function renderHeatmap(seasonal, patterns){
+  const today=new Date(Date.UTC(new Date().getUTCFullYear(),new Date().getUTCMonth(),new Date().getUTCDate()));
+  const days=[]; for(let i=0;i<31;i++){ const d=new Date(today); d.setUTCDate(d.getUTCDate()+i); days.push(d); }
 
-  const bandsByType = {};
-  for (const b of seasonal.bands) (bandsByType[b.hazard_type] = bandsByType[b.hazard_type] || []).push(b);
+  // Rows: weather hazard types present + the four pattern families.
+  const weatherTypes=[...new Set(seasonal.bands.map(b=>b.hazard_type))].filter(t=>t!=="enso_modulator");
+  const rows=[];
+  for(const t of weatherTypes) rows.push({key:t, label:t.replaceAll("_"," "), kind:"weather"});
+  for(const c of ["cargo_crime","cyber","conflict_cycle","labor_cycle"]) rows.push({key:c, label:c.replaceAll("_"," "), kind:"pattern"});
 
-  const grid = days.map(d => {
-    const cell = {};
-    for (const t of types) {
-      let max = 0;
-      for (const b of (bandsByType[t] || [])) {
-        if (inWindow(d, parseISODate(b.start_date), parseISODate(b.end_date))) {
-          const inPeak = b.peak_window && inWindow(d, parseISODate(b.peak_window[0]), parseISODate(b.peak_window[1]));
-          const sev = inPeak ? b.baseline_severity : Math.max(1, b.baseline_severity - 1);
-          if (sev > max) max = sev;
-        }
-      }
-      cell[t] = max;
+  const sevForDay=(row,d)=>{
+    let max=0;
+    if(row.kind==="weather"){
+      for(const b of seasonal.bands){ if(b.hazard_type!==row.key) continue;
+        if(inWindow(d,parseISODate(b.start_date),parseISODate(b.end_date))){
+          const peak=b.peak_window&&inWindow(d,parseISODate(b.peak_window[0]),parseISODate(b.peak_window[1]));
+          max=Math.max(max, peak?b.baseline_severity:Math.max(1,b.baseline_severity-1));
+        } }
+    } else {
+      for(const b of (patterns.bands||[])){ if(b.category!==row.key) continue;
+        if(inWindow(d,parseISODate(b.start_date),parseISODate(b.end_date))){
+          const peak=b.peak_window&&inWindow(d,parseISODate(b.peak_window[0]),parseISODate(b.peak_window[1]));
+          max=Math.max(max, peak?b.baseline_severity:Math.max(1,b.baseline_severity-1));
+        } }
     }
-    return cell;
-  });
+    return max;
+  };
 
-  let html = "<table class='heatmap'><thead><tr><th class='row'>hazard / day</th>";
-  for (let i = 0; i < days.length; i++) html += `<th class='col'>${days[i].getUTCDate()}</th>`;
-  html += "</tr></thead><tbody>";
-  for (const t of types) {
-    html += `<tr><th class='row'>${t.replaceAll("_", " ")}</th>`;
-    grid.forEach((cell, idx) => {
-      const sev = cell[t] || 0;
-      const isToday = idx === 0;
-      html += `<td class='${isToday ? "now" : ""}' style='background:${SEVERITY_BG[sev]}' title='${days[idx].toISOString().slice(0,10)} · sev ${sev}'></td>`;
-    });
-    html += "</tr>";
-  }
-  html += "</tbody></table>";
-  document.getElementById("heatmap").innerHTML = html;
+  let html="<table class='heatmap'><thead><tr><th class='row'>family / day</th>";
+  for(const d of days) html+=`<th class='col'>${d.getUTCDate()}</th>`;
+  html+="</tr></thead><tbody>";
+  for(const row of rows){ html+=`<tr><th class='row'>${row.label}</th>`;
+    days.forEach((d,idx)=>{ const sev=sevForDay(row,d); html+=`<td class='${idx===0?"now":""}' style='background:${SEVERITY_BG[sev]}' title='${d.toISOString().slice(0,10)} · sev ${sev}'></td>`; });
+    html+="</tr>"; }
+  html+="</tbody></table>";
+  document.getElementById("heatmap").innerHTML=html;
 }
 
-let mapState = { map: null, layers: {} };
-function renderMap(seasonal, active, fm, hormuz, regions, chokepoints) {
-  const map = L.map("map", { scrollWheelZoom: false, attributionControl: true, worldCopyJump: true }).setView([20, 30], 2);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-    attribution: "&copy; OpenStreetMap &copy; CARTO", subdomains: "abcd", maxZoom: 19
-  }).addTo(map);
-  mapState.map = map;
+const mapState={map:null,layers:{}};
+function renderMap(seasonal,patterns,active,fm,hormuz,regions,chokepoints){
+  const map=L.map("map",{scrollWheelZoom:false,worldCopyJump:true}).setView([25,20],2);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{attribution:"&copy; OpenStreetMap &copy; CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
+  mapState.map=map;
+  const regById=Object.fromEntries(regions.map(r=>[r.id,r]));
 
-  const seasonalLayer = L.layerGroup();
-  for (const b of seasonal.bands) {
-    if (!b.geo_bbox) continue;
-    const [s, w, n, e] = b.geo_bbox;
-    L.rectangle([[s, w], [n, e]], { color: HAZARD_COLORS[b.hazard_type] || "#888", weight: 1, fillOpacity: 0.06 })
-      .bindTooltip(`<strong>${b.name}</strong><br/>${b.start_date} → ${b.end_date} · sev ${b.baseline_severity}`)
-      .addTo(seasonalLayer);
-  }
-  seasonalLayer.addTo(map);
-  mapState.layers.seasonal = seasonalLayer;
+  const seasonalLayer=L.layerGroup();
+  for(const b of seasonal.bands){ if(!b.geo_bbox) continue; const [s,w,n,e]=b.geo_bbox;
+    L.rectangle([[s,w],[n,e]],{color:HAZARD_COLORS[b.hazard_type]||"#888",weight:1,fillOpacity:0.05}).bindTooltip(`<strong>${b.name}</strong><br/>${b.start_date} → ${b.end_date} · sev ${b.baseline_severity}`).addTo(seasonalLayer); }
+  seasonalLayer.addTo(map); mapState.layers.seasonal=seasonalLayer;
 
-  const activeLayer = L.layerGroup();
-  for (const e of active.events) {
-    for (const regionId of e.regions) {
-      const r = regions.find(x => x.id === regionId);
-      if (!r) continue;
-      const [s, w, n, e_] = r.geo_bbox;
-      const lat = (s + n) / 2, lon = (w + e_) / 2;
-      L.circleMarker([lat, lon], { radius: 6, color: "#fff", weight: 1.6, fillColor: "#c1272d", fillOpacity: 0.9 })
-        .bindTooltip(`<strong>${e.title}</strong><br/>severity ${e.severity} · ${e.signal_tier}`)
-        .addTo(activeLayer);
-    }
-  }
-  activeLayer.addTo(map);
-  mapState.layers.active = activeLayer;
+  const patLayer=L.layerGroup();
+  for(const b of (patterns.bands||[])){ if(!b.geo_bbox) continue; const [s,w,n,e]=b.geo_bbox;
+    L.rectangle([[s,w],[n,e]],{color:CATEGORY_COLORS[b.category]||"#888",weight:1,dashArray:"4 3",fillOpacity:0.05}).bindTooltip(`<strong>${b.name}</strong><br/>${b.category} · ${b.start_date} → ${b.end_date} · sev ${b.baseline_severity}`).addTo(patLayer); }
+  patLayer.addTo(map); mapState.layers.patterns=patLayer;
 
-  const fmLayer = L.layerGroup();
-  for (const e of fm.events) {
-    const r = regions.find(x => x.id === e.regions_affected[0]);
-    if (!r) continue;
-    const [s, w, n, e_] = r.geo_bbox;
-    const lat = (s + n) / 2 + 0.7, lon = (w + e_) / 2 + 0.7;
-    L.circleMarker([lat, lon], { radius: 5, color: "#fff", weight: 1.4, fillColor: "#b67a08", fillOpacity: 0.9 })
-      .bindTooltip(`<strong>${e.declarant}</strong> · ${e.facility}<br/>${e.commodity_class} · declared ${e.declared_at}`)
-      .addTo(fmLayer);
-  }
-  fmLayer.addTo(map);
-  mapState.layers.fm = fmLayer;
+  const activeLayer=L.layerGroup();
+  for(const ev of active.events) for(const rid of ev.regions){ const r=regById[rid]; if(!r) continue; const [s,w,n,e]=r.geo_bbox;
+    L.circleMarker([(s+n)/2,(w+e)/2],{radius:6,color:"#fff",weight:1.6,fillColor:"#c1272d",fillOpacity:0.9}).bindTooltip(`<strong>${ev.title}</strong><br/>sev ${ev.severity} · ${ev.signal_tier}`).addTo(activeLayer); }
+  activeLayer.addTo(map); mapState.layers.active=activeLayer;
 
-  const chokeLayer = L.layerGroup();
-  for (const c of chokepoints.chokepoints) {
-    L.circleMarker([c.lat, c.lon], { radius: 7, color: "#000", weight: 1, fillColor: "#fff", fillOpacity: 1 })
-      .bindTooltip(`<strong>${c.name}</strong><br/>${c.throughput_note}`)
-      .addTo(chokeLayer);
-  }
-  chokeLayer.addTo(map);
-  mapState.layers.chokepoints = chokeLayer;
+  const fmLayer=L.layerGroup();
+  for(const ev of fm.events){ const r=regById[ev.regions_affected[0]]; if(!r) continue; const [s,w,n,e]=r.geo_bbox;
+    L.circleMarker([(s+n)/2+0.7,(w+e)/2+0.7],{radius:5,color:"#fff",weight:1.4,fillColor:"#b67a08",fillOpacity:0.9}).bindTooltip(`<strong>${ev.declarant}</strong> · ${ev.facility}<br/>${ev.commodity_class} · ${ev.declared_at}`).addTo(fmLayer); }
+  fmLayer.addTo(map); mapState.layers.fm=fmLayer;
 
-  const hormuzLayer = L.layerGroup();
-  for (const p of (hormuz.snapshot.map_pins || [])) {
-    L.circleMarker([p.lat, p.lng], { radius: 6, color: "#fff", weight: 1.6, fillColor: p.color || "#a4242a", fillOpacity: 0.85 })
-      .bindTooltip(`<strong>${p.name}</strong><br/>${p.status}`)
-      .addTo(hormuzLayer);
-  }
-  hormuzLayer.addTo(map);
-  mapState.layers.hormuz = hormuzLayer;
+  const chokeLayer=L.layerGroup();
+  for(const c of chokepoints.chokepoints) L.circleMarker([c.lat,c.lon],{radius:7,color:"#000",weight:1,fillColor:"#fff",fillOpacity:1}).bindTooltip(`<strong>${c.name}</strong><br/>${c.throughput_note}`).addTo(chokeLayer);
+  chokeLayer.addTo(map); mapState.layers.chokepoints=chokeLayer;
 
-  document.getElementById("map-controls").addEventListener("change", (ev) => {
-    const layer = mapState.layers[ev.target.dataset.layer];
-    if (!layer) return;
-    if (ev.target.checked) layer.addTo(map); else map.removeLayer(layer);
-  });
+  const hormuzLayer=L.layerGroup();
+  for(const p of (hormuz.snapshot.map_pins||[])) L.circleMarker([p.lat,p.lng],{radius:6,color:"#fff",weight:1.6,fillColor:p.color||"#a4242a",fillOpacity:0.85}).bindTooltip(`<strong>${p.name}</strong><br/>${p.status}`).addTo(hormuzLayer);
+  hormuzLayer.addTo(map); mapState.layers.hormuz=hormuzLayer;
+
+  document.getElementById("map-controls").addEventListener("change",ev=>{ const l=mapState.layers[ev.target.dataset.layer]; if(!l) return; if(ev.target.checked) l.addTo(map); else map.removeLayer(l); });
 }
 
-function renderClusters(overlaps, regions) {
-  const tabs = document.getElementById("axis-tabs");
-  const list = document.getElementById("clusters-list");
-  const regName = Object.fromEntries(regions.map(r => [r.id, r.name]));
-
-  const draw = (axis) => {
-    const filtered = axis === "all" ? overlaps.clusters : overlaps.clusters.filter(c => c.axis === axis);
-    if (!filtered.length) { list.innerHTML = '<p class="empty">No clusters for this axis yet.</p>'; return; }
-    list.innerHTML = filtered.map(c => {
-      const av = c.axis === "region" ? (regName[c.axis_value] || c.axis_value) : c.axis_value;
-      return `<article class="cluster-detail" id="cluster-${c.id}">
-        <h3>${av} <small style="color:var(--ink-soft);font-family:ui-monospace,monospace;font-size:11px">[${c.axis}]</small></h3>
-        <div class="meta-row">
-          <span class="score">${c.convergence_score.toFixed(1)}</span>
-          <span>window ${c.time_window[0]} → ${c.time_window[1]}</span>
-          <span>${c.member_event_ids.length} bands</span>
-        </div>
-        ${c.narrative_seed ? `<p style="font-style:italic">${c.narrative_seed}</p>` : ""}
-        <div class="members"><strong>Members:</strong><ul>${c.member_event_ids.map(id => `<li><code>${id}</code></li>`).join("")}</ul></div>
-        ${c.shared_industries.length ? `<p class="shared">shared industries: ${c.shared_industries.join(", ")}</p>` : ""}
-        ${c.shared_commodities.length ? `<p class="shared">shared commodities: ${c.shared_commodities.join(", ")}</p>` : ""}
-        ${c.shared_chokepoints.length ? `<p class="shared">shared chokepoints: ${c.shared_chokepoints.join(", ")}</p>` : ""}
-      </article>`;
+function renderClusters(overlaps,regions){
+  const tabs=document.getElementById("axis-tabs"), list=document.getElementById("clusters-list");
+  const regName=Object.fromEntries(regions.map(r=>[r.id,r.name]));
+  const sel=document.getElementById("cluster-region");
+  const regionIds=[...new Set(overlaps.clusters.flatMap(c=>c.shared_regions||[]))].sort();
+  regionIds.forEach(id=>{ const o=document.createElement("option"); o.value=id; o.textContent=regName[id]||id; sel.appendChild(o); });
+  let curAxis="all";
+  const draw=()=>{
+    const region=sel.value;
+    let filtered = curAxis==="all"?overlaps.clusters:overlaps.clusters.filter(c=>c.axis===curAxis);
+    if(region!=="all") filtered=filtered.filter(c=>(c.shared_regions||[]).includes(region)||c.axis_value===region);
+    if(!filtered.length){ list.innerHTML='<p class="empty">No clusters match this filter.</p>'; return; }
+    list.innerHTML=filtered.map(c=>{ const av=c.axis==="region"?(regName[c.axis_value]||c.axis_value):c.axis_value;
+      return `<article class="cluster-detail" id="cluster-${c.id}"><h3>${av} <small class="small-cap">[${c.axis}]</small></h3>
+      <div class="meta-row"><span class="score">${c.convergence_score.toFixed(1)}</span><span>window ${c.time_window[0]} → ${c.time_window[1]}</span><span>${c.member_event_ids.length} bands</span></div>
+      ${c.narrative_seed?`<p>${c.narrative_seed}</p>`:""}
+      <div class="members"><strong>Members:</strong><ul>${c.member_event_ids.map(id=>`<li><code>${id}</code></li>`).join("")}</ul></div>
+      ${c.shared_industries.length?`<p class="shared">shared industries: ${c.shared_industries.join(", ")}</p>`:""}
+      ${c.shared_commodities.length?`<p class="shared">shared commodities: ${c.shared_commodities.join(", ")}</p>`:""}
+      ${c.shared_chokepoints.length?`<p class="shared">shared chokepoints: ${c.shared_chokepoints.join(", ")}</p>`:""}</article>`;
     }).join("");
   };
-
-  tabs.addEventListener("click", (ev) => {
-    if (ev.target.tagName !== "BUTTON") return;
-    tabs.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-    ev.target.classList.add("active");
-    draw(ev.target.dataset.axis);
-  });
-  draw("all");
+  tabs.addEventListener("click",ev=>{ if(ev.target.tagName!=="BUTTON") return; tabs.querySelectorAll("button").forEach(b=>b.classList.remove("active")); ev.target.classList.add("active"); curAxis=ev.target.dataset.axis; draw(); });
+  sel.addEventListener("change",draw);
+  draw();
 }
 
-function renderAnalyses(analyses) {
-  const root = document.getElementById("analyses-list");
-  if (!analyses.analyses.length) { root.innerHTML = '<p class="empty">No custom analyses uploaded yet.</p>'; return; }
-  root.innerHTML = analyses.analyses.map(a => `<article class="analysis-detail" id="analysis-${a.id}">
+function renderAnalyses(analyses){
+  const root=document.getElementById("analyses-list");
+  if(!analyses.analyses.length){ root.innerHTML='<p class="empty">No custom analyses uploaded yet.</p>'; return; }
+  root.innerHTML=analyses.analyses.map(a=>`<article class="analysis-detail" id="analysis-${a.id}">
     <h3>${a.trigger_commodity} → ${a.regions_affected.join(", ")}</h3>
-    <p class="ad-meta">trigger: ${a.trigger_geography}${a.trigger_event_ref ? ` · ref ${a.trigger_event_ref}` : ""} · uploaded ${a.uploaded_at.slice(0,10)}</p>
-    <div class="chain">
-      ${a.industry_chain.map((s, i) => `<div class="stage"><strong>${s.stage}</strong>${s.industry}<br/><small style="color:var(--ink-soft)">+${s.lead_time_days}d</small></div>${i < a.industry_chain.length - 1 ? '<span class="arrow">→</span>' : ""}`).join("")}
-    </div>
-    <div class="horizons">
-      ${a.timeline_projection.map(h => `<div class="horizon"><div class="h-label">T+${h.horizon_days}d · ${h.confidence}</div><div>${h.expected_impact}</div></div>`).join("")}
-    </div>
-    <div class="narrative"><pre>${a.narrative_md.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>
-  </article>`).join("");
+    <p class="ad-meta">trigger: ${a.trigger_geography}${a.trigger_event_ref?` · ref ${a.trigger_event_ref}`:""} · uploaded ${a.uploaded_at.slice(0,10)}</p>
+    <div class="chain">${a.industry_chain.map((s,i)=>`<div class="stage"><strong>${s.stage}</strong>${s.industry}<br/><small style="color:var(--ink-soft)">+${s.lead_time_days}d</small></div>${i<a.industry_chain.length-1?'<span class="arrow">→</span>':""}`).join("")}</div>
+    <div class="horizons">${a.timeline_projection.map(h=>`<div class="horizon"><div class="h-label">T+${h.horizon_days}d · ${h.confidence}</div><div>${h.expected_impact}</div></div>`).join("")}</div>
+    <div class="narrative"><pre>${a.narrative_md.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div></article>`).join("");
+}
+function renderSources(sources){
+  const tiers={}; for(const s of sources.sources) (tiers[s.tier]=tiers[s.tier]||[]).push(s);
+  const descr={1:"Primary, official, verifiable",2:"Specialised commercial intelligence with track record",3:"Analytical institutions with rigorous standards",4:"Commercial analysts with multi-year track records",5:"Wire services and reputable regional / sector press",6:"Excluded by default — admitted only after Tier 1–3 corroboration"};
+  document.getElementById("sources-grid").innerHTML=[1,2,3,4,5,6].map(t=>`<div class="source-tier"><h4>Tier ${t}</h4><div class="descr">${descr[t]}</div><div class="count">${(tiers[t]||[]).length} sources registered</div></div>`).join("");
 }
 
-function renderSources(sources) {
-  const tiers = {};
-  for (const s of sources.sources) (tiers[s.tier] = tiers[s.tier] || []).push(s);
-  const descr = {
-    1: "Primary, official, verifiable",
-    2: "Specialised commercial intelligence with operational track record",
-    3: "Analytical institutions with rigorous publication standards",
-    4: "Commercial analysts and columnists with multi-year track records",
-    5: "Wire services and reputable regional / sector press",
-    6: "Excluded by default — admitted only after Tier 1–3 corroboration"
-  };
-  const root = document.getElementById("sources-grid");
-  root.innerHTML = [1,2,3,4,5,6].map(t => `<div class="source-tier"><h4>Tier ${t}</h4><div class="descr">${descr[t]}</div><div class="count">${(tiers[t] || []).length} sources registered</div></div>`).join("");
-}
-
-(async () => {
-  try {
-    const [seasonal, active, fm, hormuz, analyses, regions, chokepoints, sources, overlaps] = await Promise.all([
-      fetchJSON("data/seasonal_bands.json"),
-      fetchJSON("data/active_events.json"),
-      fetchJSON("data/fm_events.json"),
-      fetchJSON("data/hormuz_snapshot.json"),
-      fetchJSON("data/user_analyses.json"),
-      fetchJSON("data/vocab/regions.json").then(d => d.regions),
-      fetchJSON("data/vocab/chokepoints.json"),
-      fetchJSON("data/sources.json"),
-      fetchJSON("data/overlaps.json"),
+(async()=>{
+  try{
+    const [seasonal,patterns,active,fm,hormuz,analyses,regions,chokepoints,sources,overlaps]=await Promise.all([
+      fetchJSON("data/seasonal_bands.json"),fetchJSON("data/pattern_bands.json"),fetchJSON("data/active_events.json"),
+      fetchJSON("data/fm_events.json"),fetchJSON("data/hormuz_snapshot.json"),fetchJSON("data/user_analyses.json"),
+      fetchJSON("data/vocab/regions.json").then(d=>d.regions),fetchJSON("data/vocab/chokepoints.json"),
+      fetchJSON("data/sources.json"),fetchJSON("data/overlaps.json"),
     ]);
-    renderHeatmap(seasonal, active, fm);
-    renderMap(seasonal, active, fm, hormuz, regions, chokepoints);
-    renderClusters(overlaps, regions);
+    renderHeatmap(seasonal,patterns);
+    renderMap(seasonal,patterns,active,fm,hormuz,regions,chokepoints);
+    renderClusters(overlaps,regions);
     renderAnalyses(analyses);
     renderSources(sources);
-  } catch (e) {
-    console.error("WoV deep view render failed:", e);
-  }
+  }catch(e){ console.error("WoV deep view failed:",e); }
 })();
 </script>
 

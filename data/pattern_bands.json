@@ -1,0 +1,568 @@
+{
+  "$comment": "GENERATED from data/patterns.csv by build_patterns.py. Single source of truth is patterns.csv.",
+  "generated_at": "2026-05-23T19:24:40Z",
+  "source_of_truth": "data/patterns.csv",
+  "bands": [
+    {
+      "id": "cargo-theft-us-q4-2026",
+      "pattern_id": "cargo-theft-us-q4",
+      "name": "US Q4 holiday cargo-theft surge",
+      "category": "cargo_crime",
+      "subtype": "holiday_surge",
+      "recurrence": "annual",
+      "regions": [
+        "NA-Gulf"
+      ],
+      "countries_iso3": [
+        "USA"
+      ],
+      "industries": [
+        "trucking",
+        "warehousing",
+        "rail_freight",
+        "food_processing"
+      ],
+      "commodities": [
+        "containerized_general"
+      ],
+      "chokepoints": [],
+      "geo_bbox": [
+        18.0,
+        -100.0,
+        32.0,
+        -80.0
+      ],
+      "start_date": "2026-10-01",
+      "peak_window": [
+        "2026-11-01",
+        "2026-12-31"
+      ],
+      "end_date": "2027-01-31",
+      "baseline_severity": 3,
+      "confidence": "high",
+      "source_ids": [
+        "cargonet",
+        "fbi_ic3",
+        "ntsa_cargo"
+      ],
+      "search_queries": [
+        "CargoNet cargo theft Q4 holiday report",
+        "US cargo theft increase"
+      ],
+      "materialization_metric": "reported_cargo_theft_incidents_us_monthly",
+      "methodology_note": "CargoNet/Verisk: consistent Nov-Dec spike; food-beverage + electronics most stolen; long-haul truckload + warehouse",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "cargo-theft-us-summer-2026",
+      "pattern_id": "cargo-theft-us-summer",
+      "name": "US summer long-weekend cargo theft",
+      "category": "cargo_crime",
+      "subtype": "long_weekend",
+      "recurrence": "annual",
+      "regions": [
+        "NA-Gulf"
+      ],
+      "countries_iso3": [
+        "USA"
+      ],
+      "industries": [
+        "trucking",
+        "warehousing"
+      ],
+      "commodities": [
+        "containerized_general"
+      ],
+      "chokepoints": [],
+      "geo_bbox": [
+        18.0,
+        -100.0,
+        32.0,
+        -80.0
+      ],
+      "start_date": "2026-05-01",
+      "peak_window": [
+        "2026-07-01",
+        "2026-07-31"
+      ],
+      "end_date": "2026-09-30",
+      "baseline_severity": 2,
+      "confidence": "medium",
+      "source_ids": [
+        "cargonet"
+      ],
+      "search_queries": [
+        "cargo theft Memorial Day July 4 Labor Day CargoNet"
+      ],
+      "materialization_metric": "cargo_theft_incidents_holiday_weekend",
+      "methodology_note": "CargoNet: theft spikes around US long weekends (Memorial Day, July 4, Labor Day) when facilities unstaffed",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "cargo-theft-eu-festive-2026",
+      "pattern_id": "cargo-theft-eu-festive",
+      "name": "EU festive-period cargo theft",
+      "category": "cargo_crime",
+      "subtype": "holiday_surge",
+      "recurrence": "annual",
+      "regions": [
+        "EU-Industrial",
+        "EU-North",
+        "EU-Med"
+      ],
+      "countries_iso3": [
+        "DEU",
+        "FRA",
+        "NLD",
+        "BEL",
+        "ITA",
+        "GBR",
+        "ESP"
+      ],
+      "industries": [
+        "trucking",
+        "warehousing"
+      ],
+      "commodities": [
+        "containerized_general"
+      ],
+      "chokepoints": [],
+      "geo_bbox": [
+        30.0,
+        -6.0,
+        65.0,
+        36.0
+      ],
+      "start_date": "2026-11-01",
+      "peak_window": [
+        "2026-12-01",
+        "2026-12-31"
+      ],
+      "end_date": "2027-01-31",
+      "baseline_severity": 3,
+      "confidence": "medium",
+      "source_ids": [
+        "tapa_emea",
+        "bsi_scs"
+      ],
+      "search_queries": [
+        "TAPA EMEA cargo theft festive period December"
+      ],
+      "materialization_metric": "tapa_incidents_emea_monthly",
+      "methodology_note": "TAPA EMEA: elevated December; food + tobacco + electronics; parked-vehicle + facility theft",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "cyber-ransomware-holiday-2026",
+      "pattern_id": "cyber-ransomware-holiday",
+      "name": "Holiday / long-weekend ransomware surge",
+      "category": "cyber",
+      "subtype": "ransomware_holiday",
+      "recurrence": "annual",
+      "regions": [
+        "NA-Gulf",
+        "EU-Industrial"
+      ],
+      "countries_iso3": [
+        "USA",
+        "DEU",
+        "GBR"
+      ],
+      "industries": [
+        "ports_terminals",
+        "warehousing",
+        "trucking",
+        "energy_power",
+        "food_processing"
+      ],
+      "commodities": [],
+      "chokepoints": [],
+      "geo_bbox": [
+        18.0,
+        -100.0,
+        54.0,
+        16.0
+      ],
+      "start_date": "2026-11-01",
+      "peak_window": [
+        "2026-12-01",
+        "2026-12-31"
+      ],
+      "end_date": "2027-01-31",
+      "baseline_severity": 4,
+      "confidence": "high",
+      "source_ids": [
+        "cisa",
+        "fbi_ic3"
+      ],
+      "search_queries": [
+        "CISA holiday weekend ransomware advisory logistics"
+      ],
+      "materialization_metric": "ransomware_incidents_logistics_monthly",
+      "methodology_note": "CISA/FBI repeated advisories: attacks timed to holidays/weekends when SOC staffing is thin; logistics + manufacturing targeted",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "cyber-tax-phishing-2026",
+      "pattern_id": "cyber-tax-phishing",
+      "name": "Tax-season phishing & BEC",
+      "category": "cyber",
+      "subtype": "phishing_tax",
+      "recurrence": "annual",
+      "regions": [
+        "NA-Gulf",
+        "EU-Industrial"
+      ],
+      "countries_iso3": [
+        "USA",
+        "GBR"
+      ],
+      "industries": [
+        "warehousing",
+        "food_processing",
+        "auto_oem"
+      ],
+      "commodities": [],
+      "chokepoints": [],
+      "geo_bbox": [
+        18.0,
+        -100.0,
+        54.0,
+        16.0
+      ],
+      "start_date": "2026-01-01",
+      "peak_window": [
+        "2026-02-01",
+        "2026-04-30"
+      ],
+      "end_date": "2026-04-30",
+      "baseline_severity": 2,
+      "confidence": "medium",
+      "source_ids": [
+        "fbi_ic3",
+        "enisa"
+      ],
+      "search_queries": [
+        "tax season phishing BEC IC3 ENISA Q1"
+      ],
+      "materialization_metric": "bec_complaints_q1",
+      "methodology_note": "IC3: Q1 phishing/BEC spike around US (Jan-Apr) and UK (Jan) tax filing windows",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "cyber-blackfriday-2026",
+      "pattern_id": "cyber-blackfriday",
+      "name": "Black Friday / Cyber Monday attack surge",
+      "category": "cyber",
+      "subtype": "ecommerce_peak",
+      "recurrence": "annual",
+      "regions": [
+        "NA-Gulf",
+        "EU-Industrial"
+      ],
+      "countries_iso3": [
+        "USA",
+        "DEU",
+        "GBR"
+      ],
+      "industries": [
+        "warehousing",
+        "food_processing"
+      ],
+      "commodities": [],
+      "chokepoints": [],
+      "geo_bbox": [
+        18.0,
+        -100.0,
+        54.0,
+        16.0
+      ],
+      "start_date": "2026-11-01",
+      "peak_window": [
+        "2026-11-01",
+        "2026-12-31"
+      ],
+      "end_date": "2026-12-31",
+      "baseline_severity": 3,
+      "confidence": "medium",
+      "source_ids": [
+        "checkpoint_research",
+        "recorded_future"
+      ],
+      "search_queries": [
+        "Black Friday Cyber Monday attack surge Check Point retail"
+      ],
+      "materialization_metric": "web_attacks_retail_nov",
+      "methodology_note": "Check Point: retail/e-commerce + logistics attack volume rises sharply mid-Nov to early-Dec",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "conflict-sahel-dryseason-2025",
+      "pattern_id": "conflict-sahel-dryseason",
+      "name": "Sahel dry-season violence cycle",
+      "category": "conflict_cycle",
+      "subtype": "dry_season",
+      "recurrence": "annual",
+      "regions": [
+        "AF-Sahel"
+      ],
+      "countries_iso3": [
+        "MLI",
+        "NER",
+        "BFA",
+        "TCD",
+        "NGA"
+      ],
+      "industries": [
+        "energy_nuclear",
+        "metals_critical"
+      ],
+      "commodities": [
+        "uranium"
+      ],
+      "chokepoints": [],
+      "geo_bbox": [
+        10.0,
+        -12.0,
+        20.0,
+        24.0
+      ],
+      "start_date": "2025-10-01",
+      "peak_window": [
+        "2026-01-01",
+        "2026-04-30"
+      ],
+      "end_date": "2026-05-31",
+      "baseline_severity": 3,
+      "confidence": "medium",
+      "source_ids": [
+        "acled",
+        "cfr_gct",
+        "ucdp"
+      ],
+      "search_queries": [
+        "Sahel dry season violence seasonality ACLED"
+      ],
+      "materialization_metric": "acled_events_sahel_monthly",
+      "methodology_note": "ACLED: armed-group mobility rises in dry season (Oct-May); affects Niger uranium + regional gold corridors",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "conflict-blacksea-grain-2026",
+      "pattern_id": "conflict-blacksea-grain",
+      "name": "Black Sea grain corridor disruption window",
+      "category": "conflict_cycle",
+      "subtype": "harvest_escalation",
+      "recurrence": "annual",
+      "regions": [
+        "EU-BlackSea"
+      ],
+      "countries_iso3": [
+        "UKR",
+        "RUS",
+        "ROU",
+        "BGR",
+        "TUR"
+      ],
+      "industries": [
+        "agriculture_grain",
+        "shipping_drybulk"
+      ],
+      "commodities": [
+        "wheat",
+        "maize"
+      ],
+      "chokepoints": [
+        "bosphorus"
+      ],
+      "geo_bbox": [
+        40.0,
+        27.0,
+        48.0,
+        42.0
+      ],
+      "start_date": "2026-07-01",
+      "peak_window": [
+        "2026-08-01",
+        "2026-10-31"
+      ],
+      "end_date": "2026-11-30",
+      "baseline_severity": 3,
+      "confidence": "medium",
+      "source_ids": [
+        "acled",
+        "cfr_gct"
+      ],
+      "search_queries": [
+        "Black Sea grain corridor harvest disruption attacks"
+      ],
+      "materialization_metric": "grain_vessel_transits_black_sea",
+      "methodology_note": "Harvest-season volumes + recurring strike/deal-renewal tension elevate Jul-Nov disruption risk on the corridor",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "labor-de-spring-wage-2026",
+      "pattern_id": "labor-de-spring-wage",
+      "name": "German spring wage round (IG Metall / Verdi)",
+      "category": "labor_cycle",
+      "subtype": "wage_round",
+      "recurrence": "annual",
+      "regions": [
+        "EU-Industrial"
+      ],
+      "countries_iso3": [
+        "DEU"
+      ],
+      "industries": [
+        "auto_oem",
+        "auto_components",
+        "metals_steel",
+        "ports_terminals",
+        "rail_freight"
+      ],
+      "commodities": [],
+      "chokepoints": [],
+      "geo_bbox": [
+        47.0,
+        2.0,
+        54.0,
+        16.0
+      ],
+      "start_date": "2026-02-01",
+      "peak_window": [
+        "2026-03-01",
+        "2026-04-30"
+      ],
+      "end_date": "2026-04-30",
+      "baseline_severity": 3,
+      "confidence": "high",
+      "source_ids": [
+        "reuters",
+        "acled"
+      ],
+      "search_queries": [
+        "Germany IG Metall Verdi warning strikes spring wage round"
+      ],
+      "materialization_metric": "warning_strike_days_de",
+      "methodology_note": "Annual collective-bargaining warning strikes Feb-Apr; intermittent plant + port + rail stoppages",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "labor-fr-autumn-2026",
+      "pattern_id": "labor-fr-autumn",
+      "name": "French autumn strike season",
+      "category": "labor_cycle",
+      "subtype": "social_unrest",
+      "recurrence": "annual",
+      "regions": [
+        "EU-Industrial",
+        "EU-Med"
+      ],
+      "countries_iso3": [
+        "FRA"
+      ],
+      "industries": [
+        "trucking",
+        "rail_freight",
+        "ports_terminals",
+        "energy_refining"
+      ],
+      "commodities": [],
+      "chokepoints": [],
+      "geo_bbox": [
+        30.0,
+        -6.0,
+        54.0,
+        36.0
+      ],
+      "start_date": "2026-09-01",
+      "peak_window": [
+        "2026-10-01",
+        "2026-11-30"
+      ],
+      "end_date": "2026-12-31",
+      "baseline_severity": 3,
+      "confidence": "medium",
+      "source_ids": [
+        "reuters",
+        "acled"
+      ],
+      "search_queries": [
+        "France strike season autumn pension budget protest"
+      ],
+      "materialization_metric": "strike_days_fr_q4",
+      "methodology_note": "Recurring autumn mobilisation around budget/pension; refinery + port + rail disruption risk",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    },
+    {
+      "id": "labor-uswest-port-cycle-2026",
+      "pattern_id": "labor-uswest-port-cycle",
+      "name": "US West Coast port labour-contract tension",
+      "category": "labor_cycle",
+      "subtype": "contract_cycle",
+      "recurrence": "episodic",
+      "regions": [
+        "NA-USWest"
+      ],
+      "countries_iso3": [
+        "USA"
+      ],
+      "industries": [
+        "ports_terminals",
+        "shipping_container"
+      ],
+      "commodities": [
+        "containerized_general"
+      ],
+      "chokepoints": [
+        "la_long_beach"
+      ],
+      "geo_bbox": [
+        32.0,
+        -125.0,
+        49.0,
+        -117.0
+      ],
+      "start_date": "2026-05-01",
+      "peak_window": [
+        "2026-06-01",
+        "2026-08-31"
+      ],
+      "end_date": "2026-09-30",
+      "baseline_severity": 3,
+      "confidence": "medium",
+      "source_ids": [
+        "reuters",
+        "acled"
+      ],
+      "search_queries": [
+        "ILWU PMA West Coast port contract negotiation slowdown"
+      ],
+      "materialization_metric": "ilwu_negotiation_status",
+      "methodology_note": "Pre-expiry slowdown risk on ILWU-PMA cycle; episodic not strictly annual - review against contract calendar",
+      "first_identified": "2026-05-13",
+      "last_reviewed": "2026-05-13",
+      "status": "active"
+    }
+  ]
+}

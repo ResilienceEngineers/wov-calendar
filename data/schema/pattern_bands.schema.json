@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://resilienceengineers.github.io/wov-calendar/data/schema/pattern_bands.schema.json",
+  "title": "Pattern bands (generated from patterns.csv)",
+  "type": "object",
+  "required": ["generated_at", "source_of_truth", "bands"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source_of_truth": { "type": "string" },
+    "bands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "pattern_id", "name", "category", "subtype", "recurrence",
+          "regions", "industries", "commodities", "chokepoints",
+          "start_date", "peak_window", "end_date",
+          "baseline_severity", "confidence", "source_ids",
+          "materialization_metric", "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "pattern_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "name": { "type": "string" },
+          "category": { "type": "string", "enum": ["weather", "cargo_crime", "cyber", "conflict_cycle", "labor_cycle"] },
+          "subtype": { "type": "string" },
+          "recurrence": { "type": "string", "enum": ["annual", "biannual", "cyclical", "episodic"] },
+          "regions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "countries_iso3": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z]{3}$" } },
+          "industries": { "type": "array", "items": { "type": "string" } },
+          "commodities": { "type": "array", "items": { "type": "string" } },
+          "chokepoints": { "type": "array", "items": { "type": "string" } },
+          "geo_bbox": {
+            "type": ["array", "null"],
+            "items": { "type": "number" },
+            "minItems": 4, "maxItems": 4
+          },
+          "start_date": { "type": "string", "format": "date" },
+          "peak_window": {
+            "type": "array",
+            "items": { "type": "string", "format": "date" },
+            "minItems": 2, "maxItems": 2
+          },
+          "end_date": { "type": "string", "format": "date" },
+          "baseline_severity": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "search_queries": { "type": "array", "items": { "type": "string" } },
+          "materialization_metric": { "type": "string" },
+          "methodology_note": { "type": "string" },
+          "first_identified": { "type": "string", "format": "date" },
+          "last_reviewed": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["active", "candidate", "retired"] }
+        }
+      }
+    }
+  }
+}

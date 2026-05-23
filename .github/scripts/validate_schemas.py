@@ -19,6 +19,7 @@ VOCAB = DATA / "vocab"
 
 DATA_FILES = {
     "seasonal_bands.json": "seasonal_bands.schema.json",
+    "pattern_bands.json":  "pattern_bands.schema.json",
     "active_events.json":  "active_events.schema.json",
     "user_analyses.json":  "user_analyses.schema.json",
     "fm_events.json":      "fm_events.schema.json",
@@ -78,6 +79,17 @@ def main() -> int:
         check_fk(f"seasonal_bands[{b['id']}].source_ids", b["source_ids"], source_ids, errors)
         if b["baseline_severity"] not in severity_levels:
             errors.append(f"seasonal_bands[{b['id']}].baseline_severity: {b['baseline_severity']} not in vocab")
+
+    if (DATA / "pattern_bands.json").exists():
+        patterns = load(DATA / "pattern_bands.json")
+        for b in patterns["bands"]:
+            check_fk(f"pattern_bands[{b['id']}].regions", b["regions"], regions, errors)
+            check_fk(f"pattern_bands[{b['id']}].industries", b.get("industries", []), industries, errors)
+            check_fk(f"pattern_bands[{b['id']}].commodities", b.get("commodities", []), commodities, errors)
+            check_fk(f"pattern_bands[{b['id']}].chokepoints", b.get("chokepoints", []), chokepoints, errors)
+            check_fk(f"pattern_bands[{b['id']}].source_ids", b["source_ids"], source_ids, errors)
+            if b["baseline_severity"] not in severity_levels:
+                errors.append(f"pattern_bands[{b['id']}].baseline_severity: {b['baseline_severity']} not in vocab")
 
     active = load(DATA / "active_events.json")
     for e in active["events"]:

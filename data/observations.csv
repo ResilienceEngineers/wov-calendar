@@ -1,0 +1,2 @@
+observation_date,run_id,pattern_id,category,search_query,source,metric_name,metric_value,unit,region,window_phase,materialization,source_tier,notes
+2026-05-13,2026-05-13-launch,_baseline,_launch,"n/a — registry seeded",internal,patterns_registered,27,count,global,n/a,n/a,1,"Launch baseline: 27 patterns seeded into patterns.csv (16 weather, 3 cargo_crime, 3 cyber, 2 conflict_cycle, 3 labor_cycle). First research run will append real observations."

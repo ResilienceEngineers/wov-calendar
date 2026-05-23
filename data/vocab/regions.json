@@ -96,6 +96,30 @@
       "countries_iso3": ["RUS", "USA", "CAN", "NOR", "DNK"],
       "geo_bbox": [66.0, -180.0, 90.0, 180.0],
       "why_it_matters": "Emerging seasonal route; ice-window volatility; geopolitical contention"
+    },
+    {
+      "id": "NA-USWest",
+      "name": "US West Coast (LA / Long Beach / Oakland / Seattle-Tacoma)",
+      "parent": "Northern America",
+      "countries_iso3": ["USA"],
+      "geo_bbox": [32.0, -125.0, 49.0, -117.0],
+      "why_it_matters": "Largest US container gateway; ILWU labour-contract cycle; trans-Pacific dependency"
+    },
+    {
+      "id": "AF-Sahel",
+      "name": "Sahel (Mali / Niger / Burkina Faso / Chad / N Nigeria)",
+      "parent": "Sub-Saharan Africa",
+      "countries_iso3": ["MLI", "NER", "BFA", "TCD", "NGA", "MRT"],
+      "geo_bbox": [10.0, -12.0, 20.0, 24.0],
+      "why_it_matters": "Uranium (Niger), gold, cotton; dry-season conflict cycle; coup belt instability"
+    },
+    {
+      "id": "EU-BlackSea",
+      "name": "Black Sea grain corridor (Ukraine / Russia / Romania / Bulgaria / Turkey)",
+      "parent": "Eastern Europe / Western Asia",
+      "countries_iso3": ["UKR", "RUS", "ROU", "BGR", "TUR", "GEO"],
+      "geo_bbox": [40.0, 27.0, 48.0, 42.0],
+      "why_it_matters": "~25% global wheat exports + sunflower + fertilizers; war-driven + harvest-cycle disruption"
     }
   ]
 }

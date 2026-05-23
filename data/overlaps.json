@@ -1,22 +1,119 @@
 {
-  "$comment": "Derived convergence clusters. Bot-owned. Rebuilt from scratch every daily run.",
-  "computed_at": "2026-05-13T07:57:53Z",
+  "$comment": "Derived convergence clusters + chokepoint constraint board. Bot-owned. Rebuilt from scratch every daily run.",
+  "computed_at": "2026-05-23T19:24:40Z",
+  "executive_summary": {
+    "headline": "Top pressure: South Asia (IN/BD) (region, score 10.0/10) between 2025-11-01 and 2026-12-31.",
+    "chokepoint_phrase": "7 maritime chokepoint(s) under active pressure: Port of Antwerp-Bruges, Bosphorus / Turkish Straits, Port of Houston, Ports of Los Angeles / Long Beach, Panama Canal, Rhine inland waterway, Taiwan Strait.",
+    "kpis": {
+      "bands_tracked": 27,
+      "clusters_detected": 39,
+      "clusters_above_threshold": 39,
+      "top_score": 10.0,
+      "chokepoints_active": 7
+    }
+  },
+  "chokepoint_board": [
+    {
+      "id": "panama_canal",
+      "name": "Panama Canal",
+      "kind": "maritime",
+      "lat": 9.08,
+      "lon": -79.68,
+      "throughput_note": "~5% global maritime trade; drought-restricted 2023–2024",
+      "state": "amber",
+      "exposure": "0 live event(s) + 4 recurring pattern(s) in window. Max severity 4/5.",
+      "what_to_watch": "Watching North Atlantic hurricane season (seasonal pattern, sev 4). No confirmed flow impact yet.",
+      "member_count": 4
+    },
+    {
+      "id": "taiwan_strait",
+      "name": "Taiwan Strait",
+      "kind": "maritime",
+      "lat": 24.0,
+      "lon": 120.0,
+      "throughput_note": "~40% of global container traffic transits; semiconductor exposure",
+      "state": "amber",
+      "exposure": "0 live event(s) + 1 recurring pattern(s) in window. Max severity 4/5.",
+      "what_to_watch": "Watching NW Pacific typhoon season (seasonal pattern, sev 4). No confirmed flow impact yet.",
+      "member_count": 1
+    },
+    {
+      "id": "bosphorus",
+      "name": "Bosphorus / Turkish Straits",
+      "kind": "maritime",
+      "lat": 41.12,
+      "lon": 29.07,
+      "throughput_note": "Black Sea grain corridor; Russian Black Sea fleet",
+      "state": "amber",
+      "exposure": "0 live event(s) + 1 recurring pattern(s) in window. Max severity 3/5.",
+      "what_to_watch": "Watching Black Sea grain corridor disruption window (recurring pattern, sev 3). No confirmed flow impact yet.",
+      "member_count": 1
+    },
+    {
+      "id": "hormuz",
+      "name": "Strait of Hormuz",
+      "kind": "maritime",
+      "lat": 26.57,
+      "lon": 56.25,
+      "throughput_note": "~17 Mb/d crude + condensate (2026 baseline); ~20% global LNG",
+      "state": "green",
+      "exposure": "No live events or recurring patterns currently touching this chokepoint.",
+      "what_to_watch": "Clear — no action required.",
+      "member_count": 0
+    },
+    {
+      "id": "bab_mandeb",
+      "name": "Bab el-Mandeb",
+      "kind": "maritime",
+      "lat": 12.58,
+      "lon": 43.33,
+      "throughput_note": "~6 Mb/d oil pre-Houthi attacks; ~10% global maritime trade",
+      "state": "green",
+      "exposure": "No live events or recurring patterns currently touching this chokepoint.",
+      "what_to_watch": "Clear — no action required.",
+      "member_count": 0
+    },
+    {
+      "id": "suez",
+      "name": "Suez Canal",
+      "kind": "maritime",
+      "lat": 30.58,
+      "lon": 32.27,
+      "throughput_note": "~12% global trade by tonnage; ~30% global container traffic pre-2024",
+      "state": "green",
+      "exposure": "No live events or recurring patterns currently touching this chokepoint.",
+      "what_to_watch": "Clear — no action required.",
+      "member_count": 0
+    },
+    {
+      "id": "malacca",
+      "name": "Malacca Strait",
+      "kind": "maritime",
+      "lat": 2.5,
+      "lon": 101.5,
+      "throughput_note": "~30% global trade; ~80% NE Asia crude imports",
+      "state": "green",
+      "exposure": "No live events or recurring patterns currently touching this chokepoint.",
+      "what_to_watch": "Clear — no action required.",
+      "member_count": 0
+    }
+  ],
   "clusters": [
     {
       "axis": "region",
       "axis_value": "AS-South",
       "time_window": [
-        "2026-01-01",
-        "2027-04-30"
+        "2025-11-01",
+        "2026-12-31"
       ],
       "convergence_score": 10.0,
       "member_event_ids": [
+        "swio-cyclone-2025",
         "enso-modulator-2026",
-        "nio-cyclone-2026-pre",
+        "nio-cyclone-pre-2026",
         "monsoon-sw-2026",
-        "nio-cyclone-2026-post",
-        "monsoon-ne-2026",
-        "swio-cyclone-2026-27"
+        "nio-cyclone-post-2026",
+        "monsoon-ne-2026"
       ],
       "shared_industries": [],
       "shared_commodities": [],
@@ -24,23 +121,56 @@
         "AS-South"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-001"
+      "narrative_seed": "Region South Asia (IN/BD) has multiple risks stacking in the same window. 6 band(s) converging 2025-11-01 → 2026-12-31 (score 10.0/10). Members: SW Indian Ocean cyclone season + ENSO state (modulates all weather bands) + N Indian Ocean cyclone (pre-monsoon) + 3 more. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-001"
+    },
+    {
+      "axis": "region",
+      "axis_value": "EU-Industrial",
+      "time_window": [
+        "2026-01-01",
+        "2027-03-31"
+      ],
+      "convergence_score": 10.0,
+      "member_event_ids": [
+        "enso-modulator-2026",
+        "cyber-tax-phishing-2026",
+        "labor-de-spring-wage-2026",
+        "rhine-lowwater-2026",
+        "labor-fr-autumn-2026",
+        "eu-windstorm-2026",
+        "cargo-theft-eu-festive-2026",
+        "cyber-ransomware-holiday-2026",
+        "cyber-blackfriday-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [],
+      "shared_regions": [
+        "EU-Industrial"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Region EU industrial corridor (DE/FR/BE/NL) has multiple risks stacking in the same window. 9 band(s) converging 2026-01-01 → 2027-03-31 (score 10.0/10). Members: ENSO state (modulates all weather bands) + Tax-season phishing & BEC + German spring wage round (IG Metall / Verdi) + 6 more. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-002"
     },
     {
       "axis": "region",
       "axis_value": "NA-Gulf",
       "time_window": [
         "2026-01-01",
-        "2026-12-31"
+        "2027-01-31"
       ],
       "convergence_score": 10.0,
       "member_event_ids": [
         "enso-modulator-2026",
+        "cyber-tax-phishing-2026",
         "us-tornado-2026",
         "ep-hurricane-2026",
         "wildfire-us-2026",
-        "atl-hurricane-2026"
+        "cargo-theft-us-summer-2026",
+        "atl-hurricane-2026",
+        "cargo-theft-us-q4-2026",
+        "cyber-ransomware-holiday-2026",
+        "cyber-blackfriday-2026"
       ],
       "shared_industries": [],
       "shared_commodities": [],
@@ -48,8 +178,8 @@
         "NA-Gulf"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-002"
+      "narrative_seed": "Region US Gulf / Houston has multiple risks stacking in the same window. 10 band(s) converging 2026-01-01 → 2027-01-31 (score 10.0/10). Members: ENSO state (modulates all weather bands) + Tax-season phishing & BEC + North American tornado season + 7 more. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-003"
     },
     {
       "axis": "industry",
@@ -63,6 +193,7 @@
         "locust-ho-africa-2026",
         "monsoon-sw-2026",
         "wildfire-eu-2026",
+        "conflict-blacksea-grain-2026",
         "monsoon-ne-2026"
       ],
       "shared_industries": [
@@ -71,8 +202,31 @@
       "shared_commodities": [],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-003"
+      "narrative_seed": "Industry sector Grain agriculture & trade is exposed from multiple directions at once. 5 band(s) converging 2026-01-01 → 2026-12-31 (score 10.0/10). Members: Horn of Africa desert locust window + South Asian SW monsoon + European wildfire season + 2 more. Shared industries: agriculture_grain. Shared commodities: —.",
+      "id": "cluster-2026-05-23-004"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "energy_power",
+      "time_window": [
+        "2026-05-01",
+        "2027-03-31"
+      ],
+      "convergence_score": 10.0,
+      "member_event_ids": [
+        "wildfire-us-2026",
+        "wildfire-eu-2026",
+        "eu-windstorm-2026",
+        "cyber-ransomware-holiday-2026"
+      ],
+      "shared_industries": [
+        "energy_power"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Power generation is exposed from multiple directions at once. 4 band(s) converging 2026-05-01 → 2027-03-31 (score 10.0/10). Members: US / Canada wildfire season + European wildfire season + European windstorm season + 1 more. Shared industries: energy_power. Shared commodities: —.",
+      "id": "cluster-2026-05-23-005"
     },
     {
       "axis": "industry",
@@ -83,11 +237,14 @@
       ],
       "convergence_score": 10.0,
       "member_event_ids": [
-        "nwpac-typhoon-2026",
         "ep-hurricane-2026",
+        "nwpac-typhoon-2026",
+        "labor-uswest-port-cycle-2026",
         "monsoon-sw-2026",
         "wildfire-eu-2026",
-        "eu-windstorm-2026-27"
+        "labor-fr-autumn-2026",
+        "eu-windstorm-2026",
+        "cyber-ransomware-holiday-2026"
       ],
       "shared_industries": [
         "ports_terminals"
@@ -95,26 +252,51 @@
       "shared_commodities": [],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-004"
+      "narrative_seed": "Industry sector Port & terminal operations is exposed from multiple directions at once. 8 band(s) converging 2026-05-01 → 2027-03-31 (score 10.0/10). Members: East / Central Pacific hurricane season + NW Pacific typhoon season + US West Coast port labour-contract tension + 5 more. Shared industries: ports_terminals. Shared commodities: —.",
+      "id": "cluster-2026-05-23-006"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "rail_freight",
+      "time_window": [
+        "2026-02-01",
+        "2027-01-31"
+      ],
+      "convergence_score": 10.0,
+      "member_event_ids": [
+        "labor-de-spring-wage-2026",
+        "us-tornado-2026",
+        "wildfire-us-2026",
+        "labor-fr-autumn-2026",
+        "cargo-theft-us-q4-2026"
+      ],
+      "shared_industries": [
+        "rail_freight"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Rail freight is exposed from multiple directions at once. 5 band(s) converging 2026-02-01 → 2027-01-31 (score 10.0/10). Members: German spring wage round (IG Metall / Verdi) + North American tornado season + US / Canada wildfire season + 2 more. Shared industries: rail_freight. Shared commodities: —.",
+      "id": "cluster-2026-05-23-007"
     },
     {
       "axis": "industry",
       "axis_value": "shipping_container",
       "time_window": [
-        "2026-01-15",
-        "2027-04-30"
+        "2025-11-01",
+        "2027-03-31"
       ],
       "convergence_score": 10.0,
       "member_event_ids": [
+        "swio-cyclone-2025",
         "panama-drought-2026",
-        "nio-cyclone-2026-pre",
-        "nwpac-typhoon-2026",
+        "nio-cyclone-pre-2026",
         "ep-hurricane-2026",
+        "nwpac-typhoon-2026",
+        "labor-uswest-port-cycle-2026",
         "atl-hurricane-2026",
-        "nio-cyclone-2026-post",
-        "eu-windstorm-2026-27",
-        "swio-cyclone-2026-27"
+        "nio-cyclone-post-2026",
+        "eu-windstorm-2026"
       ],
       "shared_industries": [
         "shipping_container"
@@ -122,22 +304,22 @@
       "shared_commodities": [],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-005"
+      "narrative_seed": "Industry sector Container line shipping is exposed from multiple directions at once. 9 band(s) converging 2025-11-01 → 2027-03-31 (score 10.0/10). Members: SW Indian Ocean cyclone season + Panama Canal dry-season draft restriction + N Indian Ocean cyclone (pre-monsoon) + 6 more. Shared industries: shipping_container. Shared commodities: —.",
+      "id": "cluster-2026-05-23-008"
     },
     {
       "axis": "industry",
       "axis_value": "shipping_tanker",
       "time_window": [
-        "2026-04-15",
-        "2027-04-30"
+        "2025-11-01",
+        "2026-12-31"
       ],
       "convergence_score": 10.0,
       "member_event_ids": [
-        "nio-cyclone-2026-pre",
+        "swio-cyclone-2025",
+        "nio-cyclone-pre-2026",
         "atl-hurricane-2026",
-        "nio-cyclone-2026-post",
-        "swio-cyclone-2026-27"
+        "nio-cyclone-post-2026"
       ],
       "shared_industries": [
         "shipping_container",
@@ -146,8 +328,87 @@
       "shared_commodities": [],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-006"
+      "narrative_seed": "Industry sector Tanker shipping is exposed from multiple directions at once. 4 band(s) converging 2025-11-01 → 2026-12-31 (score 10.0/10). Members: SW Indian Ocean cyclone season + N Indian Ocean cyclone (pre-monsoon) + North Atlantic hurricane season + 1 more. Shared industries: shipping_container, shipping_tanker. Shared commodities: —.",
+      "id": "cluster-2026-05-23-009"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "trucking",
+      "time_window": [
+        "2026-03-01",
+        "2027-01-31"
+      ],
+      "convergence_score": 10.0,
+      "member_event_ids": [
+        "us-tornado-2026",
+        "wildfire-us-2026",
+        "cargo-theft-us-summer-2026",
+        "labor-fr-autumn-2026",
+        "cargo-theft-us-q4-2026",
+        "cargo-theft-eu-festive-2026",
+        "cyber-ransomware-holiday-2026"
+      ],
+      "shared_industries": [
+        "trucking"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Trucking & road freight is exposed from multiple directions at once. 7 band(s) converging 2026-03-01 → 2027-01-31 (score 10.0/10). Members: North American tornado season + US / Canada wildfire season + US summer long-weekend cargo theft + 4 more. Shared industries: trucking. Shared commodities: —.",
+      "id": "cluster-2026-05-23-010"
+    },
+    {
+      "axis": "commodity",
+      "axis_value": "containerized_general",
+      "time_window": [
+        "2025-11-01",
+        "2027-03-31"
+      ],
+      "convergence_score": 10.0,
+      "member_event_ids": [
+        "swio-cyclone-2025",
+        "panama-drought-2026",
+        "nio-cyclone-pre-2026",
+        "ep-hurricane-2026",
+        "nwpac-typhoon-2026",
+        "cargo-theft-us-summer-2026",
+        "labor-uswest-port-cycle-2026",
+        "nio-cyclone-post-2026",
+        "eu-windstorm-2026",
+        "cargo-theft-us-q4-2026",
+        "cargo-theft-eu-festive-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [
+        "containerized_general"
+      ],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Commodity flow Containerized general cargo faces compound pressure. 11 band(s) converging 2025-11-01 → 2027-03-31 (score 10.0/10). Members: SW Indian Ocean cyclone season + Panama Canal dry-season draft restriction + N Indian Ocean cyclone (pre-monsoon) + 8 more. Shared industries: —. Shared commodities: containerized_general.",
+      "id": "cluster-2026-05-23-011"
+    },
+    {
+      "axis": "commodity",
+      "axis_value": "maize",
+      "time_window": [
+        "2026-01-01",
+        "2026-12-31"
+      ],
+      "convergence_score": 10.0,
+      "member_event_ids": [
+        "panama-drought-2026",
+        "locust-ho-africa-2026",
+        "us-tornado-2026",
+        "conflict-blacksea-grain-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [
+        "maize"
+      ],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Commodity flow Maize faces compound pressure. 4 band(s) converging 2026-01-01 → 2026-12-31 (score 10.0/10). Members: Panama Canal dry-season draft restriction + Horn of Africa desert locust window + North American tornado season + 1 more. Shared industries: —. Shared commodities: maize.",
+      "id": "cluster-2026-05-23-012"
     },
     {
       "axis": "chokepoint",
@@ -158,8 +419,8 @@
       ],
       "convergence_score": 10.0,
       "member_event_ids": [
-        "enso-modulator-2026",
         "panama-drought-2026",
+        "enso-modulator-2026",
         "ep-hurricane-2026",
         "atl-hurricane-2026"
       ],
@@ -169,80 +430,189 @@
       "shared_chokepoints": [
         "panama_canal"
       ],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-007"
+      "narrative_seed": "Transit chokepoint Panama Canal is the bottleneck. 4 band(s) converging 2026-01-01 → 2026-12-31 (score 10.0/10). Members: Panama Canal dry-season draft restriction + ENSO state (modulates all weather bands) + East / Central Pacific hurricane season + 1 more. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-013"
     },
     {
-      "axis": "industry",
-      "axis_value": "energy_power",
+      "axis": "chokepoint",
+      "axis_value": "taiwan_strait",
       "time_window": [
-        "2026-05-15",
-        "2027-03-31"
+        "2026-05-01",
+        "2026-12-31"
       ],
-      "convergence_score": 9.97,
+      "convergence_score": 10.0,
       "member_event_ids": [
-        "wildfire-us-2026",
-        "wildfire-eu-2026",
-        "eu-windstorm-2026-27"
+        "nwpac-typhoon-2026"
       ],
       "shared_industries": [
-        "energy_power"
+        "auto_components",
+        "electronics_assembly",
+        "ports_terminals",
+        "semiconductors",
+        "shipping_container"
       ],
-      "shared_commodities": [],
-      "shared_regions": [],
-      "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-008"
+      "shared_commodities": [
+        "auto_parts",
+        "containerized_general",
+        "semiconductors_adv",
+        "semiconductors_legacy"
+      ],
+      "shared_regions": [
+        "AS-NWPacific",
+        "AS-TaiwanStrait"
+      ],
+      "shared_chokepoints": [
+        "shanghai_port",
+        "taiwan_strait"
+      ],
+      "narrative_seed": "Transit chokepoint Taiwan Strait is the bottleneck. 1 band(s) converging 2026-05-01 → 2026-12-31 (score 10.0/10). Members: NW Pacific typhoon season. Shared industries: auto_components, electronics_assembly, ports_terminals. Shared commodities: auto_parts, containerized_general, semiconductors_adv.",
+      "id": "cluster-2026-05-23-014"
     },
     {
       "axis": "region",
-      "axis_value": "EU-Industrial",
+      "axis_value": "EU-Med",
       "time_window": [
         "2026-01-01",
-        "2027-03-31"
+        "2027-01-31"
       ],
-      "convergence_score": 9.64,
+      "convergence_score": 9.77,
       "member_event_ids": [
         "enso-modulator-2026",
-        "rhine-lowwater-2026",
-        "eu-windstorm-2026-27"
+        "wildfire-eu-2026",
+        "labor-fr-autumn-2026",
+        "cargo-theft-eu-festive-2026"
       ],
       "shared_industries": [],
       "shared_commodities": [],
       "shared_regions": [
-        "EU-Industrial"
+        "EU-Med"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-009"
+      "narrative_seed": "Region Mediterranean / Suez approach has multiple risks stacking in the same window. 4 band(s) converging 2026-01-01 → 2027-01-31 (score 9.8/10). Members: ENSO state (modulates all weather bands) + European wildfire season + French autumn strike season + 1 more. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-015"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "warehousing",
+      "time_window": [
+        "2026-10-01",
+        "2027-01-31"
+      ],
+      "convergence_score": 9.67,
+      "member_event_ids": [
+        "cargo-theft-us-q4-2026",
+        "cargo-theft-eu-festive-2026",
+        "cyber-ransomware-holiday-2026",
+        "cyber-blackfriday-2026"
+      ],
+      "shared_industries": [
+        "warehousing"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Warehousing & 3PL is exposed from multiple directions at once. 4 band(s) converging 2026-10-01 → 2027-01-31 (score 9.7/10). Members: US Q4 holiday cargo-theft surge + EU festive-period cargo theft + Holiday / long-weekend ransomware surge + 1 more. Shared industries: warehousing. Shared commodities: —.",
+      "id": "cluster-2026-05-23-016"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "energy_refining",
+      "time_window": [
+        "2026-06-01",
+        "2026-12-31"
+      ],
+      "convergence_score": 9.41,
+      "member_event_ids": [
+        "atl-hurricane-2026",
+        "rhine-lowwater-2026",
+        "labor-fr-autumn-2026"
+      ],
+      "shared_industries": [
+        "energy_refining"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Petroleum refining is exposed from multiple directions at once. 3 band(s) converging 2026-06-01 → 2026-12-31 (score 9.4/10). Members: North Atlantic hurricane season + Rhine low-water draft restriction + French autumn strike season. Shared industries: energy_refining. Shared commodities: —.",
+      "id": "cluster-2026-05-23-017"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "food_processing",
+      "time_window": [
+        "2026-10-01",
+        "2027-01-31"
+      ],
+      "convergence_score": 8.81,
+      "member_event_ids": [
+        "cargo-theft-us-q4-2026",
+        "cyber-ransomware-holiday-2026",
+        "cyber-blackfriday-2026"
+      ],
+      "shared_industries": [
+        "food_processing",
+        "warehousing"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [
+        "NA-Gulf"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Food processing & beverages is exposed from multiple directions at once. 3 band(s) converging 2026-10-01 → 2027-01-31 (score 8.8/10). Members: US Q4 holiday cargo-theft surge + Holiday / long-weekend ransomware surge + Black Friday / Cyber Monday attack surge. Shared industries: food_processing, warehousing. Shared commodities: —.",
+      "id": "cluster-2026-05-23-018"
     },
     {
       "axis": "commodity",
-      "axis_value": "maize",
+      "axis_value": "wheat",
       "time_window": [
         "2026-01-01",
         "2026-12-31"
       ],
-      "convergence_score": 9.31,
+      "convergence_score": 8.8,
       "member_event_ids": [
         "locust-ho-africa-2026",
-        "panama-drought-2026",
-        "us-tornado-2026"
+        "monsoon-sw-2026",
+        "conflict-blacksea-grain-2026"
       ],
-      "shared_industries": [],
+      "shared_industries": [
+        "agriculture_grain"
+      ],
       "shared_commodities": [
-        "maize"
+        "wheat"
       ],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-010"
+      "narrative_seed": "Commodity flow Wheat faces compound pressure. 3 band(s) converging 2026-01-01 → 2026-12-31 (score 8.8/10). Members: Horn of Africa desert locust window + South Asian SW monsoon + Black Sea grain corridor disruption window. Shared industries: agriculture_grain. Shared commodities: wheat.",
+      "id": "cluster-2026-05-23-019"
+    },
+    {
+      "axis": "region",
+      "axis_value": "EU-North",
+      "time_window": [
+        "2026-01-01",
+        "2027-03-31"
+      ],
+      "convergence_score": 8.74,
+      "member_event_ids": [
+        "enso-modulator-2026",
+        "eu-windstorm-2026",
+        "cargo-theft-eu-festive-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [],
+      "shared_regions": [
+        "EU-Industrial",
+        "EU-North"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Region North Sea / Baltic has multiple risks stacking in the same window. 3 band(s) converging 2026-01-01 → 2027-03-31 (score 8.7/10). Members: ENSO state (modulates all weather bands) + European windstorm season + EU festive-period cargo theft. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-020"
     },
     {
       "axis": "commodity",
       "axis_value": "crude_oil",
       "time_window": [
-        "2026-05-15",
+        "2026-05-01",
         "2026-11-30"
       ],
       "convergence_score": 8.53,
@@ -262,8 +632,8 @@
       "shared_chokepoints": [
         "panama_canal"
       ],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-011"
+      "narrative_seed": "Commodity flow Crude oil faces compound pressure. 2 band(s) converging 2026-05-01 → 2026-11-30 (score 8.5/10). Members: East / Central Pacific hurricane season + North Atlantic hurricane season. Shared industries: shipping_container. Shared commodities: crude_oil.",
+      "id": "cluster-2026-05-23-021"
     },
     {
       "axis": "commodity",
@@ -275,7 +645,7 @@
       "convergence_score": 8.52,
       "member_event_ids": [
         "atl-hurricane-2026",
-        "eu-windstorm-2026-27"
+        "eu-windstorm-2026"
       ],
       "shared_industries": [
         "shipping_container"
@@ -285,40 +655,57 @@
       ],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-012"
+      "narrative_seed": "Commodity flow Liquefied natural gas faces compound pressure. 2 band(s) converging 2026-06-01 → 2027-03-31 (score 8.5/10). Members: North Atlantic hurricane season + European windstorm season. Shared industries: shipping_container. Shared commodities: lng.",
+      "id": "cluster-2026-05-23-022"
     },
     {
-      "axis": "industry",
-      "axis_value": "energy_refining",
+      "axis": "chokepoint",
+      "axis_value": "houston_port",
       "time_window": [
         "2026-06-01",
         "2026-11-30"
       ],
-      "convergence_score": 8.5,
+      "convergence_score": 8.29,
       "member_event_ids": [
-        "atl-hurricane-2026",
-        "rhine-lowwater-2026"
+        "atl-hurricane-2026"
       ],
       "shared_industries": [
-        "energy_refining"
+        "agriculture_citrus",
+        "energy_lng",
+        "energy_oil",
+        "energy_refining",
+        "insurance_reinsurance",
+        "shipping_container",
+        "shipping_tanker"
       ],
-      "shared_commodities": [],
-      "shared_regions": [],
-      "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-013"
+      "shared_commodities": [
+        "crude_oil",
+        "gasoline",
+        "lng",
+        "naphtha",
+        "orange_juice"
+      ],
+      "shared_regions": [
+        "NA-Gulf"
+      ],
+      "shared_chokepoints": [
+        "houston_port",
+        "new_orleans_port",
+        "panama_canal"
+      ],
+      "narrative_seed": "Transit chokepoint Port of Houston is the bottleneck. 1 band(s) converging 2026-06-01 → 2026-11-30 (score 8.3/10). Members: North Atlantic hurricane season. Shared industries: agriculture_citrus, energy_lng, energy_oil. Shared commodities: crude_oil, gasoline, lng.",
+      "id": "cluster-2026-05-23-023"
     },
     {
       "axis": "industry",
       "axis_value": "pharma_api",
       "time_window": [
-        "2026-04-15",
+        "2026-04-01",
         "2026-09-30"
       ],
       "convergence_score": 8.2,
       "member_event_ids": [
-        "nio-cyclone-2026-pre",
+        "nio-cyclone-pre-2026",
         "monsoon-sw-2026"
       ],
       "shared_industries": [
@@ -333,8 +720,8 @@
         "AS-South"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-014"
+      "narrative_seed": "Industry sector Pharma active ingredients manufacturing is exposed from multiple directions at once. 2 band(s) converging 2026-04-01 → 2026-09-30 (score 8.2/10). Members: N Indian Ocean cyclone (pre-monsoon) + South Asian SW monsoon. Shared industries: pharma_api, textiles_apparel. Shared commodities: pharma_api, textile_apparel.",
+      "id": "cluster-2026-05-23-024"
     },
     {
       "axis": "region",
@@ -355,74 +742,8 @@
         "AS-TaiwanStrait"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-015"
-    },
-    {
-      "axis": "commodity",
-      "axis_value": "wheat",
-      "time_window": [
-        "2026-01-01",
-        "2026-12-31"
-      ],
-      "convergence_score": 7.57,
-      "member_event_ids": [
-        "locust-ho-africa-2026",
-        "monsoon-sw-2026"
-      ],
-      "shared_industries": [
-        "agriculture_grain"
-      ],
-      "shared_commodities": [
-        "wheat"
-      ],
-      "shared_regions": [],
-      "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-016"
-    },
-    {
-      "axis": "region",
-      "axis_value": "EU-Med",
-      "time_window": [
-        "2026-01-01",
-        "2026-12-31"
-      ],
-      "convergence_score": 7.5,
-      "member_event_ids": [
-        "enso-modulator-2026",
-        "wildfire-eu-2026"
-      ],
-      "shared_industries": [],
-      "shared_commodities": [],
-      "shared_regions": [
-        "EU-Med"
-      ],
-      "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-017"
-    },
-    {
-      "axis": "region",
-      "axis_value": "EU-North",
-      "time_window": [
-        "2026-01-01",
-        "2027-03-31"
-      ],
-      "convergence_score": 7.5,
-      "member_event_ids": [
-        "enso-modulator-2026",
-        "eu-windstorm-2026-27"
-      ],
-      "shared_industries": [],
-      "shared_commodities": [],
-      "shared_regions": [
-        "EU-Industrial",
-        "EU-North"
-      ],
-      "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-018"
+      "narrative_seed": "Region NW Pacific (CN/JP/KR) has multiple risks stacking in the same window. 2 band(s) converging 2026-01-01 → 2026-12-31 (score 8.0/10). Members: ENSO state (modulates all weather bands) + NW Pacific typhoon season. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-025"
     },
     {
       "axis": "region",
@@ -433,8 +754,8 @@
       ],
       "convergence_score": 7.5,
       "member_event_ids": [
-        "enso-modulator-2026",
-        "panama-drought-2026"
+        "panama-drought-2026",
+        "enso-modulator-2026"
       ],
       "shared_industries": [],
       "shared_commodities": [],
@@ -444,32 +765,8 @@
       "shared_chokepoints": [
         "panama_canal"
       ],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-019"
-    },
-    {
-      "axis": "industry",
-      "axis_value": "rail_freight",
-      "time_window": [
-        "2026-03-01",
-        "2026-10-31"
-      ],
-      "convergence_score": 7.5,
-      "member_event_ids": [
-        "us-tornado-2026",
-        "wildfire-us-2026"
-      ],
-      "shared_industries": [
-        "rail_freight",
-        "trucking"
-      ],
-      "shared_commodities": [],
-      "shared_regions": [
-        "NA-Gulf"
-      ],
-      "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-020"
+      "narrative_seed": "Region Panama Canal has multiple risks stacking in the same window. 2 band(s) converging 2026-01-01 → 2026-12-31 (score 7.5/10). Members: Panama Canal dry-season draft restriction + ENSO state (modulates all weather bands). Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-026"
     },
     {
       "axis": "industry",
@@ -480,7 +777,7 @@
       ],
       "convergence_score": 7.5,
       "member_event_ids": [
-        "nio-cyclone-2026-post",
+        "nio-cyclone-post-2026",
         "monsoon-ne-2026"
       ],
       "shared_industries": [
@@ -491,14 +788,14 @@
         "AS-South"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-021"
+      "narrative_seed": "Industry sector Textiles & apparel manufacturing is exposed from multiple directions at once. 2 band(s) converging 2026-10-01 → 2026-12-31 (score 7.5/10). Members: N Indian Ocean cyclone (post-monsoon) + South Asian NE monsoon. Shared industries: textiles_apparel. Shared commodities: —.",
+      "id": "cluster-2026-05-23-027"
     },
     {
       "axis": "commodity",
       "axis_value": "soybean",
       "time_window": [
-        "2026-01-15",
+        "2026-01-01",
         "2026-07-31"
       ],
       "convergence_score": 7.5,
@@ -513,8 +810,94 @@
       ],
       "shared_regions": [],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-022"
+      "narrative_seed": "Commodity flow Soybean faces compound pressure. 2 band(s) converging 2026-01-01 → 2026-07-31 (score 7.5/10). Members: Panama Canal dry-season draft restriction + North American tornado season. Shared industries: —. Shared commodities: maize, soybean.",
+      "id": "cluster-2026-05-23-028"
+    },
+    {
+      "axis": "chokepoint",
+      "axis_value": "antwerp_port",
+      "time_window": [
+        "2026-10-01",
+        "2027-03-31"
+      ],
+      "convergence_score": 7.29,
+      "member_event_ids": [
+        "eu-windstorm-2026"
+      ],
+      "shared_industries": [
+        "energy_power",
+        "energy_renewables",
+        "ports_terminals",
+        "shipping_container"
+      ],
+      "shared_commodities": [
+        "containerized_general",
+        "lng"
+      ],
+      "shared_regions": [
+        "EU-Industrial",
+        "EU-North"
+      ],
+      "shared_chokepoints": [
+        "antwerp_port",
+        "rotterdam_port"
+      ],
+      "narrative_seed": "Transit chokepoint Port of Antwerp-Bruges is the bottleneck. 1 band(s) converging 2026-10-01 → 2027-03-31 (score 7.3/10). Members: European windstorm season. Shared industries: energy_power, energy_renewables, ports_terminals. Shared commodities: containerized_general, lng.",
+      "id": "cluster-2026-05-23-029"
+    },
+    {
+      "axis": "chokepoint",
+      "axis_value": "rhine_inland",
+      "time_window": [
+        "2026-07-01",
+        "2026-10-31"
+      ],
+      "convergence_score": 7.29,
+      "member_event_ids": [
+        "rhine-lowwater-2026"
+      ],
+      "shared_industries": [
+        "chem_basic",
+        "chem_specialty",
+        "energy_refining",
+        "metals_steel"
+      ],
+      "shared_commodities": [
+        "coal_thermal",
+        "diesel"
+      ],
+      "shared_regions": [
+        "EU-Industrial"
+      ],
+      "shared_chokepoints": [
+        "rhine_inland"
+      ],
+      "narrative_seed": "Transit chokepoint Rhine inland waterway is the bottleneck. 1 band(s) converging 2026-07-01 → 2026-10-31 (score 7.3/10). Members: Rhine low-water draft restriction. Shared industries: chem_basic, chem_specialty, energy_refining. Shared commodities: coal_thermal, diesel.",
+      "id": "cluster-2026-05-23-030"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "warehousing",
+      "time_window": [
+        "2026-01-01",
+        "2026-09-30"
+      ],
+      "convergence_score": 7.17,
+      "member_event_ids": [
+        "cyber-tax-phishing-2026",
+        "us-tornado-2026",
+        "cargo-theft-us-summer-2026"
+      ],
+      "shared_industries": [
+        "warehousing"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [
+        "NA-Gulf"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Warehousing & 3PL is exposed from multiple directions at once. 3 band(s) converging 2026-01-01 → 2026-09-30 (score 7.2/10). Members: Tax-season phishing & BEC + North American tornado season + US summer long-weekend cargo theft. Shared industries: warehousing. Shared commodities: —.",
+      "id": "cluster-2026-05-23-031"
     },
     {
       "axis": "region",
@@ -534,8 +917,173 @@
         "ME-RedSea"
       ],
       "shared_chokepoints": [],
-      "narrative_seed": null,
-      "id": "cluster-2026-05-13-023"
+      "narrative_seed": "Region Red Sea / Bab el-Mandeb has multiple risks stacking in the same window. 2 band(s) converging 2026-01-01 → 2026-12-31 (score 7.0/10). Members: Horn of Africa desert locust window + ENSO state (modulates all weather bands). Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-032"
+    },
+    {
+      "axis": "region",
+      "axis_value": "AF-Sahel",
+      "time_window": [
+        "2025-10-01",
+        "2026-12-31"
+      ],
+      "convergence_score": 6.6,
+      "member_event_ids": [
+        "conflict-sahel-dryseason-2025",
+        "enso-modulator-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [],
+      "shared_regions": [
+        "AF-Sahel"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Region Sahel (Mali / Niger / Burkina Faso / Chad / N Nigeria) has multiple risks stacking in the same window. 2 band(s) converging 2025-10-01 → 2026-12-31 (score 6.6/10). Members: Sahel dry-season violence cycle + ENSO state (modulates all weather bands). Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-033"
+    },
+    {
+      "axis": "region",
+      "axis_value": "EU-BlackSea",
+      "time_window": [
+        "2026-01-01",
+        "2026-12-31"
+      ],
+      "convergence_score": 6.6,
+      "member_event_ids": [
+        "enso-modulator-2026",
+        "conflict-blacksea-grain-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [],
+      "shared_regions": [
+        "EU-BlackSea"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Region Black Sea grain corridor (Ukraine / Russia / Romania / Bulgaria / Turkey) has multiple risks stacking in the same window. 2 band(s) converging 2026-01-01 → 2026-12-31 (score 6.6/10). Members: ENSO state (modulates all weather bands) + Black Sea grain corridor disruption window. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-034"
+    },
+    {
+      "axis": "region",
+      "axis_value": "NA-USWest",
+      "time_window": [
+        "2026-01-01",
+        "2026-12-31"
+      ],
+      "convergence_score": 6.6,
+      "member_event_ids": [
+        "enso-modulator-2026",
+        "labor-uswest-port-cycle-2026"
+      ],
+      "shared_industries": [],
+      "shared_commodities": [],
+      "shared_regions": [
+        "NA-USWest"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Region US West Coast (LA / Long Beach / Oakland / Seattle-Tacoma) has multiple risks stacking in the same window. 2 band(s) converging 2026-01-01 → 2026-12-31 (score 6.6/10). Members: ENSO state (modulates all weather bands) + US West Coast port labour-contract tension. Shared industries: —. Shared commodities: —.",
+      "id": "cluster-2026-05-23-035"
+    },
+    {
+      "axis": "chokepoint",
+      "axis_value": "bosphorus",
+      "time_window": [
+        "2026-07-01",
+        "2026-11-30"
+      ],
+      "convergence_score": 6.39,
+      "member_event_ids": [
+        "conflict-blacksea-grain-2026"
+      ],
+      "shared_industries": [
+        "agriculture_grain",
+        "shipping_drybulk"
+      ],
+      "shared_commodities": [
+        "maize",
+        "wheat"
+      ],
+      "shared_regions": [
+        "EU-BlackSea"
+      ],
+      "shared_chokepoints": [
+        "bosphorus"
+      ],
+      "narrative_seed": "Transit chokepoint Bosphorus / Turkish Straits is the bottleneck. 1 band(s) converging 2026-07-01 → 2026-11-30 (score 6.4/10). Members: Black Sea grain corridor disruption window. Shared industries: agriculture_grain, shipping_drybulk. Shared commodities: maize, wheat.",
+      "id": "cluster-2026-05-23-036"
+    },
+    {
+      "axis": "chokepoint",
+      "axis_value": "la_long_beach",
+      "time_window": [
+        "2026-05-01",
+        "2026-09-30"
+      ],
+      "convergence_score": 6.39,
+      "member_event_ids": [
+        "labor-uswest-port-cycle-2026"
+      ],
+      "shared_industries": [
+        "ports_terminals",
+        "shipping_container"
+      ],
+      "shared_commodities": [
+        "containerized_general"
+      ],
+      "shared_regions": [
+        "NA-USWest"
+      ],
+      "shared_chokepoints": [
+        "la_long_beach"
+      ],
+      "narrative_seed": "Transit chokepoint Ports of Los Angeles / Long Beach is the bottleneck. 1 band(s) converging 2026-05-01 → 2026-09-30 (score 6.4/10). Members: US West Coast port labour-contract tension. Shared industries: ports_terminals, shipping_container. Shared commodities: containerized_general.",
+      "id": "cluster-2026-05-23-037"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "auto_oem",
+      "time_window": [
+        "2026-01-01",
+        "2026-04-30"
+      ],
+      "convergence_score": 6.3,
+      "member_event_ids": [
+        "cyber-tax-phishing-2026",
+        "labor-de-spring-wage-2026"
+      ],
+      "shared_industries": [
+        "auto_oem"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [
+        "EU-Industrial"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Auto OEM assembly is exposed from multiple directions at once. 2 band(s) converging 2026-01-01 → 2026-04-30 (score 6.3/10). Members: Tax-season phishing & BEC + German spring wage round (IG Metall / Verdi). Shared industries: auto_oem. Shared commodities: —.",
+      "id": "cluster-2026-05-23-038"
+    },
+    {
+      "axis": "industry",
+      "axis_value": "food_processing",
+      "time_window": [
+        "2026-01-01",
+        "2026-07-31"
+      ],
+      "convergence_score": 6.1,
+      "member_event_ids": [
+        "cyber-tax-phishing-2026",
+        "us-tornado-2026"
+      ],
+      "shared_industries": [
+        "food_processing",
+        "warehousing"
+      ],
+      "shared_commodities": [],
+      "shared_regions": [
+        "NA-Gulf"
+      ],
+      "shared_chokepoints": [],
+      "narrative_seed": "Industry sector Food processing & beverages is exposed from multiple directions at once. 2 band(s) converging 2026-01-01 → 2026-07-31 (score 6.1/10). Members: Tax-season phishing & BEC + North American tornado season. Shared industries: food_processing, warehousing. Shared commodities: —.",
+      "id": "cluster-2026-05-23-039"
     }
   ]
 }

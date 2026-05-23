@@ -15,9 +15,14 @@ This is the third instance of the daily-intelligence-tracker template (after [ho
 
 ## Data layout (`data/`)
 
+**Single source of truth: `data/patterns.csv`.** Every recurring pattern (weather, cargo crime, cyber, conflict cycle, labour cycle) is one row, with its sources, search queries, calendar window, and the metric we track to see if it is materialising. `build_patterns.py` turns that CSV into the JSON the site reads. `data/observations.csv` is the append-only log of what each fortnightly research run actually found.
+
 | File | Owner | Refresh | Purpose |
 |---|---|---|---|
-| `seasonal_bands.json` | Human | Quarterly | Annual seasonality (hurricane, monsoon, flood, wildfire, cyclone) with start/peak/end |
+| **`patterns.csv`** | **Human (+ research run)** | **Fortnightly** | **Single source of truth: the registry of every recurring pattern** |
+| **`observations.csv`** | **Bot (append-only)** | **Fortnightly** | **Longitudinal metric readings — shows whether patterns take off** |
+| `pattern_bands.json` | Generated from CSV | Each run | Non-weather pattern bands for the calendar + engine |
+| `seasonal_bands.json` | Generated from CSV | Each run | Weather pattern bands (geo-rich) with start/peak/end |
 | `active_events.json` | Bot | Daily | Live geopolitical / strike / port-closure events |
 | `fm_events.json` | Bot | Daily | Scraped from fm-tracker |
 | `hormuz_snapshot.json` | Bot | Daily | Scraped from hormuz-tracker |

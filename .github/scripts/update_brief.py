@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS = ROOT / ".github" / "scripts"
 
 STEPS = [
+    ("build patterns",     "build_patterns.py",      True,  []),
     ("ingest hormuz",      "ingest_hormuz.py",       True,  []),
     ("ingest FM upstream", "ingest_fm_tracker.py",   True,  []),
     ("ingest FM web",      "ingest_fm_websearch.py", False, ["--if-thin"]),

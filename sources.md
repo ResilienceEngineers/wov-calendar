@@ -43,6 +43,11 @@ First-party operational sources. A claim sourced here counts as **Hard** signal.
 - **EU EEAS** — `eeas.europa.eu` — High Representative statements, sanctions
 - **UN Security Council** — `un.org/securitycouncil` — formal resolutions and sanctions lists
 
+### Cyber (official agencies)
+- **CISA** — `cisa.gov` — US Cybersecurity & Infrastructure Security Agency advisories; holiday/weekend ransomware alerts
+- **FBI IC3** — `ic3.gov` — Internet Crime Complaint Center annual reports + alerts (BEC, ransomware, cargo)
+- **ENISA** — `enisa.europa.eu` — EU Agency for Cybersecurity threat landscape reports
+
 ### Upstream trackers (ingested, not scraped)
 - **hormuz-tracker** — `resilienceengineers.github.io/hormuz-daily-brief/` — daily snapshot of Hormuz threat level + watchlist
 - **fm-tracker** — `resilienceengineers.github.io/fm-tracker/` — force-majeure declarations across global supply chains
@@ -53,9 +58,20 @@ First-party operational sources. A claim sourced here counts as **Hard** signal.
 
 Subscription or open commercial sources with direct measurement capability. Counts as **Hard** signal when data is quantitative and verifiable; otherwise **Medium**.
 
-- **ACLED** — `acleddata.com/api` — geocoded political violence and protest events, weekly refresh (attribution required, open)
+- **ACLED** — `acleddata.com/api` — geocoded political violence and protest events, weekly refresh (attribution required, open; API key for direct pull)
 - **GDELT 2.0** — `gdeltproject.org` — global event database, CAMEO-coded, 15-min refresh (open)
 - **UCDP** — `ucdp.uu.se` — Uppsala conflict data, academic-grade
+- **CFR Global Conflict Tracker** — `cfr.org/global-conflict-tracker` — editorial conflict status by region (Tier 3 analytical)
+
+### Cargo crime
+- **TAPA EMEA** — `tapaemea.org` — Transported Asset Protection Association incident statistics for Europe/Middle East/Africa
+- **BSI Supply Chain Services** — `bsigroup.com` — annual supply chain risk / cargo theft reports
+- **Verisk CargoNet** — `cargonet.com` — US/Canada cargo theft incident database; holiday-period and long-weekend theft alerts
+- **NICB** — `nicb.org` — US National Insurance Crime Bureau cargo theft bulletins
+
+### Cyber (commercial)
+- **Recorded Future** — `recordedfuture.com` — threat intelligence; sector-targeting trends
+- **Check Point Research** — `research.checkpoint.com` — attack-volume telemetry by sector and region
 - **Kpler** — `kpler.com` — vessel-level energy flow data
 - **Vortexa** — `vortexa.com` — energy cargo flow analytics
 - **Lloyd's List Intelligence** — `lloydslistintelligence.com` — tanker and shipping intel

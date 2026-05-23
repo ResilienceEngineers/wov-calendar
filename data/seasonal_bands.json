@@ -1,274 +1,624 @@
 {
-  "$comment": "Hand-curated 2026 seasonal bands. Refreshed quarterly against NOAA / JMA / IMD / Meteo-France / ECMWF / Copernicus seasonal outlooks. Peak windows are climatological norm; off-baseline outlook notes go in `notes`.",
-  "version": "2026.1",
-  "generated_at": "2026-05-13T00:00:00Z",
+  "$comment": "GENERATED from data/patterns.csv by build_patterns.py. Do not hand-edit; edit patterns.csv (weather rows) and rebuild.",
+  "version": "2026.143",
+  "generated_at": "2026-05-23T19:24:40Z",
   "bands": [
     {
       "id": "atl-hurricane-2026",
       "hazard_type": "tropical_cyclone",
       "name": "North Atlantic hurricane season",
-      "regions": ["NA-Gulf"],
-      "geo_bbox": [10.0, -100.0, 45.0, -55.0],
+      "regions": [
+        "NA-Gulf"
+      ],
+      "geo_bbox": [
+        10.0,
+        -100.0,
+        45.0,
+        -55.0
+      ],
       "start_date": "2026-06-01",
-      "peak_window": ["2026-08-20", "2026-10-10"],
+      "peak_window": [
+        "2026-08-01",
+        "2026-10-31"
+      ],
       "end_date": "2026-11-30",
       "baseline_severity": 4,
-      "affected_industries": ["energy_oil", "energy_refining", "energy_lng", "shipping_tanker", "shipping_container", "agriculture_citrus", "insurance_reinsurance"],
-      "affected_commodities": ["crude_oil", "lng", "gasoline", "naphtha", "orange_juice"],
-      "affected_chokepoints": ["houston_port", "new_orleans_port", "panama_canal"],
-      "source_ids": ["noaa_nhc", "noaa_cpc"],
+      "affected_industries": [
+        "energy_oil",
+        "energy_refining",
+        "energy_lng",
+        "shipping_tanker",
+        "shipping_container",
+        "agriculture_citrus",
+        "insurance_reinsurance"
+      ],
+      "affected_commodities": [
+        "crude_oil",
+        "lng",
+        "gasoline",
+        "naphtha",
+        "orange_juice"
+      ],
+      "affected_chokepoints": [
+        "houston_port",
+        "new_orleans_port",
+        "panama_canal"
+      ],
+      "source_ids": [
+        "noaa_nhc",
+        "noaa_cpc"
+      ],
       "confidence": "high",
-      "notes": "Peak window covers historical climatology; NOAA outlook updates May and August — annotate here."
+      "notes": "NOAA NHC climatological season; peak Aug-Oct; hits Gulf energy + Caribbean lanes + citrus + reinsurance"
     },
     {
       "id": "ep-hurricane-2026",
       "hazard_type": "tropical_cyclone",
       "name": "East / Central Pacific hurricane season",
-      "regions": ["NA-Gulf"],
-      "geo_bbox": [5.0, -160.0, 30.0, -90.0],
-      "start_date": "2026-05-15",
-      "peak_window": ["2026-08-15", "2026-09-30"],
+      "regions": [
+        "NA-Gulf"
+      ],
+      "geo_bbox": [
+        5.0,
+        -160.0,
+        30.0,
+        -90.0
+      ],
+      "start_date": "2026-05-01",
+      "peak_window": [
+        "2026-08-01",
+        "2026-09-30"
+      ],
       "end_date": "2026-11-30",
       "baseline_severity": 3,
-      "affected_industries": ["shipping_container", "ports_terminals"],
-      "affected_commodities": ["containerized_general", "crude_oil"],
-      "affected_chokepoints": ["panama_canal"],
-      "source_ids": ["noaa_nhc"],
+      "affected_industries": [
+        "shipping_container",
+        "ports_terminals"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "crude_oil"
+      ],
+      "affected_chokepoints": [
+        "panama_canal"
+      ],
+      "source_ids": [
+        "noaa_nhc"
+      ],
       "confidence": "high",
-      "notes": "West Mexico ports, Hawaii lane."
+      "notes": "West Mexico ports + Hawaii lane + Panama approach"
     },
     {
       "id": "nwpac-typhoon-2026",
       "hazard_type": "tropical_cyclone",
       "name": "NW Pacific typhoon season",
-      "regions": ["AS-NWPacific", "AS-TaiwanStrait"],
-      "geo_bbox": [5.0, 110.0, 45.0, 160.0],
+      "regions": [
+        "AS-NWPacific",
+        "AS-TaiwanStrait"
+      ],
+      "geo_bbox": [
+        5.0,
+        110.0,
+        45.0,
+        160.0
+      ],
       "start_date": "2026-05-01",
-      "peak_window": ["2026-07-15", "2026-10-15"],
+      "peak_window": [
+        "2026-07-01",
+        "2026-10-31"
+      ],
       "end_date": "2026-12-31",
       "baseline_severity": 4,
-      "affected_industries": ["shipping_container", "ports_terminals", "semiconductors", "electronics_assembly", "auto_components"],
-      "affected_commodities": ["containerized_general", "semiconductors_adv", "semiconductors_legacy", "auto_parts"],
-      "affected_chokepoints": ["shanghai_port", "taiwan_strait"],
-      "source_ids": ["jma_rsmc", "jtwc"],
+      "affected_industries": [
+        "shipping_container",
+        "ports_terminals",
+        "semiconductors",
+        "electronics_assembly",
+        "auto_components"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "semiconductors_adv",
+        "semiconductors_legacy",
+        "auto_parts"
+      ],
+      "affected_chokepoints": [
+        "shanghai_port",
+        "taiwan_strait"
+      ],
+      "source_ids": [
+        "jma_rsmc",
+        "jtwc"
+      ],
       "confidence": "high",
-      "notes": "Year-round technically — narrowing to active season window."
+      "notes": "JMA/JTWC; peak Jul-Oct; China/JP/KR ports + semis + intra-Asia ocean"
     },
     {
-      "id": "nio-cyclone-2026-pre",
+      "id": "nio-cyclone-pre-2026",
       "hazard_type": "tropical_cyclone",
-      "name": "N Indian Ocean cyclone — pre-monsoon",
-      "regions": ["AS-South"],
-      "geo_bbox": [5.0, 60.0, 25.0, 95.0],
-      "start_date": "2026-04-15",
-      "peak_window": ["2026-05-01", "2026-05-31"],
-      "end_date": "2026-06-15",
+      "name": "N Indian Ocean cyclone (pre-monsoon)",
+      "regions": [
+        "AS-South"
+      ],
+      "geo_bbox": [
+        5.0,
+        60.0,
+        25.0,
+        95.0
+      ],
+      "start_date": "2026-04-01",
+      "peak_window": [
+        "2026-05-01",
+        "2026-05-31"
+      ],
+      "end_date": "2026-06-30",
       "baseline_severity": 3,
-      "affected_industries": ["shipping_tanker", "shipping_container", "textiles_apparel", "pharma_api"],
-      "affected_commodities": ["containerized_general", "textile_apparel", "pharma_api"],
+      "affected_industries": [
+        "shipping_tanker",
+        "shipping_container",
+        "textiles_apparel",
+        "pharma_api"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "textile_apparel",
+        "pharma_api"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["imd_rsmc"],
+      "source_ids": [
+        "imd_rsmc"
+      ],
       "confidence": "high",
-      "notes": "Bimodal: pre-monsoon Apr-Jun is the more intense window."
+      "notes": "IMD bimodal NIO; Apr-Jun more intense; Indian/Bangladesh ports"
     },
     {
-      "id": "nio-cyclone-2026-post",
+      "id": "nio-cyclone-post-2026",
       "hazard_type": "tropical_cyclone",
-      "name": "N Indian Ocean cyclone — post-monsoon",
-      "regions": ["AS-South"],
-      "geo_bbox": [5.0, 60.0, 25.0, 95.0],
+      "name": "N Indian Ocean cyclone (post-monsoon)",
+      "regions": [
+        "AS-South"
+      ],
+      "geo_bbox": [
+        5.0,
+        60.0,
+        25.0,
+        95.0
+      ],
       "start_date": "2026-10-01",
-      "peak_window": ["2026-10-15", "2026-11-30"],
-      "end_date": "2026-12-15",
+      "peak_window": [
+        "2026-10-01",
+        "2026-11-30"
+      ],
+      "end_date": "2026-12-31",
       "baseline_severity": 3,
-      "affected_industries": ["shipping_tanker", "shipping_container", "textiles_apparel"],
-      "affected_commodities": ["containerized_general", "textile_apparel"],
+      "affected_industries": [
+        "shipping_tanker",
+        "shipping_container",
+        "textiles_apparel"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "textile_apparel"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["imd_rsmc"],
+      "source_ids": [
+        "imd_rsmc"
+      ],
       "confidence": "high",
-      "notes": "Second peak of bimodal NIO season."
+      "notes": "IMD second peak Oct-Dec"
     },
     {
       "id": "monsoon-sw-2026",
       "hazard_type": "monsoon",
       "name": "South Asian SW monsoon",
-      "regions": ["AS-South"],
-      "geo_bbox": [5.0, 65.0, 35.0, 95.0],
+      "regions": [
+        "AS-South"
+      ],
+      "geo_bbox": [
+        5.0,
+        65.0,
+        35.0,
+        95.0
+      ],
       "start_date": "2026-06-01",
-      "peak_window": ["2026-07-01", "2026-08-31"],
+      "peak_window": [
+        "2026-07-01",
+        "2026-08-31"
+      ],
       "end_date": "2026-09-30",
       "baseline_severity": 3,
-      "affected_industries": ["textiles_apparel", "pharma_api", "agriculture_grain", "ports_terminals"],
-      "affected_commodities": ["textile_apparel", "pharma_api", "rice", "wheat"],
+      "affected_industries": [
+        "textiles_apparel",
+        "pharma_api",
+        "agriculture_grain",
+        "ports_terminals"
+      ],
+      "affected_commodities": [
+        "textile_apparel",
+        "pharma_api",
+        "rice",
+        "wheat"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["imd_rsmc"],
+      "source_ids": [
+        "imd_rsmc"
+      ],
       "confidence": "high",
-      "notes": "Mumbai / Chennai port disruption windows; Bangladesh apparel logistics."
+      "notes": "IMD; Mumbai/Chennai port disruption + Bangladesh apparel logistics"
     },
     {
       "id": "monsoon-ne-2026",
       "hazard_type": "monsoon",
       "name": "South Asian NE monsoon",
-      "regions": ["AS-South"],
-      "geo_bbox": [5.0, 75.0, 15.0, 85.0],
+      "regions": [
+        "AS-South"
+      ],
+      "geo_bbox": [
+        5.0,
+        75.0,
+        15.0,
+        85.0
+      ],
       "start_date": "2026-10-01",
-      "peak_window": ["2026-10-15", "2026-12-15"],
+      "peak_window": [
+        "2026-10-01",
+        "2026-12-31"
+      ],
       "end_date": "2026-12-31",
       "baseline_severity": 2,
-      "affected_industries": ["agriculture_grain", "textiles_apparel"],
-      "affected_commodities": ["rice"],
+      "affected_industries": [
+        "agriculture_grain",
+        "textiles_apparel"
+      ],
+      "affected_commodities": [
+        "rice"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["imd_rsmc"],
-      "confidence": "high"
+      "source_ids": [
+        "imd_rsmc"
+      ],
+      "confidence": "high",
+      "notes": "IMD; SE India + Sri Lanka"
     },
     {
-      "id": "eu-windstorm-2026-27",
+      "id": "eu-windstorm-2026",
       "hazard_type": "winter_storm",
-      "name": "European windstorm / extratropical cyclone season",
-      "regions": ["EU-North", "EU-Industrial"],
-      "geo_bbox": [45.0, -15.0, 65.0, 30.0],
+      "name": "European windstorm season",
+      "regions": [
+        "EU-North",
+        "EU-Industrial"
+      ],
+      "geo_bbox": [
+        45.0,
+        -15.0,
+        65.0,
+        30.0
+      ],
       "start_date": "2026-10-01",
-      "peak_window": ["2026-12-01", "2027-02-28"],
+      "peak_window": [
+        "2026-12-01",
+        "2027-02-28"
+      ],
       "end_date": "2027-03-31",
       "baseline_severity": 3,
-      "affected_industries": ["shipping_container", "ports_terminals", "energy_power", "energy_renewables"],
-      "affected_commodities": ["containerized_general", "lng"],
-      "affected_chokepoints": ["rotterdam_port", "antwerp_port"],
-      "source_ids": ["ecmwf", "uk_metoffice", "dwd"],
-      "confidence": "high"
+      "affected_industries": [
+        "shipping_container",
+        "ports_terminals",
+        "energy_power",
+        "energy_renewables"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "lng"
+      ],
+      "affected_chokepoints": [
+        "rotterdam_port",
+        "antwerp_port"
+      ],
+      "source_ids": [
+        "ecmwf",
+        "uk_metoffice",
+        "dwd"
+      ],
+      "confidence": "high",
+      "notes": "ECMWF/DWD; Oct-Mar, peak Dec-Feb; N Europe ports + offshore wind"
     },
     {
       "id": "us-tornado-2026",
       "hazard_type": "tornado_season",
       "name": "North American tornado season",
-      "regions": ["NA-Gulf"],
-      "geo_bbox": [25.0, -105.0, 45.0, -80.0],
+      "regions": [
+        "NA-Gulf"
+      ],
+      "geo_bbox": [
+        25.0,
+        -105.0,
+        45.0,
+        -80.0
+      ],
       "start_date": "2026-03-01",
-      "peak_window": ["2026-04-15", "2026-06-15"],
+      "peak_window": [
+        "2026-04-01",
+        "2026-06-30"
+      ],
       "end_date": "2026-07-31",
       "baseline_severity": 2,
-      "affected_industries": ["warehousing", "rail_freight", "trucking", "food_processing"],
-      "affected_commodities": ["maize", "soybean"],
+      "affected_industries": [
+        "warehousing",
+        "rail_freight",
+        "trucking",
+        "food_processing"
+      ],
+      "affected_commodities": [
+        "maize",
+        "soybean"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["noaa_spc"],
-      "confidence": "high"
+      "source_ids": [
+        "noaa_spc"
+      ],
+      "confidence": "high",
+      "notes": "NOAA SPC; Apr-Jun peak; Midwest/South distribution"
     },
     {
       "id": "wildfire-eu-2026",
       "hazard_type": "wildfire",
       "name": "European wildfire season",
-      "regions": ["EU-Med"],
-      "geo_bbox": [35.0, -10.0, 47.0, 30.0],
+      "regions": [
+        "EU-Med"
+      ],
+      "geo_bbox": [
+        35.0,
+        -10.0,
+        47.0,
+        30.0
+      ],
       "start_date": "2026-06-01",
-      "peak_window": ["2026-07-15", "2026-09-15"],
-      "end_date": "2026-10-15",
+      "peak_window": [
+        "2026-07-01",
+        "2026-09-30"
+      ],
+      "end_date": "2026-10-31",
       "baseline_severity": 3,
-      "affected_industries": ["energy_power", "ports_terminals", "agriculture_grain"],
+      "affected_industries": [
+        "energy_power",
+        "ports_terminals",
+        "agriculture_grain"
+      ],
       "affected_commodities": [],
       "affected_chokepoints": [],
-      "source_ids": ["copernicus_effis"],
-      "confidence": "high"
+      "source_ids": [
+        "copernicus_effis"
+      ],
+      "confidence": "high",
+      "notes": "Copernicus EFFIS; Jul-Sep peak; Med power + logistics"
     },
     {
       "id": "wildfire-us-2026",
       "hazard_type": "wildfire",
       "name": "US / Canada wildfire season",
-      "regions": ["NA-Gulf"],
-      "geo_bbox": [30.0, -125.0, 60.0, -90.0],
-      "start_date": "2026-05-15",
-      "peak_window": ["2026-07-01", "2026-09-15"],
+      "regions": [
+        "NA-Gulf"
+      ],
+      "geo_bbox": [
+        30.0,
+        -125.0,
+        60.0,
+        -90.0
+      ],
+      "start_date": "2026-05-01",
+      "peak_window": [
+        "2026-07-01",
+        "2026-09-30"
+      ],
       "end_date": "2026-10-31",
       "baseline_severity": 3,
-      "affected_industries": ["energy_power", "rail_freight", "trucking"],
+      "affected_industries": [
+        "energy_power",
+        "rail_freight",
+        "trucking"
+      ],
       "affected_commodities": [],
       "affected_chokepoints": [],
-      "source_ids": ["nifc", "nrcan_cwfis"],
-      "confidence": "high"
+      "source_ids": [
+        "nifc",
+        "nrcan_cwfis"
+      ],
+      "confidence": "high",
+      "notes": "NIFC/CWFIS; Jul-Sep peak; power + rail"
     },
     {
       "id": "panama-drought-2026",
       "hazard_type": "drought",
-      "name": "Panama Canal dry season / draft restriction window",
-      "regions": ["NA-Panama"],
-      "geo_bbox": [7.0, -83.0, 10.0, -77.0],
-      "start_date": "2026-01-15",
-      "peak_window": ["2026-03-01", "2026-05-15"],
+      "name": "Panama Canal dry-season draft restriction",
+      "regions": [
+        "NA-Panama"
+      ],
+      "geo_bbox": [
+        7.0,
+        -83.0,
+        10.0,
+        -77.0
+      ],
+      "start_date": "2026-01-01",
+      "peak_window": [
+        "2026-03-01",
+        "2026-05-31"
+      ],
       "end_date": "2026-05-31",
       "baseline_severity": 3,
-      "affected_industries": ["shipping_container", "shipping_drybulk", "energy_lng"],
-      "affected_commodities": ["containerized_general", "lng", "maize", "soybean"],
-      "affected_chokepoints": ["panama_canal"],
-      "source_ids": ["noaa_cpc"],
+      "affected_industries": [
+        "shipping_container",
+        "shipping_drybulk",
+        "energy_lng"
+      ],
+      "affected_commodities": [
+        "containerized_general",
+        "lng",
+        "maize",
+        "soybean"
+      ],
+      "affected_chokepoints": [
+        "panama_canal"
+      ],
+      "source_ids": [
+        "noaa_cpc"
+      ],
       "confidence": "medium",
-      "notes": "ENSO-modulated; check NOAA CPC ENSO Alert quarterly."
+      "notes": "ENSO-modulated dry season; check NOAA CPC ENSO quarterly"
     },
     {
       "id": "rhine-lowwater-2026",
       "hazard_type": "drought",
-      "name": "Rhine low-water draft-restriction window",
-      "regions": ["EU-Industrial"],
-      "geo_bbox": [47.0, 5.0, 52.0, 11.0],
-      "start_date": "2026-07-15",
-      "peak_window": ["2026-08-15", "2026-10-15"],
+      "name": "Rhine low-water draft restriction",
+      "regions": [
+        "EU-Industrial"
+      ],
+      "geo_bbox": [
+        47.0,
+        5.0,
+        52.0,
+        11.0
+      ],
+      "start_date": "2026-07-01",
+      "peak_window": [
+        "2026-08-01",
+        "2026-10-31"
+      ],
       "end_date": "2026-10-31",
       "baseline_severity": 3,
-      "affected_industries": ["chem_basic", "chem_specialty", "metals_steel", "energy_refining"],
-      "affected_commodities": ["coal_thermal", "diesel"],
-      "affected_chokepoints": ["rhine_inland"],
-      "source_ids": ["copernicus_efas", "dwd"],
+      "affected_industries": [
+        "chem_basic",
+        "chem_specialty",
+        "metals_steel",
+        "energy_refining"
+      ],
+      "affected_commodities": [
+        "coal_thermal",
+        "diesel"
+      ],
+      "affected_chokepoints": [
+        "rhine_inland"
+      ],
+      "source_ids": [
+        "copernicus_efas",
+        "dwd"
+      ],
       "confidence": "high",
-      "notes": "2018 and 2022 set the bar for severe restrictions."
+      "notes": "Copernicus EFAS; 2018 + 2022 set the severe bar; chem + steel logistics"
     },
     {
-      "id": "swio-cyclone-2026-27",
+      "id": "swio-cyclone-2025",
       "hazard_type": "tropical_cyclone",
       "name": "SW Indian Ocean cyclone season",
-      "regions": ["AS-South"],
-      "geo_bbox": [-30.0, 30.0, -5.0, 80.0],
-      "start_date": "2026-11-15",
-      "peak_window": ["2027-01-01", "2027-02-28"],
-      "end_date": "2027-04-30",
+      "regions": [
+        "AS-South"
+      ],
+      "geo_bbox": [
+        -30.0,
+        30.0,
+        -5.0,
+        80.0
+      ],
+      "start_date": "2025-11-01",
+      "peak_window": [
+        "2026-01-01",
+        "2026-02-28"
+      ],
+      "end_date": "2026-04-30",
       "baseline_severity": 3,
-      "affected_industries": ["shipping_tanker", "shipping_container"],
-      "affected_commodities": ["containerized_general"],
+      "affected_industries": [
+        "shipping_tanker",
+        "shipping_container"
+      ],
+      "affected_commodities": [
+        "containerized_general"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["meteo_france_re"],
+      "source_ids": [
+        "meteo_france_re"
+      ],
       "confidence": "high",
-      "notes": "Madagascar, Mozambique, Mauritius approach lanes."
+      "notes": "Meteo-France RSMC; Madagascar/Mozambique approach lanes"
     },
     {
       "id": "locust-ho-africa-2026",
       "hazard_type": "locust_outbreak",
-      "name": "Horn of Africa desert locust monitoring window",
-      "regions": ["ME-RedSea"],
-      "geo_bbox": [-5.0, 30.0, 20.0, 55.0],
+      "name": "Horn of Africa desert locust window",
+      "regions": [
+        "ME-RedSea"
+      ],
+      "geo_bbox": [
+        -5.0,
+        30.0,
+        20.0,
+        55.0
+      ],
       "start_date": "2026-01-01",
-      "peak_window": ["2026-04-01", "2026-08-31"],
+      "peak_window": [
+        "2026-04-01",
+        "2026-08-31"
+      ],
       "end_date": "2026-12-31",
       "baseline_severity": 2,
-      "affected_industries": ["agriculture_grain"],
-      "affected_commodities": ["wheat", "maize"],
+      "affected_industries": [
+        "agriculture_grain"
+      ],
+      "affected_commodities": [
+        "wheat",
+        "maize"
+      ],
       "affected_chokepoints": [],
-      "source_ids": ["fao_locust"],
+      "source_ids": [
+        "fao_locust"
+      ],
       "confidence": "medium",
-      "notes": "Outbreak-driven; FAO Locust Hub for monthly bulletins."
+      "notes": "FAO DLIS; outbreak-driven, monitor monthly bulletin"
     },
     {
       "id": "enso-modulator-2026",
       "hazard_type": "enso_modulator",
-      "name": "ENSO state — affects all seasonal bands above",
-      "regions": ["ME-PersianGulf", "ME-RedSea", "AS-Malacca", "AS-TaiwanStrait", "AS-NWPacific", "AS-South", "EU-Industrial", "EU-North", "EU-Med", "NA-Gulf", "NA-Panama", "GL-Arctic"],
-      "geo_bbox": [-90.0, -180.0, 90.0, 180.0],
+      "name": "ENSO state (modulates all weather bands)",
+      "regions": [
+        "ME-PersianGulf",
+        "ME-RedSea",
+        "AS-Malacca",
+        "AS-TaiwanStrait",
+        "AS-NWPacific",
+        "AS-South",
+        "EU-Industrial",
+        "EU-North",
+        "EU-Med",
+        "NA-Gulf",
+        "NA-Panama",
+        "GL-Arctic",
+        "NA-USWest",
+        "AF-Sahel",
+        "EU-BlackSea"
+      ],
+      "geo_bbox": [
+        -90.0,
+        -180.0,
+        90.0,
+        180.0
+      ],
       "start_date": "2026-01-01",
-      "peak_window": ["2026-06-01", "2026-12-31"],
+      "peak_window": [
+        "2026-06-01",
+        "2026-12-31"
+      ],
       "end_date": "2026-12-31",
       "baseline_severity": 2,
       "affected_industries": [],
       "affected_commodities": [],
-      "affected_chokepoints": ["panama_canal"],
-      "source_ids": ["noaa_cpc"],
+      "affected_chokepoints": [
+        "panama_canal"
+      ],
+      "source_ids": [
+        "noaa_cpc"
+      ],
       "confidence": "medium",
-      "notes": "Refer to NOAA CPC ENSO Alert monthly. Modulator only — does not surface clusters by itself; provides context for other bands."
+      "notes": "NOAA CPC ENSO Alert; modulator only, provides context for other bands"
     }
   ]
 }

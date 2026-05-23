@@ -51,15 +51,33 @@ Once a convergence cluster is scored and surfaced, the score cannot be retroacti
 ## 2. Bands — what counts, what doesn't
 
 A **band** is any time-bounded typed record in the calendar:
-- **Seasonal band** (from `seasonal_bands.json`) — `start_date / peak_window / end_date`, hand-curated annually from agency outlooks (NOAA NHC, JMA, IMD, Météo-France, ECMWF, Copernicus EFFIS/GloFAS, FAO Locust).
+- **Pattern band** — recurring, evidence-based windows. Five families: `weather`, `cargo_crime`, `cyber`, `conflict_cycle`, `labor_cycle`. The single source of truth is **`data/patterns.csv`** (see §2.1). `build_patterns.py` resolves each pattern's month-level window into concrete dates and emits `seasonal_bands.json` (weather rows, geo-rich) + `pattern_bands.json` (the other four families).
 - **Active event** (from `active_events.json`) — `start_date / est_end`, populated by the daily triage pass from ingested signals.
-- **FM event** (from `fm_events.json`) — `declared_at / declared_at + estimated_duration_days`, scraped from upstream fm-tracker.
+- **FM event** (from `fm_events.json`) — `declared_at / declared_at + estimated_duration_days`, dual-path ingestion (§9).
 - **Hormuz snapshot** (from `hormuz_snapshot.json`) — sustained-state representation of upstream hormuz-tracker threat level + watchlist.
 - **User analysis** (from `user_analyses.json`) — `uploaded_at` + per-horizon timeline projection (T+7, T+30, T+90).
 
-Every band declares its `affected_industries`, `affected_commodities`, `affected_chokepoints`, `regions`. These are pulled from `data/vocab/*.json` — no free text. FK integrity is enforced by `validate_schemas.py`.
+Every band declares its industries, commodities, chokepoints, regions — pulled from `data/vocab/*.json`, no free text. FK integrity is enforced by `validate_schemas.py`. Severity is 1–5 per `data/vocab/severity.json`; `signal_tier` is `hard | medium | soft | noise`; `source_tier` is 1–6.
 
-A band's `severity` is 1–5 per `data/vocab/severity.json`. A band's `signal_tier` is `hard | medium | soft | noise`. A band's `source_tier` is 1–6.
+### 2.1 Patterns — the single source of truth, and the "real pattern" bar
+
+`data/patterns.csv` is the canonical registry. One row per pattern, with: category, month windows (start/peak/end), regions, countries, industries, commodities, chokepoints, baseline severity, confidence, **sources**, **search_queries**, **materialization_metric**, methodology note, first_identified, last_reviewed, status.
+
+A row qualifies as a **real pattern** only if it:
+1. recurs on a calendar/seasonal cycle (not a one-off, not a pure trend),
+2. affects **multiple** industries OR logistics nodes OR countries OR regions, and
+3. carries at least one Tier 1–3 source and a measurable materialization metric.
+
+Chronic-but-aseasonal phenomena (e.g. Mexico highway hijacking) are documented in notes but are **not** calendar bands, because they have no temporal pattern to plot. The pattern families and their authorities:
+- **weather** — NOAA NHC/CPC/SPC, JMA, JTWC, IMD, Météo-France, ECMWF, DWD, Copernicus EFFIS/EFAS, NIFC, FAO Locust.
+- **cargo_crime** — Verisk CargoNet, TAPA EMEA, BSI, FBI IC3, NICB. (Q4 holiday surge, summer long-weekend spikes, EU festive period.)
+- **cyber** — CISA, FBI IC3, ENISA, Recorded Future, Check Point. (Holiday/weekend ransomware, tax-season phishing, Black Friday e-commerce surge.)
+- **conflict_cycle** — ACLED, UCDP, CFR Global Conflict Tracker. (Sahel dry-season violence, Black Sea grain-corridor harvest/escalation window.)
+- **labor_cycle** — Reuters + ACLED + sector trackers. (German spring wage round, French autumn strike season, US West Coast port-contract tension.)
+
+### 2.2 Materialization tracking — the observation log
+
+`data/observations.csv` is an append-only longitudinal log. Every research run (§8.3) appends rows: `observation_date, run_id, pattern_id, category, search_query, source, metric_name, metric_value, unit, region, window_phase, materialization, source_tier, notes`. This is how we see a pattern "take off" — e.g. the Atlantic named-storm count climbing through September against the climatological baseline. `window_phase ∈ {pre, ramp, peak, decline, off}`; `materialization ∈ {emerging, on_track, accelerating, below_expectation, n/a}`.
 
 ---
 
@@ -159,6 +177,10 @@ Each Friday review scores clusters surfaced 7, 14, and 30 days ago:
 - **False alarm** — high score (>7), no realized impact in any member region
 - **Surprise** — major realized event with no member cluster at T-7
 
+### 8.2a Fortnightly pattern research (1st & 15th)
+
+`research_patterns.py` (workflow `pattern-research.yml`) reviews every pattern whose `last_reviewed` is ≥14 days old. For each, Claude + web_search checks the pattern's sources/queries for the current value of its materialization metric and grades it (`window_phase`, `materialization`). Readings append to `observations.csv`; `last_reviewed` is bumped in `patterns.csv`. Claude may also propose new patterns as `status=candidate` rows (held to the §2.1 bar) for Marco to promote or retire. The run then rebuilds the band JSON, recomputes overlaps, re-renders, and validates.
+
 ### 8.3 Weekly calibration (Friday)
 - Brier score on probabilistic cluster-materialization (the `confidence` field on each cluster, expressed as %)
 - Hit / miss / false-alarm counts
@@ -204,5 +226,8 @@ In any of these, the run exits non-zero; the workflow surfaces the failure; no c
 | 2026-05-13 | Theory-of-Constraints rule added for maritime chokepoints: single-event chokepoint observations surface on a dedicated constraint board, bypassing the 2-or-more convergence requirement | Marco directive: any disruption on the constraint is a disruption on the whole flow |
 | 2026-05-13 | FM ingestion split into dual path: upstream fm-tracker scrape + Claude-driven web-search supplement | Resilience against upstream parser drift + coverage of FM events the upstream tracker has not yet ingested |
 | 2026-05-13 | Renderer now emits "Today at a glance" deterministic summary, per-cluster "What this means" translations, and "How to read this page" disclosures on both HTML pages | Marco directive: site must be self-explanatory and easy to read at one glance |
+| 2026-05-23 | Pattern model generalised to five families (weather + cargo_crime + cyber + conflict_cycle + labor_cycle); `data/patterns.csv` made the single source of truth; `build_patterns.py` generates the band JSON; `data/observations.csv` append-only materialization log added | Marco directive: research all real patterns, add conflict/cargo-crime/cyber data, CSV single source of truth tracking whether patterns take off |
+| 2026-05-23 | Fortnightly `research_patterns.py` + `pattern-research.yml` added (1st & 15th); calendar filter bar (family / region / chokepoints-only) added to index.html | Marco directive: regular 14-day check + filterable calendar view |
+| 2026-05-23 | Added regions NA-USWest, AF-Sahel, EU-BlackSea and chokepoint la_long_beach; added sources CISA, FBI IC3, ENISA, Recorded Future, Check Point, TAPA EMEA, BSI, CargoNet, NICB, CFR Global Conflict Tracker; added `cyber` + `cargo_crime` source domains | Required to map the new pattern families onto controlled vocabulary |
 
 (Future changes appended here with date and reason.)

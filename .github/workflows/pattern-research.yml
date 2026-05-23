@@ -1,0 +1,66 @@
+name: Fortnightly pattern research
+
+on:
+  schedule:
+    # 1st and 15th of each month at 07:00 UTC — ~14-day cadence.
+    - cron: '0 7 1,15 * *'
+  workflow_dispatch:
+    inputs:
+      review_all:
+        description: "Review every pattern (not just those due)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wov-pattern-research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: { fetch-depth: 5 }
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/requirements.txt
+
+      - name: Run pattern research
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [[ "${{ github.event.inputs.review_all }}" == "true" ]]; then
+            python .github/scripts/research_patterns.py --all
+          else
+            python .github/scripts/research_patterns.py
+          fi
+
+      - name: Rebuild bands from patterns.csv
+        run: python .github/scripts/build_patterns.py
+
+      - name: Recompute overlaps + re-render + validate
+        run: |
+          python .github/scripts/compute_overlaps.py
+          python .github/scripts/render_pages.py
+          python .github/scripts/validate_schemas.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "WoV Bot"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --quiet --cached; then
+            echo "No changes."
+          else
+            git commit -m "Fortnightly pattern research: $(date -u +%Y-%m-%d)"
+            git push
+          fi

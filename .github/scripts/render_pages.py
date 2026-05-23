@@ -141,6 +141,8 @@ def main() -> int:
     seasonal = json.loads((DATA / "seasonal_bands.json").read_text(encoding="utf-8"))
     active = json.loads((DATA / "active_events.json").read_text(encoding="utf-8"))
     fm = json.loads((DATA / "fm_events.json").read_text(encoding="utf-8"))
+    pattern_path = DATA / "pattern_bands.json"
+    pattern_bands = json.loads(pattern_path.read_text(encoding="utf-8"))["bands"] if pattern_path.exists() else []
 
     names = {
         "region": {r["id"]: r["name"] for r in regions},
@@ -149,7 +151,7 @@ def main() -> int:
         "chokepoint": {c["id"]: c["name"] for c in chokepoints},
     }
 
-    n_total_bands = len(seasonal["bands"]) + len(active["events"]) + len(fm["events"])
+    n_total_bands = len(seasonal["bands"]) + len(pattern_bands) + len(active["events"]) + len(fm["events"])
     n_clusters = len(overlaps["clusters"])
     n_surfaced = sum(1 for c in overlaps["clusters"] if c["convergence_score"] >= 5.5)
     top_score = max((c["convergence_score"] for c in overlaps["clusters"]), default=0.0)

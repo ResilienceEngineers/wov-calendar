@@ -135,6 +135,15 @@
       "lon": -90.0,
       "region_ids": ["NA-Gulf"],
       "throughput_note": "Grain + fertilizer corridor; low-water sensitive"
+    },
+    {
+      "id": "la_long_beach",
+      "name": "Ports of Los Angeles / Long Beach",
+      "kind": "port",
+      "lat": 33.74,
+      "lon": -118.27,
+      "region_ids": ["NA-USWest"],
+      "throughput_note": "Largest US container gateway (~31% of US containerised imports); ILWU labour exposure"
     }
   ]
 }

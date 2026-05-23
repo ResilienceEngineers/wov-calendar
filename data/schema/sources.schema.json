@@ -26,7 +26,8 @@
                 "seasonality", "maritime", "geopolitical", "sanctions",
                 "energy_markets", "shipping_data", "labor", "natcat",
                 "fm_declarations", "upstream_tracker", "political_violence",
-                "analytical", "wire", "regional_press"
+                "analytical", "wire", "regional_press",
+                "cyber", "cargo_crime"
               ]
             }
           },

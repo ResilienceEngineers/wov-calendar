@@ -52,6 +52,11 @@ class Band:
     severity: int
     source_tier: int
     signal_tier: str  # hard|medium|soft|noise
+    kind: str = "seasonal"  # seasonal | pattern | active | fm | analysis
+
+    @property
+    def is_live(self) -> bool:
+        return self.kind in ("active", "fm", "analysis")
 
 
 def _parse_date(s: str | None, default: date) -> date:
@@ -76,7 +81,28 @@ def load_bands(today: date) -> list[Band]:
             severity=b["baseline_severity"],
             source_tier=1,
             signal_tier="hard",
+            kind="seasonal",
         ))
+
+    # Non-weather patterns (cargo crime, cyber, conflict cycle, labor) from patterns.csv.
+    pattern_path = DATA / "pattern_bands.json"
+    if pattern_path.exists():
+        confidence_to_signal = {"high": "hard", "medium": "medium", "low": "soft"}
+        patterns = json.loads(pattern_path.read_text(encoding="utf-8"))
+        for b in patterns["bands"]:
+            bands.append(Band(
+                id=b["id"],
+                start=_parse_date(b["start_date"], today),
+                end=_parse_date(b["end_date"], today + timedelta(days=NULL_END_DEFAULT_DAYS)),
+                regions=frozenset(b["regions"]),
+                industries=frozenset(b["industries"]),
+                commodities=frozenset(b["commodities"]),
+                chokepoints=frozenset(b["chokepoints"]),
+                severity=b["baseline_severity"],
+                source_tier=2,
+                signal_tier=confidence_to_signal.get(b.get("confidence", "medium"), "medium"),
+                kind="pattern",
+            ))
 
     active = json.loads((DATA / "active_events.json").read_text(encoding="utf-8"))
     for e in active["events"]:
@@ -92,6 +118,7 @@ def load_bands(today: date) -> list[Band]:
             severity=e["severity"],
             source_tier=e["source_tier"],
             signal_tier=e["signal_tier"],
+            kind="active",
         ))
 
     fm = json.loads((DATA / "fm_events.json").read_text(encoding="utf-8"))
@@ -110,6 +137,7 @@ def load_bands(today: date) -> list[Band]:
             severity=3,  # FM declaration default; upstream tracker scores wave-intensity separately
             source_tier=e.get("source_tier") or 1,
             signal_tier=e.get("signal_tier") or "hard",
+            kind="fm",
         ))
 
     analyses = json.loads((DATA / "user_analyses.json").read_text(encoding="utf-8"))
@@ -129,6 +157,7 @@ def load_bands(today: date) -> list[Band]:
             severity=3,
             source_tier=1,  # Marco-curated
             signal_tier="medium",
+            kind="analysis",
         ))
 
     return bands
@@ -273,6 +302,10 @@ def all_band_titles(today: date) -> dict[str, str]:
     titles: dict[str, str] = {}
     for b in json.loads((DATA / "seasonal_bands.json").read_text(encoding="utf-8"))["bands"]:
         titles[b["id"]] = b["name"]
+    pattern_path = DATA / "pattern_bands.json"
+    if pattern_path.exists():
+        for b in json.loads(pattern_path.read_text(encoding="utf-8"))["bands"]:
+            titles[b["id"]] = b["name"]
     for e in json.loads((DATA / "active_events.json").read_text(encoding="utf-8"))["events"]:
         titles[e["id"]] = e["title"]
     for e in json.loads((DATA / "fm_events.json").read_text(encoding="utf-8"))["events"]:
@@ -354,19 +387,21 @@ def build_executive_summary(clusters: list[dict], bands: list[Band], names: dict
     }
 
 
-def build_chokepoint_board(bands: list[Band], names: dict[str, dict[str, str]]) -> list[dict]:
-    """One tile per named chokepoint: name, state, exposure summary, what to watch.
+def build_chokepoint_board(bands: list[Band], titles: dict[str, str]) -> list[dict]:
+    """One tile per maritime chokepoint: name, state, exposure summary, what to watch.
 
-    State logic (ToC — single event suffices to move state):
-      red    = any active/FM/user-analysis band with severity >=4 OR signal_tier=hard touches it
-      amber  = any band severity 2-3 OR signal_tier=medium touches it
-      green  = only seasonal/baseline bands touch it (or none at all)
+    Theory-of-Constraints: a chokepoint IS the constraint, so it is monitored even with a
+    single touching band. State logic distinguishes LIVE bands (active events, FM
+    declarations, user analyses) from baseline recurring patterns (seasonal + pattern):
+      red    = a LIVE band touches it with severity >=4 or a hard signal
+      amber  = any LIVE band touches it, OR a baseline pattern at severity >=3 is in window
+      green  = only low-severity baseline patterns touch it (or none at all)
     """
     cp_meta = json.loads((DATA / "vocab" / "chokepoints.json").read_text(encoding="utf-8"))["chokepoints"]
     tiles: list[dict] = []
     for cp in cp_meta:
         cpid = cp["id"]
-        if cp["kind"] not in ("maritime",):
+        if cp["kind"] != "maritime":
             continue
         members = [b for b in bands if cpid in b.chokepoints]
         if not members:
@@ -375,29 +410,42 @@ def build_chokepoint_board(bands: list[Band], names: dict[str, dict[str, str]]) 
                 "lat": cp["lat"], "lon": cp["lon"],
                 "throughput_note": cp.get("throughput_note", ""),
                 "state": "green",
-                "exposure": "No active events or seasonal bands touching this chokepoint right now.",
-                "what_to_watch": "—",
+                "exposure": "No live events or recurring patterns currently touching this chokepoint.",
+                "what_to_watch": "Clear — no action required.",
                 "member_count": 0,
             })
             continue
         max_sev = max(m.severity for m in members)
         any_hard = any(m.signal_tier == "hard" for m in members)
-        any_medium = any(m.signal_tier == "medium" for m in members)
-        non_seasonal = [m for m in members if not m.id.endswith("-2026") and not m.id.startswith("atl-") and not m.id.startswith("ep-") and not m.id.startswith("nwpac-") and not m.id.startswith("nio-") and not m.id.startswith("monsoon-") and not m.id.startswith("eu-windstorm") and not m.id.startswith("us-tornado") and not m.id.startswith("wildfire-") and not m.id.startswith("panama-drought") and not m.id.startswith("rhine-lowwater") and not m.id.startswith("swio-") and not m.id.startswith("locust-") and not m.id.startswith("enso-")]
-        if max_sev >= 4 and (any_hard or non_seasonal):
+        live = [m for m in members if m.is_live]
+        if live and (max_sev >= 4 or any_hard):
             state = "red"
-        elif max_sev >= 2 and (any_hard or any_medium or non_seasonal):
+        elif live or max_sev >= 3:
             state = "amber"
         else:
             state = "green"
-        top_member = max(members, key=lambda b: (b.severity, b.signal_tier == "hard"))
+        n_live = len(live)
+        n_pattern = len(members) - n_live
+        top_member = max(members, key=lambda b: (b.is_live, b.severity, b.signal_tier == "hard"))
+        top_name = titles.get(top_member.id, top_member.id)
+        kind_word = {"active": "live event", "fm": "force-majeure", "analysis": "analysis", "seasonal": "seasonal pattern", "pattern": "recurring pattern"}.get(top_member.kind, "band")
+        exposure = (
+            f"{n_live} live event(s) + {n_pattern} recurring pattern(s) in window. "
+            f"Max severity {max_sev}/5."
+        )
+        if state == "red":
+            watch = f"Active disruption from {top_name} ({kind_word}, sev {top_member.severity}). Treat as constraint on all flow through {cp['name']}."
+        elif state == "amber":
+            watch = f"Watching {top_name} ({kind_word}, sev {top_member.severity}). No confirmed flow impact yet."
+        else:
+            watch = f"Baseline seasonal exposure only ({top_name}). Normal operations."
         tiles.append({
             "id": cpid, "name": cp["name"], "kind": cp["kind"],
             "lat": cp["lat"], "lon": cp["lon"],
             "throughput_note": cp.get("throughput_note", ""),
             "state": state,
-            "exposure": f"{len(members)} band(s) touching: max severity {max_sev}/5; signal mix {'hard' if any_hard else 'medium' if any_medium else 'soft'}.",
-            "what_to_watch": f"Highest-impact member: {top_member.id} (sev {top_member.severity}, {top_member.signal_tier}).",
+            "exposure": exposure,
+            "what_to_watch": watch,
             "member_count": len(members),
         })
     tiles.sort(key=lambda t: ({"red": 0, "amber": 1, "green": 2}[t["state"]], -t["member_count"]))
@@ -426,7 +474,7 @@ def main() -> int:
         c["narrative_seed"] = narrate(c, names, titles)
 
     executive_summary = build_executive_summary(clusters, bands, names)
-    chokepoint_board = build_chokepoint_board(bands, names)
+    chokepoint_board = build_chokepoint_board(bands, titles)
 
     out = {
         "$comment": "Derived convergence clusters + chokepoint constraint board. Bot-owned. Rebuilt from scratch every daily run.",

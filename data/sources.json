@@ -35,6 +35,18 @@
     { "id": "acled",             "name": "ACLED",                                "url": "https://acleddata.com",                   "tier": 2, "domains": ["political_violence", "labor"], "reliability_score": 0.85 },
     { "id": "gdelt",             "name": "GDELT 2.0",                            "url": "https://www.gdeltproject.org",            "tier": 2, "domains": ["political_violence"], "reliability_score": 0.65 },
     { "id": "ucdp",              "name": "UCDP",                                 "url": "https://ucdp.uu.se",                      "tier": 2, "domains": ["political_violence"], "reliability_score": 0.85 },
+    { "id": "cfr_gct",           "name": "CFR Global Conflict Tracker",          "url": "https://www.cfr.org/global-conflict-tracker", "tier": 3, "domains": ["political_violence", "analytical"], "reliability_score": 0.78 },
+
+    { "id": "tapa_emea",         "name": "TAPA EMEA (Transported Asset Protection Assoc.)", "url": "https://www.tapaemea.org",     "tier": 2, "domains": ["cargo_crime"], "reliability_score": 0.85 },
+    { "id": "bsi_scs",           "name": "BSI Supply Chain Services & Solutions","url": "https://www.bsigroup.com",                 "tier": 2, "domains": ["cargo_crime"], "reliability_score": 0.82 },
+    { "id": "cargonet",          "name": "Verisk CargoNet",                      "url": "https://www.cargonet.com",                "tier": 2, "domains": ["cargo_crime"], "reliability_score": 0.85 },
+    { "id": "ntsa_cargo",        "name": "NICB / NCSC cargo theft bulletins",    "url": "https://www.nicb.org",                    "tier": 2, "domains": ["cargo_crime"], "reliability_score": 0.78 },
+
+    { "id": "cisa",              "name": "CISA (US Cybersecurity & Infra Sec Agency)", "url": "https://www.cisa.gov",              "tier": 1, "domains": ["cyber"], "reliability_score": 0.92 },
+    { "id": "fbi_ic3",           "name": "FBI IC3 (Internet Crime Complaint Center)",  "url": "https://www.ic3.gov",              "tier": 1, "domains": ["cyber", "cargo_crime"], "reliability_score": 0.90 },
+    { "id": "enisa",             "name": "ENISA (EU Agency for Cybersecurity)",  "url": "https://www.enisa.europa.eu",             "tier": 1, "domains": ["cyber"], "reliability_score": 0.88 },
+    { "id": "recorded_future",   "name": "Recorded Future",                      "url": "https://www.recordedfuture.com",          "tier": 2, "domains": ["cyber"], "reliability_score": 0.82 },
+    { "id": "checkpoint_research","name": "Check Point Research",                "url": "https://research.checkpoint.com",         "tier": 2, "domains": ["cyber"], "reliability_score": 0.80 },
     { "id": "kpler",             "name": "Kpler",                                "url": "https://www.kpler.com",                   "tier": 2, "domains": ["energy_markets", "shipping_data"], "reliability_score": 0.92 },
     { "id": "vortexa",           "name": "Vortexa",                              "url": "https://www.vortexa.com",                 "tier": 2, "domains": ["energy_markets", "shipping_data"], "reliability_score": 0.90 },
     { "id": "lloyds_list",       "name": "Lloyd's List Intelligence",            "url": "https://www.lloydslistintelligence.com",  "tier": 2, "domains": ["shipping_data", "maritime"], "reliability_score": 0.90 },
